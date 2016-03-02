@@ -41,15 +41,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\INodeBuilder.cs" />
     <Compile Include="Configuration\ThrottleConfigurationNode.cs" />
     <Compile Include="Configuration\ThrottleConfigurationNodeCollection.cs" />
     <Compile Include="Configuration\ThrottleConfiguration.cs" />
-    <Compile Include="IThrottlerStorage.cs" />
+    <Compile Include="Expression\OrNode.cs" />
+    <Compile Include="Expression\NotNode.cs" />
+    <Compile Include="Expression\AndNode.cs" />
+    <Compile Include="Expression\INode.cs" />
+    <Compile Include="Expression\QuotaNode.cs" />
+    <Compile Include="Core\IThrottlerStorage.cs" />
+    <Compile Include="Keyer\IKeyer.cs" />
+    <Compile Include="Keyer\ConstantKeyer.cs" />
+    <Compile Include="Keyer\URIMethodKeyer.cs" />
+    <Compile Include="Keyer\URIKeyer.cs" />
+    <Compile Include="Keyer\IPKeyer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ThrottleCore.cs" />
-    <Compile Include="ThrottlingStorage.cs" />
-    <Compile Include="ThrottlingStorageConcurrent.cs" />
-    <Compile Include="TimeRange.cs" />
+    <Compile Include="Core\ThrottleCore.cs" />
+    <Compile Include="Core\ThrottlingConfigurationException.cs" />
+    <Compile Include="Core\ThrottlingQuota.cs" />
+    <Compile Include="Core\ThrottlingRule.cs" />
+    <Compile Include="Core\ThrottlingSlot.cs" />
+    <Compile Include="Core\ThrottlingSlotKey.cs" />
+    <Compile Include="Core\ThrottlingStorage.cs" />
+    <Compile Include="Core\ThrottlingStorageConcurrent.cs" />
+    <Compile Include="Core\TimeRange.cs" />
+    <Compile Include="ThrottlingMIddleware.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

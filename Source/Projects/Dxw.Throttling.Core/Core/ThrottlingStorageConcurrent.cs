@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Throttling
+﻿namespace Dxw.Throttling.Core
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class ThrottlingStorageConcurrent : IThrottlerStorage
     {
         private ConcurrentDictionary<ThrottlingSlotKey, ThrottlingSlot> _store = new ConcurrentDictionary<ThrottlingSlotKey, ThrottlingSlot>();
