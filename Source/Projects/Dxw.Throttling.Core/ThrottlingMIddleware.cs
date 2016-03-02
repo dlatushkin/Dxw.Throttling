@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dxw.Throttling.Core
 {
-    public class ThrottlingMIddleware
+    public class ThrottlingMiddleware
     {
     }
 }
