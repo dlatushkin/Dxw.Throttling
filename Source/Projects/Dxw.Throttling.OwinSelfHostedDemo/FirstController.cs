@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.Web.Http;
 
-    public class ValuesController: ApiController
+    public class FirstController: ApiController
     {
         public IEnumerable<string> Get()
         {
-            return new [] {"val1", "val2"};
+            return new [] {"first 1", "first 2"};
         }
     }
 }

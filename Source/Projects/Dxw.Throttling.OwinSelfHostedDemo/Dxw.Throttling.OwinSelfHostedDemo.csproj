@@ -75,10 +75,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SecondController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ValuesController.cs" />
+    <Compile Include="FirstController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
