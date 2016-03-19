@@ -6,7 +6,7 @@
     {
         private readonly object _keyObj = new object();
 
-        public object GetKey(HttpRequestMessage request)
+        public object GetKey(IRequestContext request)
         {
             return _keyObj;
         }

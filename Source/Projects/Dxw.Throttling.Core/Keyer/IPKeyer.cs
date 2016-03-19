@@ -7,24 +7,28 @@
         private const string HttpContext = "MS_HttpContext";
         private const string RemoteEndpointMessage = "System.ServiceModel.Channels.RemoteEndpointMessageProperty";
 
-        public object GetKey(HttpRequestMessage request)
+        public object GetKey(IRequestContext context)
         {
             object ip = null;
 
-            if (request.Properties.ContainsKey(HttpContext))
+            var request = context.HttpRequestMessage;
+            if (request != null)
             {
-                dynamic cntx = request.Properties[HttpContext];
-                if (cntx != null)
+                if (request.Properties.ContainsKey(HttpContext))
                 {
-                    ip = cntx.Request.UserHostAddress;
+                    dynamic cntx = request.Properties[HttpContext];
+                    if (cntx != null)
+                    {
+                        ip = cntx.Request.UserHostAddress;
+                    }
                 }
-            }
-            else if (request.Properties.ContainsKey(RemoteEndpointMessage))
-            {
-                dynamic remoteEndpoint = request.Properties[RemoteEndpointMessage];
-                if (remoteEndpoint != null)
+                else if (request.Properties.ContainsKey(RemoteEndpointMessage))
                 {
-                    ip = remoteEndpoint.Address;
+                    dynamic remoteEndpoint = request.Properties[RemoteEndpointMessage];
+                    if (remoteEndpoint != null)
+                    {
+                        ip = remoteEndpoint.Address;
+                    }
                 }
             }
 

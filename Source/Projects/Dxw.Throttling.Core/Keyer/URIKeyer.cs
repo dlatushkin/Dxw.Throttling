@@ -4,9 +4,17 @@
 
     public class URIKeyer : IKeyer
     {
-        public object GetKey(HttpRequestMessage request)
+        public object GetKey(IRequestContext context)
         {
-            return request.RequestUri;
+            var owinContext = context.OwinRequest;
+            if (owinContext != null)
+                return owinContext.Uri;
+
+            var request = context.HttpRequestMessage;
+            if (request != null)
+                return request.RequestUri;
+
+            throw new ThrottlingRuleException("Nor OwinRequest neither HttpRequestMessage are set in context argument");
         }
     }
 }

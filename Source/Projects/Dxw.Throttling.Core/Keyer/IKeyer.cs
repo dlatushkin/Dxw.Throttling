@@ -4,6 +4,6 @@
 
     public interface IKeyer
     {
-        object GetKey(HttpRequestMessage request);
+        object GetKey(IRequestContext context);
     }
 }

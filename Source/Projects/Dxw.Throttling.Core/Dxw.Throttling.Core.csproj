@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -45,12 +53,15 @@
     <Compile Include="Configuration\ThrottleConfigurationNode.cs" />
     <Compile Include="Configuration\ThrottleConfigurationNodeCollection.cs" />
     <Compile Include="Configuration\ThrottleConfiguration.cs" />
+    <Compile Include="Core\ThrottlingRuleException.cs" />
+    <Compile Include="Core\ThrottlingException.cs" />
     <Compile Include="Expression\OrNode.cs" />
     <Compile Include="Expression\NotNode.cs" />
     <Compile Include="Expression\AndNode.cs" />
     <Compile Include="Expression\INode.cs" />
     <Compile Include="Expression\QuotaNode.cs" />
     <Compile Include="Core\IThrottlerStorage.cs" />
+    <Compile Include="Keyer\IRequestContext.cs" />
     <Compile Include="Keyer\IKeyer.cs" />
     <Compile Include="Keyer\ConstantKeyer.cs" />
     <Compile Include="Keyer\URIMethodKeyer.cs" />
@@ -66,7 +77,11 @@
     <Compile Include="Core\ThrottlingStorage.cs" />
     <Compile Include="Core\ThrottlingStorageConcurrent.cs" />
     <Compile Include="Core\TimeRange.cs" />
+    <Compile Include="ThrottlingHandler.cs" />
     <Compile Include="ThrottlingMiddleware.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
