@@ -21,10 +21,11 @@
             {
                 Console.WriteLine("started at " + baseAddr);
 
-                var client = new HttpClient();
-
-                Console.WriteLine(await CallAsync("api/first"));
-                Console.WriteLine(await CallAsync("api/second"));
+                using (var client = new HttpClient())
+                {
+                    Console.WriteLine(await CallAsync("api/first"));
+                    Console.WriteLine(await CallAsync("api/second"));
+                }
 
                 Console.WriteLine("test complete");
                 Console.ReadKey();
