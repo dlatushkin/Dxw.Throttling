@@ -88,8 +88,9 @@
     <Compile Include="Rules\RuleBase.cs" />
     <Compile Include="Rules\StorageKeyerProcessorRule.cs" />
     <Compile Include="Rules\TooLateTooEarlyRule.cs" />
-    <Compile Include="Storage\IStorageSlot.cs" />
+    <Compile Include="Storage\IStorageValue.cs" />
     <Compile Include="Storage\IStorage.cs" />
+    <Compile Include="Storage\LocalMemoryStorage.cs" />
     <Compile Include="ThrottlingHandler.cs" />
     <Compile Include="ThrottlingMiddleware.cs" />
   </ItemGroup>

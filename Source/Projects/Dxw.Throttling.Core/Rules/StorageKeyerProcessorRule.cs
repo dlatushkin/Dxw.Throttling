@@ -15,7 +15,7 @@
         public IApplyResult Apply(IRequestContext context = null, IStorage storage = null)
         {
             var key = Keyer.GetKey(context);
-            var result = Storage.Upsert(key, Processor.Process);
+            var result = Storage.Upsert(key, context, Processor.Process);
             return result.Result;
         }
     }

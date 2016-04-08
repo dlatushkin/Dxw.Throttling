@@ -3,13 +3,13 @@
     using System;
     using Keyer;
     using Rules;
-    
+    using Storage;
 
     public class ConstantEventProcessor : IEventProcessor
     {
         public bool Ok { get; set; }
 
-        public IProcessEventResult Process(IRequestContext context = null, object prevState = null)
+        public IProcessEventResult Process(IRequestContext context = null, IStorageValue prevState = null)
         {
             if (Ok)
                 return new ProcessEventResult { Result = ApplyResult.Ok() };
