@@ -55,6 +55,8 @@
     <Compile Include="Configuration\ThrottleConfiguration.cs" />
     <Compile Include="Core\ThrottlingRuleException.cs" />
     <Compile Include="Core\ThrottlingException.cs" />
+    <Compile Include="EventProcessor\IEventProcessor.cs" />
+    <Compile Include="EventProcessor\ConstantEventProcessor.cs" />
     <Compile Include="Expression\OrNode.cs" />
     <Compile Include="Expression\NotNode.cs" />
     <Compile Include="Expression\AndNode.cs" />
@@ -77,6 +79,8 @@
     <Compile Include="Core\ThrottlingStorage.cs" />
     <Compile Include="Core\ThrottlingStorageConcurrent.cs" />
     <Compile Include="Core\TimeRange.cs" />
+    <Compile Include="Quota\IQuota.cs" />
+    <Compile Include="Quota\TimeQuota.cs" />
     <Compile Include="Rules\IApplyError.cs" />
     <Compile Include="Rules\IApplyResult.cs" />
     <Compile Include="Rules\IRequireKeyer.cs" />
