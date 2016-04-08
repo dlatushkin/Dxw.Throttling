@@ -55,6 +55,7 @@
     <Compile Include="Configuration\ThrottleConfiguration.cs" />
     <Compile Include="Core\ThrottlingRuleException.cs" />
     <Compile Include="Core\ThrottlingException.cs" />
+    <Compile Include="EventProcessor\RequestCountPerPeriodProcessor.cs" />
     <Compile Include="EventProcessor\IEventProcessor.cs" />
     <Compile Include="EventProcessor\ConstantEventProcessor.cs" />
     <Compile Include="Expression\OrNode.cs" />
