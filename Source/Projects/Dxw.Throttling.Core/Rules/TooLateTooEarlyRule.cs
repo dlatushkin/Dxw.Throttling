@@ -4,15 +4,10 @@
     using Keyer;
     using System;
 
-    public class SimpleRule : IRule
+    public class TooLateTooEarlyRule : IRule
     {
         public int Times { get; set; }
         public TimeSpan PerPeriod { get; set; }
-
-        public SimpleRule()
-        {
-
-        }
 
         public IApplyResult Apply(IRequestContext context = null, IStorage storage = null)
         {

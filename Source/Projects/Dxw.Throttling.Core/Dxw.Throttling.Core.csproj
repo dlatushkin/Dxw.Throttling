@@ -79,10 +79,13 @@
     <Compile Include="Core\TimeRange.cs" />
     <Compile Include="Rules\IApplyError.cs" />
     <Compile Include="Rules\IApplyResult.cs" />
+    <Compile Include="Rules\IRequireKeyer.cs" />
+    <Compile Include="Rules\IRequireStorage.cs" />
     <Compile Include="Rules\ISlotCalculator.cs" />
     <Compile Include="Rules\IRule.cs" />
     <Compile Include="Rules\RuleBase.cs" />
-    <Compile Include="Rules\SimpleRule.cs" />
+    <Compile Include="Rules\StorageKeyerRule.cs" />
+    <Compile Include="Rules\TooLateTooEarlyRule.cs" />
     <Compile Include="Storage\IStorageSlot.cs" />
     <Compile Include="Storage\IStorage.cs" />
     <Compile Include="ThrottlingHandler.cs" />

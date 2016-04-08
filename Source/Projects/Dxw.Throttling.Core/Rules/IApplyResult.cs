@@ -1,7 +1,5 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
-    using System;
-
     public interface IApplyResult
     {
         bool Block { get; }
