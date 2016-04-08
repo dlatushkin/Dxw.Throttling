@@ -3,25 +3,32 @@
     using Microsoft.Owin;
     using System.Net.Http;
 
+    public enum RequestPhase { Before, After }
+
     public interface IRequestContext
     {
+        RequestPhase Phase { get; }
         IOwinRequest OwinRequest { get; }
         HttpRequestMessage HttpRequestMessage { get; }
     }
 
     public class RequestContext : IRequestContext
     {
+        private readonly RequestPhase _phase;
         private readonly IOwinRequest _owinRequest;
         private readonly HttpRequestMessage _httpRequestMessage;
 
-        public RequestContext(IOwinRequest owinRequest, HttpRequestMessage httpRequestMessage)
+        public RequestContext(RequestPhase phase, IOwinRequest owinRequest, HttpRequestMessage httpRequestMessage)
         {
+            _phase = phase;
             _owinRequest = owinRequest;
             _httpRequestMessage = httpRequestMessage;
         }
 
-        public IOwinRequest OwinRequest { get { return _owinRequest; } }
+        public IOwinRequest OwinRequest => _owinRequest;
 
-        public HttpRequestMessage HttpRequestMessage { get { return _httpRequestMessage; } }
+        public HttpRequestMessage HttpRequestMessage => _httpRequestMessage;
+
+        public RequestPhase Phase => _phase;
     }
 }
