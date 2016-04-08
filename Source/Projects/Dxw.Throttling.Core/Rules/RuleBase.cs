@@ -9,7 +9,7 @@
         private readonly IKeyer _keyer;
         //private readonly ISlotCalculator _slotCalculator;
 
-        public RuleBase(IKeyer keyer, ISlotCalculator slotCalculator)
+        public RuleBase(IKeyer keyer)
         {
             _keyer = keyer;
             //_slotCalculator = slotCalculator;

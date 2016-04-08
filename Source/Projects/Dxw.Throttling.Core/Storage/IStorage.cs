@@ -8,7 +8,6 @@
 
     public interface IStorage
     {
-        //object Upsert(object key, ISlotCalculator slotCalculator);
-        IProcessEventResult Upsert(object key, Func<IProcessEventResult, IRequestContext, object> upsertFunc);
+        IProcessEventResult Upsert(object key, Func<IRequestContext, object, IProcessEventResult> upsertFunc);
     }
 }
