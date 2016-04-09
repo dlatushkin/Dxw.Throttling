@@ -3,8 +3,10 @@
     using Storage;
     using Keyer;
     using EventProcessor;
+    using System;
+    using System.Xml;
 
-    public class StorageKeyerProcessorRule : IRule, IRequireStorage, IRequireKeyer, IRequireProcessor
+    public class StorageKeyerProcessorRule : IRule, IRequireStorage, IRequireKeyer, IRequireProcessor, IXmlConfigurableRule
     {
         public IStorage Storage { get; set; }
 
@@ -17,6 +19,11 @@
             var key = Keyer.GetKey(context);
             var result = Storage.Upsert(key, context, Processor.Process);
             return result.Result;
+        }
+
+        public void Configure(XmlNode node)
+        {
+            
         }
     }
 }

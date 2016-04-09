@@ -85,6 +85,7 @@
     <Compile Include="Rules\IRequireProcessor.cs" />
     <Compile Include="Rules\IRequireKeyer.cs" />
     <Compile Include="Rules\IRequireStorage.cs" />
+    <Compile Include="Rules\IXmlConfigurableRule.cs" />
     <Compile Include="Rules\IRule.cs" />
     <Compile Include="Rules\RuleBase.cs" />
     <Compile Include="Rules\StorageKeyerProcessorRule.cs" />
