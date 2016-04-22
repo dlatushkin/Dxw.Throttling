@@ -8,7 +8,7 @@
     using System.Configuration;
     using System.Xml;
 
-    public class ThrottleConfiguration : IConfigurationSectionHandler, INodeBuilder
+    public class ThrottleConfiguration : IConfigurationSectionHandler
     {
         private const string QuotaNodeName = "quota";
 
@@ -18,8 +18,6 @@
 
         public object Create(object parent, object configContext, XmlNode section)
         {
-            var ht = new Hashtable();
-
             var childrenCount = section.ChildNodes.Count;
 
             if (childrenCount == 0) return new ConstantKeyer();
@@ -76,11 +74,6 @@
             var rule = new ThrottlingRule(keyer, quota);
 
             return new QuotaNode(rule);
-        }
-        
-        public INode Build()
-        {
-            throw new NotImplementedException();
         }
     }
 }

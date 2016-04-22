@@ -6,7 +6,12 @@
         IApplyError Reason { get; }
     }
 
-    public class ApplyResult : IApplyResult
+    public interface IRuleResult
+    {
+        IRule Rule { get; }
+    }
+
+    public class ApplyResult : IApplyResult, IRuleResult
     {
         public static ApplyResult Ok()
         {
@@ -21,5 +26,7 @@
         public bool Block { get; set; }
 
         public IApplyError Reason { get; set; }
+
+        public IRule Rule { get; set; }
     }
 }

@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\INodeBuilder.cs" />
     <Compile Include="Configuration\ThrottleConfigurationNode.cs" />
     <Compile Include="Configuration\ThrottleConfigurationNodeCollection.cs" />
     <Compile Include="Configuration\ThrottleConfiguration.cs" />
@@ -81,13 +80,19 @@
     <Compile Include="Core\ThrottlingStorageConcurrent.cs" />
     <Compile Include="Core\TimeRange.cs" />
     <Compile Include="Rules\IApplyError.cs" />
+    <Compile Include="Rules\IApplyResultSet.cs" />
     <Compile Include="Rules\IApplyResult.cs" />
     <Compile Include="Rules\IRequireProcessor.cs" />
     <Compile Include="Rules\IRequireKeyer.cs" />
     <Compile Include="Rules\IRequireStorage.cs" />
+    <Compile Include="Rules\IRuleNode.cs" />
     <Compile Include="Rules\IXmlConfigurableRule.cs" />
     <Compile Include="Rules\IRule.cs" />
+    <Compile Include="Rules\RuleSet.cs" />
+    <Compile Include="Rules\RuleOrNode.cs" />
+    <Compile Include="Rules\RuleAndNode.cs" />
     <Compile Include="Rules\RuleBase.cs" />
+    <Compile Include="Rules\RuleNode.cs" />
     <Compile Include="Rules\StorageKeyerProcessorRule.cs" />
     <Compile Include="Rules\TooLateTooEarlyRule.cs" />
     <Compile Include="Storage\IStorageValue.cs" />
