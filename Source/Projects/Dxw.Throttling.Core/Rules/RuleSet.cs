@@ -8,9 +8,11 @@
 
     public abstract class RuleSet : IRule, IXmlConfigurableRule
     {
-        private List<IRule> _rules;
+        public List<IRule> Rules { get; set; }
 
-        public IEnumerable<IRule> Rules => _rules;
+        public bool CallEachRule { get; set; }
+
+        public bool BlockResultsOnly { get; set; }
 
         public abstract IApplyResult Apply(IRequestContext context = null, IStorage storage = null);
 
