@@ -7,7 +7,7 @@
 
     public class RuleOrNode : RuleSet
     {
-        public override IApplyResult Apply(IRequestContext context = null, IStorage storage = null)
+        public override IApplyResult Apply(object context = null, IStorage storage = null)
         {
             var applyResultSet = new ApplyResultSet
             {

@@ -14,7 +14,7 @@
 
         public bool BlockResultsOnly { get; set; }
 
-        public abstract IApplyResult Apply(IRequestContext context = null, IStorage storage = null);
+        public abstract IApplyResult Apply(object context = null, IStorage storage = null);
 
         public void Configure(XmlNode node)
         {

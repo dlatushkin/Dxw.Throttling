@@ -15,7 +15,7 @@
             //_slotCalculator = slotCalculator;
         }
 
-        public IApplyResult Apply(IRequestContext context, IStorage storage)
+        public IApplyResult Apply(object context, IStorage storage)
         {
             var key = _keyer.GetKey(context);
 

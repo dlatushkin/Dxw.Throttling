@@ -9,7 +9,7 @@
         public int Times { get; set; }
         public TimeSpan PerPeriod { get; set; }
 
-        public IApplyResult Apply(IRequestContext context = null, IStorage storage = null)
+        public IApplyResult Apply(object context = null, IStorage storage = null)
         {
             var now = DateTime.Now;
 

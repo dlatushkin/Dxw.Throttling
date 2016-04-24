@@ -28,7 +28,7 @@
         public int Count { get; set; }
         public TimeSpan Period { get; set; }
 
-        public IProcessEventResult Process(IRequestContext context = null, IStorageValue prevState = null)
+        public IProcessEventResult Process(object context = null, IStorageValue prevState = null)
         {
             var utcNow = DateTime.UtcNow;
 

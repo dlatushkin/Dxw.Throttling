@@ -8,6 +8,6 @@
 
     public interface IStorage
     {
-        IProcessEventResult Upsert(object key, IRequestContext context, Func<IRequestContext, IStorageValue, IProcessEventResult> upsertFunc);
+        IProcessEventResult Upsert(object key, object context, Func<object, IStorageValue, IProcessEventResult> upsertFunc);
     }
 }

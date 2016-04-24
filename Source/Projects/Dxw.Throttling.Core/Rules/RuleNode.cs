@@ -12,7 +12,7 @@ namespace Dxw.Throttling.Core.Rules
     {
 
 
-        public IApplyResult Apply(IRequestContext context = null, IStorage storage = null)
+        public IApplyResult Apply(object context = null, IStorage storage = null)
         {
             throw new NotImplementedException();
         }

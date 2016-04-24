@@ -4,6 +4,6 @@
 
     public interface IKeyer
     {
-        object GetKey(IRequestContext context);
+        object GetKey(object context);
     }
 }

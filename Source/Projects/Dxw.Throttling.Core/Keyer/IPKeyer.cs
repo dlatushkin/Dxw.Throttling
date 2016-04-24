@@ -7,11 +7,11 @@
         private const string HttpContext = "MS_HttpContext";
         private const string RemoteEndpointMessage = "System.ServiceModel.Channels.RemoteEndpointMessageProperty";
 
-        public object GetKey(IRequestContext context)
+        public object GetKey(object context)
         {
             object ip = null;
 
-            var request = context.HttpRequestMessage;
+            var request = context as HttpRequestMessage;
             if (request != null)
             {
                 if (request.Properties.ContainsKey(HttpContext))

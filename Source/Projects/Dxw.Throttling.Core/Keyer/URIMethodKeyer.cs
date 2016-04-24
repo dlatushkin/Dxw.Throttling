@@ -1,16 +1,17 @@
 ﻿namespace Dxw.Throttling.Core.Keyer
 {
+    using Microsoft.Owin;
     using System.Net.Http;
 
     public class URIMethodKeyer : IKeyer
     {
-        public object GetKey(IRequestContext context)
+        public object GetKey(object context)
         {
-            var owinContext = context.OwinRequest;
+            var owinContext = context as OwinRequest;
             if (owinContext != null)
                 return owinContext.Uri;
 
-            var request = context.HttpRequestMessage;
+            var request = context as HttpRequestMessage;
             if (request != null)
                 return request.RequestUri;
 

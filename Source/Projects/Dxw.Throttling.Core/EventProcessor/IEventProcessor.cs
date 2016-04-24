@@ -19,6 +19,6 @@
 
     public interface IEventProcessor
     {
-        IProcessEventResult Process(IRequestContext context = null, IStorageValue prevState = null);
+        IProcessEventResult Process(object context = null, IStorageValue prevState = null);
     }
 }
