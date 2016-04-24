@@ -5,6 +5,6 @@
 
     public interface IRule
     {
-        IApplyResult Apply(object context = null, IStorage storage = null);
+        IApplyResult Apply(object context = null);
     }
 }

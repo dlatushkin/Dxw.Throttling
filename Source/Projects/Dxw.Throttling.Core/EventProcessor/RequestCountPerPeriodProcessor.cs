@@ -1,7 +1,6 @@
 ﻿namespace Dxw.Throttling.Core.EventProcessor
 {
     using System;
-    using Keyer;
     using Rules;
     using Storage;
 

@@ -7,7 +7,7 @@
 
     public class RuleOrNode : RuleSet
     {
-        public override IApplyResult Apply(object context = null, IStorage storage = null)
+        public override IApplyResult Apply(object context = null)
         {
             var applyResultSet = new ApplyResultSet
             {
@@ -18,7 +18,7 @@
             var childResults = new List<IApplyResult>();
             foreach (var rule in Rules)
             {
-                var result = rule.Apply(context, storage);
+                var result = rule.Apply(context);
 
                 if (result.Block || !BlockResultsOnly) childResults.Add(result);
 

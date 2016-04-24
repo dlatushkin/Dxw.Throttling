@@ -4,6 +4,7 @@ using Dxw.Throttling.Core.Storage;
 using Dxw.Throttling.Core.Keyer;
 using Dxw.Throttling.Core.EventProcessor;
 using Dxw.Throttling.Core.Rules;
+using System.Net.Http;
 
 namespace Dxw.Throttling.UnitTests
 {
@@ -11,18 +12,26 @@ namespace Dxw.Throttling.UnitTests
     public class UnitTest1
     {
         [TestMethod]
-        public void Test1()
+        public void T001_ConstantBlock()
         {
             var storage = new LocalMemoryStorage();
-            var keyer = new IPKeyer();
+            var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor();
 
             var rule = new StorageKeyerProcessorRule { Storage = storage, Keyer = keyer, Processor = processor };
 
-            //var httpRequest = new HttpRequestMessage();
-            //var context = new RequestContext(RequestPhase.Before, null, )
+            var context = new HttpRequestMessage();
 
-            //rule.Apply()
+            {
+                var r = rule.Apply(context);
+                Assert.IsTrue(r.Block);
+            }
+
+            processor.Ok = true;
+            {
+                var r = rule.Apply(context);
+                Assert.IsFalse(r.Block);
+            }
         }
     }
 }

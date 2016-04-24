@@ -14,7 +14,7 @@
 
         public IEventProcessor Processor { get; set; }
 
-        public IApplyResult Apply(object context = null, IStorage storage = null)
+        public IApplyResult Apply(object context = null)
         {
             var key = Keyer.GetKey(context);
             var result = Storage.Upsert(key, context, Processor.Process);
