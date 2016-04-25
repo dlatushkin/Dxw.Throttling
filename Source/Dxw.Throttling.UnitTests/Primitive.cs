@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dxw.Throttling.Core.Storage;
 using Dxw.Throttling.Core.Keyer;
 using Dxw.Throttling.Core.EventProcessor;
@@ -9,10 +8,11 @@ using System.Net.Http;
 namespace Dxw.Throttling.UnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class Primitive
     {
         [TestMethod]
-        public void T001_ConstantBlock()
+        [TestCategory("Primitive")]
+        public void T001_ConstantProcessor()
         {
             var storage = new LocalMemoryStorage();
             var keyer = new ConstantKeyer();
@@ -25,6 +25,10 @@ namespace Dxw.Throttling.UnitTests
             {
                 var r = rule.Apply(context);
                 Assert.IsTrue(r.Block);
+
+                var r1 = r as IRuleResult;
+                Assert.IsTrue(r.Block);
+                Assert.AreSame(r1.Rule, rule);
             }
 
             processor.Ok = true;

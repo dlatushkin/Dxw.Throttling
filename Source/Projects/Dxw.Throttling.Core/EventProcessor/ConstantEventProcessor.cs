@@ -9,12 +9,12 @@
     {
         public bool Ok { get; set; }
 
-        public IProcessEventResult Process(object context = null, IStorageValue prevState = null)
+        public IProcessEventResult Process(object context = null, IStorageValue prevState = null, IRule rule = null)
         {
             if (Ok)
-                return new ProcessEventResult { Result = ApplyResult.Ok() };
+                return new ProcessEventResult { Result = ApplyResult.Ok(rule) };
             else
-                return new ProcessEventResult { Result = ApplyResult.Error() };
+                return new ProcessEventResult { Result = ApplyResult.Error(rule) };
         }
     }
 }

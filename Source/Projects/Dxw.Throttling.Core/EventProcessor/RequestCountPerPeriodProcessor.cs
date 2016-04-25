@@ -27,7 +27,7 @@
         public int Count { get; set; }
         public TimeSpan Period { get; set; }
 
-        public IProcessEventResult Process(object context = null, IStorageValue prevState = null)
+        public IProcessEventResult Process(object context = null, IStorageValue prevState = null, IRule rule = null)
         {
             var utcNow = DateTime.UtcNow;
 
@@ -48,7 +48,7 @@
                 result = new ProcessEventResult
                 {
                     NewState = storageValue,
-                    Result = ApplyResult.Error("Limit of " + Count + "is exceeded. Try ")
+                    Result = ApplyResult.Error(rule, "Limit of " + Count + "is exceeded. Try ")
                 };
             }
             else

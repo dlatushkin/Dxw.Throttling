@@ -3,12 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Xml;
-    using Dxw.Throttling.Core.Keyer;
-    using Dxw.Throttling.Core.Storage;
 
     public abstract class RuleSet : IRule, IXmlConfigurableRule
     {
-        public List<IRule> Rules { get; set; }
+        public IEnumerable<IRule> Rules { get; set; }
 
         public bool CallEachRule { get; set; }
 

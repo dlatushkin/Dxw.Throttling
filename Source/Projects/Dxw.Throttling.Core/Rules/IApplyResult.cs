@@ -13,14 +13,14 @@
 
     public class ApplyResult : IApplyResult, IRuleResult
     {
-        public static ApplyResult Ok()
+        public static ApplyResult Ok(IRule rule = null)
         {
-            return new ApplyResult { Block = false };
+            return new ApplyResult { Rule = rule, Block = false };
         }
 
-        public static ApplyResult Error(string msg = null)
+        public static ApplyResult Error(IRule rule = null, string msg = null)
         {
-            return new ApplyResult { Block = true, Reason = new ApplyError { Message = msg } };
+            return new ApplyResult { Rule = rule, Block = true, Reason = new ApplyError { Message = msg } };
         }
 
         public bool Block { get; set; }

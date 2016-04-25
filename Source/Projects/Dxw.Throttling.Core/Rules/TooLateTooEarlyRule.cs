@@ -14,10 +14,10 @@
             var now = DateTime.Now;
 
             if (now.TimeOfDay > new TimeSpan(18, 0, 0))
-                return ApplyResult.Error("It's too late now");
+                return ApplyResult.Error(msg: "It's too late now");
 
             if (now.TimeOfDay < new TimeSpan(6, 0, 0))
-                return ApplyResult.Error("It's too early now");
+                return ApplyResult.Error(msg: "It's too early now");
 
             return new ApplyResult { Block = false };
         }
