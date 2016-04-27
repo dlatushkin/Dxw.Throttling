@@ -14,6 +14,11 @@
 
         public abstract IApplyResult Apply(object context = null);
 
+        public RuleSet()
+        {
+            BlockResultsOnly = true;
+        }
+
         public void Configure(XmlNode node)
         {
             throw new NotImplementedException();
