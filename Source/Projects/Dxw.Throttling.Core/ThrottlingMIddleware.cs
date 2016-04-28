@@ -16,7 +16,7 @@
 
         public override async Task Invoke(IOwinContext context)
         {
-            var request = context.Request as HttpRequestMessage;
+            var request = context.Request as OwinRequest;
 
             var applyResult = _rule.Apply(request);
             if (!applyResult.Block)

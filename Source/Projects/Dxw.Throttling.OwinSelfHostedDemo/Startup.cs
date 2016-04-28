@@ -18,7 +18,8 @@
 
             var storage = new LocalMemoryStorage();
 
-            var keyer = new ConstantKeyer();
+            //var keyer = new ConstantKeyer();
+            var keyer = new ControllerNameKeyer();
             //var processor = new ConstantEventProcessor() { Ok = true};
             var processor = new RequestCountPerPeriodProcessor() { Count = 1, Period = TimeSpan.FromSeconds(10) };
             var ruleBlock = new StorageKeyerProcessorRule { Storage = storage, Keyer = keyer, Processor = processor };
