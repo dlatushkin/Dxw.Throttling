@@ -1,8 +1,12 @@
 ﻿namespace Dxw.Throttling.OwinSelfHostedDemo
 {
+    using Core.Storage;
+    using Core.Keyer;
     using Owin;
     using System;
     using System.Web.Http;
+    using Core.EventProcessor;
+    using Core.Rules;
 
     public class Startup
     {
@@ -11,6 +15,14 @@
             var config = new HttpConfiguration();
 
             config.Routes.MapHttpRoute("Default", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+
+            var storage = new LocalMemoryStorage();
+
+            var keyer = new ConstantKeyer();
+            var processor = new ConstantEventProcessor();
+            var ruleBlock = new StorageKeyerProcessorRule { Storage = storage, Keyer = keyer, Processor = processor };
+
+            appBuilder.Use(typeof(Core.ThrottlingMiddleware), ruleBlock);
 
             appBuilder.UseWebApi(config);
         }

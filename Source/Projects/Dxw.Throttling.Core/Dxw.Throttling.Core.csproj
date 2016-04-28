@@ -111,9 +111,11 @@
     <Compile Include="Storage\IStorageValue.cs" />
     <Compile Include="Storage\IStorage.cs" />
     <Compile Include="Storage\LocalMemoryStorage.cs" />
+    <Compile Include="ThrottlingFilter.cs" />
     <Compile Include="ThrottlingAttribute.cs" />
     <Compile Include="ThrottlingHandler.cs" />
     <Compile Include="ThrottlingMiddleware.cs" />
+    <Compile Include="ThrottlingMiddleware1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
