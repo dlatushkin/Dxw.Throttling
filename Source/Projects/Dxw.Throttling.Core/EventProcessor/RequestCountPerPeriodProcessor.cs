@@ -34,9 +34,9 @@
             ProcessEventResult result;
             
             StorageValue storageValue = prevState as StorageValue;
-            if (storageValue == null)
+            if (storageValue == null || storageValue.SlotData.ExpiresAt < utcNow)
             {
-                storageValue = new StorageValue { SlotData = new SlotData { Hits = 1, ExpiresAt = utcNow } };
+                storageValue = new StorageValue { SlotData = new SlotData { Hits = 1, ExpiresAt = utcNow.Add(Period) } };
             }
             else
             {
@@ -48,7 +48,7 @@
                 result = new ProcessEventResult
                 {
                     NewState = storageValue,
-                    Result = ApplyResult.Error(rule, "Limit of " + Count + "is exceeded. Try ")
+                    Result = ApplyResult.Error(rule, "The query limit exceeded.")
                 };
             }
             else
