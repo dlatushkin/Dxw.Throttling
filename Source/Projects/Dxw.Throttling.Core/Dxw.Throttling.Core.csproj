@@ -118,6 +118,7 @@
     <Compile Include="ThrottlingMiddleware1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Dxw.Throttling.Core.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
