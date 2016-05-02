@@ -1,5 +1,6 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
+    using Configuration;
     using System;
     using System.Collections.Generic;
     using System.Xml;
@@ -19,7 +20,7 @@
             BlockResultsOnly = true;
         }
 
-        public void Configure(XmlNode node)
+        public void Configure(XmlNode node, IConfiguratedRules context)
         {
             throw new NotImplementedException();
         }
