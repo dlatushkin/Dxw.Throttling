@@ -22,7 +22,20 @@
 
         public void Configure(XmlNode node, IConfiguratedRules context)
         {
-            throw new NotImplementedException();
+            var rules = new List<IRule>();
+
+            foreach (XmlNode nRule in node.ChildNodes)
+            {
+                var typeName = nRule.Attributes["type"].Value;
+                var type = Type.GetType(typeName);
+                var rule = (IRule)Activator.CreateInstance(type);
+                var configurable = rule as IXmlConfigurable;
+                if (configurable != null)
+                    configurable.Configure(nRule, context);
+                rules.Add(rule);
+            }
+
+            Rules = rules;
         }
     }
 }
