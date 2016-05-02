@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Xml;
 
-    public abstract class RuleSet : IRule, IXmlConfigurableRule
+    public abstract class RuleSet : IRule, IXmlConfigurable
     {
         public IEnumerable<IRule> Rules { get; set; }
 

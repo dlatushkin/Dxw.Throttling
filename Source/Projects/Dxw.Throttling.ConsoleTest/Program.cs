@@ -10,7 +10,9 @@ namespace Dxw.Throttling.ConsoleTest
     {
         static void Main(string[] args)
         {
-            var config = System.Configuration.ConfigurationManager.GetSection("Throttling");
+            //var config = System.Configuration.ConfigurationManager.GetSection("Throttling");
+
+            var config1 = System.Configuration.ConfigurationManager.GetSection("Throttling1");
 
             //var configSection = System.Configuration.ConfigurationManager.GetSection("ThrottlingSection");
 

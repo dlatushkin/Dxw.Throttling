@@ -5,7 +5,7 @@
     using EventProcessor;
     using System.Xml;
 
-    public class StorageKeyerProcessorRule : IRule, IRequireStorage, IRequireKeyer, IRequireProcessor, IXmlConfigurableRule
+    public class StorageKeyerProcessorRule : IRule, IRequireStorage, IRequireKeyer, IRequireProcessor, IXmlConfigurable
     {
         public IStorage Storage { get; set; }
 
