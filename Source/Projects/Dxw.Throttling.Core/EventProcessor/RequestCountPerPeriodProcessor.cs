@@ -3,9 +3,14 @@
     using System;
     using Rules;
     using Storage;
+    using System.Xml;
+    using Configuration;
 
-    public class RequestCountPerPeriodProcessor : IEventProcessor
+    public class RequestCountPerPeriodProcessor : IEventProcessor, IXmlConfigurable
     {
+        private const int DFLT_COUNT = 1;
+        private static readonly TimeSpan DFLT_PERIOD = TimeSpan.FromSeconds(1);
+
         private class SlotData
         {
             public int Hits;
@@ -25,7 +30,14 @@
         }
 
         public int Count { get; set; }
+
         public TimeSpan Period { get; set; }
+
+        public RequestCountPerPeriodProcessor()
+        {
+            Count = DFLT_COUNT;
+            Period = DFLT_PERIOD;
+        }
 
         public IProcessEventResult Process(object context = null, IStorageValue prevState = null, IRule rule = null)
         {
@@ -61,6 +73,25 @@
             }
             
             return result;
+        }
+
+        public void Configure(XmlNode node, IConfiguratedRules context)
+        {
+            var countAttr = node.Attributes["count"];
+            if (countAttr != null)
+            {
+                int count;
+                if (int.TryParse(countAttr.Value, out count))
+                    Count = count;
+            }
+
+            var periodAttr = node.Attributes["period"];
+            if (periodAttr != null)
+            {
+                TimeSpan period;
+                if (TimeSpan.TryParse(periodAttr.Value, out period))
+                    Period = period;
+            }
         }
     }
 }
