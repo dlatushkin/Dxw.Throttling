@@ -6,73 +6,61 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Xml;
+    using System.Linq;
+    using Rules;
+    using Storage;
 
     public class ThrottleConfiguration : IConfigurationSectionHandler
     {
-        private const string QuotaNodeName = "quota";
-
-        private const string KeyerTypeName = "type";
-        private const string MaxHitsAttrName = "maxHits";
-        private const string RangeSecondsAttrName = "perSeconds";
-
         public object Create(object parent, object configContext, XmlNode section)
         {
-            var childrenCount = section.ChildNodes.Count;
+            var configuratedRules = new ConfiguratedRules();
 
-            if (childrenCount == 0) return new ConstantKeyer();
+            var storagesSection = section.SelectSingleNode("storages");
+            if (storagesSection != null)
+                configuratedRules.Storages = CreateStorages(storagesSection, configuratedRules);
 
-            if (childrenCount == 1) return Build(section.FirstChild);
+            var rulesSection = section.SelectSingleNode("rules");
+            if (rulesSection != null)
+                configuratedRules.Rules = CreateRules(rulesSection, configuratedRules);
 
-            return CreateAndNode(section);
+            return configuratedRules;
         }
 
-        private INode Build(XmlNode xmlNode)
+        private IList<IStorage> CreateStorages(XmlNode section, IConfiguratedRules context)
         {
-            INode resultNode = null;
+            var storages = new List<IStorage>();
 
-            if (string.Compare(AndNode.NodeName, xmlNode.Name, true) == 0)
+            foreach (XmlNode nStorage in section.ChildNodes)
             {
-                resultNode = CreateAndNode(xmlNode);
-            } 
-            else if (string.Compare(QuotaNodeName, xmlNode.Name, true) == 0)
-            {
-                resultNode = CreateQuotaNode(xmlNode);
+                var typeName = nStorage.Attributes["type"].Value;
+                var type = Type.GetType(typeName);
+                var storage = (IStorage)Activator.CreateInstance(type);
+                var configurable = storage as IXmlConfigurable;
+                if (configurable != null)
+                    configurable.Configure(nStorage, context);
+                storages.Add(storage);
             }
 
-            return resultNode;
+            return storages;
         }
 
-        private AndNode CreateAndNode(XmlNode andXmlNode)
+        private IEnumerable<IRule> CreateRules(XmlNode section, IConfiguratedRules context)
         {
-            var childNodeList = new List<INode>();
-            foreach (XmlNode xmlChild in andXmlNode.ChildNodes)
+            var rules = new List<IRule>();
+
+            foreach (XmlNode nRule in section.ChildNodes)
             {
-                var childNode = Build(xmlChild);
-                childNodeList.Add(childNode);
+                var typeName = nRule.Attributes["type"].Value;
+                var type = Type.GetType(typeName);
+                var rule = (IRule)Activator.CreateInstance(type);
+                var configurable = rule as IXmlConfigurable;
+                if (configurable != null)
+                    configurable.Configure(nRule, context);
+                rules.Add(rule);
             }
 
-            return new AndNode(childNodeList);
-        }
-
-        private QuotaNode CreateQuotaNode(XmlNode quotaXmlNode)
-        {
-            var maxHits = Convert.ToInt32(quotaXmlNode.Attributes[MaxHitsAttrName].Value);
-            var rangeSeconds = Convert.ToInt32(quotaXmlNode.Attributes[RangeSecondsAttrName].Value);
-
-            var keyerTypeName = quotaXmlNode.Attributes[KeyerTypeName].Value;
-
-            var keyerType = Type.GetType(keyerTypeName, false);
-            if (keyerType == null)
-                throw new ThrottlingConfigurationException(string.Format("Couldn't create instance of type '{0}'", keyerTypeName));
-
-            if (!typeof(IKeyer).IsAssignableFrom(keyerType))
-                throw new ThrottlingConfigurationException(string.Format("Type isn't '{0}' descendant", typeof(IKeyer)));
-
-            var keyer = Activator.CreateInstance(keyerType) as IKeyer;
-            var quota = new ThrottlingQuota(rangeSeconds, maxHits);
-            var rule = new ThrottlingRule(keyer, quota);
-
-            return new QuotaNode(rule);
+            return rules;
         }
     }
 }

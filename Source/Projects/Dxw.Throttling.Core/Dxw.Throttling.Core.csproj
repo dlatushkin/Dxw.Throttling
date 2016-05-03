@@ -64,7 +64,6 @@
   <ItemGroup>
     <Compile Include="Configuration\ConfiguratedRules.cs" />
     <Compile Include="Configuration\IConfiguratedRules.cs" />
-    <Compile Include="Configuration\ThrottleConfiguration1.cs" />
     <Compile Include="Configuration\ThrottleConfiguration.cs" />
     <Compile Include="Core\ThrottlingRuleException.cs" />
     <Compile Include="Core\ThrottlingException.cs" />
