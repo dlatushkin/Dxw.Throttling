@@ -1,4 +1,4 @@
-﻿namespace Dxw.Throttling.Core
+﻿namespace Dxw.Throttling.Core.Exceptions
 {
     public class ThrottlingConfigurationException: ThrottlingException
     {

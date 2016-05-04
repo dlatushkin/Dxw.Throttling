@@ -1,5 +1,6 @@
 ﻿namespace Dxw.Throttling.Core.Keyer
 {
+    using Exceptions;
     using Microsoft.Owin;
     using System.Net.Http;
 
@@ -14,8 +15,6 @@
             var request = context as HttpRequestMessage;
             if (request != null)
                 return request.RequestUri;
-
-            throw new ThrottlingRuleException("");
 
             return new { request.RequestUri, request.Method };
         }

@@ -65,7 +65,7 @@
     <Compile Include="Configuration\ConfiguratedRules.cs" />
     <Compile Include="Configuration\IConfiguratedRules.cs" />
     <Compile Include="Configuration\ThrottleConfiguration.cs" />
-    <Compile Include="Core\ThrottlingRuleException.cs" />
+    <Compile Include="Exceptions\ThrottlingRuleException.cs" />
     <Compile Include="Core\ThrottlingException.cs" />
     <Compile Include="EventProcessor\RequestCountPerPeriodProcessor.cs" />
     <Compile Include="EventProcessor\IEventProcessor.cs" />
@@ -85,7 +85,7 @@
     <Compile Include="Keyer\IPKeyer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\ThrottleCore.cs" />
-    <Compile Include="Core\ThrottlingConfigurationException.cs" />
+    <Compile Include="Exceptions\ThrottlingConfigurationException.cs" />
     <Compile Include="Core\ThrottlingQuota.cs" />
     <Compile Include="Core\ThrottlingRule.cs" />
     <Compile Include="Core\ThrottlingSlot.cs" />

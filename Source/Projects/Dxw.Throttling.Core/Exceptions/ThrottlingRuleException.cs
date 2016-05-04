@@ -1,7 +1,5 @@
-﻿namespace Dxw.Throttling.Core
+﻿namespace Dxw.Throttling.Core.Exceptions
 {
-    using System;
-
     public class ThrottlingRuleException : ThrottlingException
     {
         public ThrottlingRuleException(string msg): base(msg) {}
