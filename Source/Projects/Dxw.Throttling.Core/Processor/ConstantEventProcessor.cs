@@ -17,7 +17,7 @@
                 return new ProcessEventResult { Result = ApplyResult.Error(rule) };
         }
 
-        public void Configure(XmlNode node, IConfiguratedRules context)
+        public void Configure(XmlNode node, IConfiguration context)
         {
             var okAttr = node.Attributes["Ok"];
             if (okAttr == null) return;

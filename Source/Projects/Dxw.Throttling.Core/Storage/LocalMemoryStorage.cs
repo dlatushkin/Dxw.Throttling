@@ -80,7 +80,7 @@
             }
         }
 
-        public void Configure(XmlNode node, IConfiguratedRules context)
+        public void Configure(XmlNode node, IConfiguration context)
         {
             Name = node.Attributes["name"].Value;
         }

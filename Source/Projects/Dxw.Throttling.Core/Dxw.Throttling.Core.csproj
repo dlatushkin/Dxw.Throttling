@@ -62,9 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ConfiguratedRules.cs" />
-    <Compile Include="Configuration\IConfiguratedRules.cs" />
-    <Compile Include="Configuration\ThrottleConfiguration.cs" />
+    <Compile Include="Configuration\ThrottlingConfiguration.cs" />
+    <Compile Include="Configuration\IConfiguration.cs" />
+    <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
     <Compile Include="Exceptions\ThrottlingRuleException.cs" />
     <Compile Include="Exceptions\ThrottlingException.cs" />
     <Compile Include="Processor\RequestCountPerPeriodProcessor.cs" />

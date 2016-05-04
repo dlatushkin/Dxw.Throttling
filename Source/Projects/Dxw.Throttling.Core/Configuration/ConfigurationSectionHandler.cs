@@ -4,28 +4,29 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Xml;
+    using System.Linq;
 
     using Rules;
     using Storage;
 
-    public class ThrottleConfiguration : IConfigurationSectionHandler
+    public class ConfigurationSectionHandler : IConfigurationSectionHandler
     {
         public object Create(object parent, object configContext, XmlNode section)
         {
-            var configuratedRules = new ConfiguratedRules();
+            var conf = new ThrottlingConfiguration();
 
             var storagesSection = section.SelectSingleNode("storages");
             if (storagesSection != null)
-                configuratedRules.Storages = CreateStorages(storagesSection, configuratedRules);
+                conf.Storages = CreateStorages(storagesSection, conf);
 
             var rulesSection = section.SelectSingleNode("rules");
             if (rulesSection != null)
-                configuratedRules.Rules = CreateRules(rulesSection, configuratedRules);
+                conf.Rules = CreateRules(rulesSection, conf);
 
-            return configuratedRules;
+            return conf;
         }
 
-        private IList<IStorage> CreateStorages(XmlNode section, IConfiguratedRules context)
+        private IList<IStorage> CreateStorages(XmlNode section, IConfiguration context)
         {
             var storages = new List<IStorage>();
 
@@ -43,7 +44,7 @@
             return storages;
         }
 
-        private IEnumerable<IRule> CreateRules(XmlNode section, IConfiguratedRules context)
+        private IEnumerable<IRule> CreateRules(XmlNode section, IConfiguration context)
         {
             var rules = new List<IRule>();
 

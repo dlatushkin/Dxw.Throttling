@@ -26,7 +26,7 @@
             return result.Result;
         }
 
-        public void Configure(XmlNode node, IConfiguratedRules context)
+        public void Configure(XmlNode node, IConfiguration context)
         {
             Name = node.Attributes["name"]?.Value;
 
@@ -35,7 +35,7 @@
             Processor = CreateProcessor(node, context);
         }
 
-        private IStorage CreateStorage(XmlNode node, IConfiguratedRules context)
+        private IStorage CreateStorage(XmlNode node, IConfiguration context)
         {
             var nStorage = node.SelectSingleNode("storage");
             var storageName = nStorage.Attributes["name"].Value;
@@ -43,7 +43,7 @@
             return storage;
         }
 
-        private IKeyer CreateKeyer(XmlNode node, IConfiguratedRules context)
+        private IKeyer CreateKeyer(XmlNode node, IConfiguration context)
         {
             var nKeyer = node.SelectSingleNode("keyer");
             var typeName = nKeyer.Attributes["type"].Value;
@@ -55,7 +55,7 @@
             return keyer;
         }
 
-        private IProcessor CreateProcessor(XmlNode node, IConfiguratedRules context)
+        private IProcessor CreateProcessor(XmlNode node, IConfiguration context)
         {
             var nProcessor = node.SelectSingleNode("processor");
             var typeName = nProcessor.Attributes["type"].Value;

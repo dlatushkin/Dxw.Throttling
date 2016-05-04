@@ -1,12 +1,12 @@
 ﻿namespace Dxw.Throttling.Core.Configuration
 {
-    using System;
+    using System.Linq;
     using System.Collections.Generic;
+
     using Rules;
     using Storage;
-    using System.Linq;
 
-    public class ConfiguratedRules : IConfiguratedRules
+    public class ThrottlingConfiguration : IConfiguration
     {
         private IEnumerable<IStorage> _storages;
         public IEnumerable<IStorage> Storages

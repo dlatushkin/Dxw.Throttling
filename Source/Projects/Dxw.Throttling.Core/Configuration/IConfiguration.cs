@@ -4,7 +4,7 @@
     using Rules;
     using Storage;
 
-    public interface IConfiguratedRules
+    public interface IConfiguration
     {
         IEnumerable<IStorage> Storages { get; }
         IEnumerable<IRule> Rules { get; }

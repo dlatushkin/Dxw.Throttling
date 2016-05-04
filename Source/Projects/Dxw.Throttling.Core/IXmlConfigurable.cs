@@ -5,6 +5,6 @@
 
     public interface IXmlConfigurable
     {
-        void Configure(XmlNode node, IConfiguratedRules context);
+        void Configure(XmlNode node, IConfiguration context);
     }
 }

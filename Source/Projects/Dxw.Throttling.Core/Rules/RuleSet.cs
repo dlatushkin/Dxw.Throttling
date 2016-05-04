@@ -20,7 +20,7 @@
             BlockResultsOnly = true;
         }
 
-        public void Configure(XmlNode node, IConfiguratedRules context)
+        public void Configure(XmlNode node, IConfiguration context)
         {
             var rules = new List<IRule>();
 
