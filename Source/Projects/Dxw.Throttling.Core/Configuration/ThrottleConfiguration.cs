@@ -1,12 +1,10 @@
 ﻿namespace Dxw.Throttling.Core.Configuration
 {
-    using Keyer;
-    using Expression;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Xml;
-    using System.Linq;
+
     using Rules;
     using Storage;
 
