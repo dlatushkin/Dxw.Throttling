@@ -1,6 +1,5 @@
-﻿namespace Dxw.Throttling.Core.EventProcessor
+﻿namespace Dxw.Throttling.Core.Processor
 {
-    using Keyer;
     using Rules;
     using Storage;
 
@@ -17,7 +16,7 @@
         public IApplyResult Result { get; set; }
     }
 
-    public interface IEventProcessor
+    public interface IProcessor
     {
         IProcessEventResult Process(object context = null, IStorageValue prevState = null, IRule rule = null);
     }

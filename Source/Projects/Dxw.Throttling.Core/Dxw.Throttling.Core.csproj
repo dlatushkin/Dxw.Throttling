@@ -67,9 +67,9 @@
     <Compile Include="Configuration\ThrottleConfiguration.cs" />
     <Compile Include="Exceptions\ThrottlingRuleException.cs" />
     <Compile Include="Exceptions\ThrottlingException.cs" />
-    <Compile Include="EventProcessor\RequestCountPerPeriodProcessor.cs" />
-    <Compile Include="EventProcessor\IEventProcessor.cs" />
-    <Compile Include="EventProcessor\ConstantEventProcessor.cs" />
+    <Compile Include="Processor\RequestCountPerPeriodProcessor.cs" />
+    <Compile Include="Processor\IProcessor.cs" />
+    <Compile Include="Processor\ConstantEventProcessor.cs" />
     <Compile Include="INamed.cs" />
     <Compile Include="Keyer\IRequestContext.cs" />
     <Compile Include="Keyer\IKeyer.cs" />

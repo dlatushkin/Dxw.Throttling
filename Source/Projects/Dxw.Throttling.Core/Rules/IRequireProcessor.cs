@@ -1,9 +1,9 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
-    using EventProcessor;
+    using Dxw.Throttling.Core.Processor;
 
     public interface IRequireProcessor
     {
-        IEventProcessor Processor { set; }
+        IProcessor Processor { set; }
     }
 }

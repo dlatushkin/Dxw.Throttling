@@ -6,7 +6,7 @@
 
     using Storage;
     using Keyer;
-    using EventProcessor;
+    using Processor;
     using Configuration;
 
     public class StorageKeyerProcessorRule : IRule, IRequireStorage, IRequireKeyer, IRequireProcessor, IXmlConfigurable, INamed
@@ -15,7 +15,7 @@
 
         public IKeyer Keyer { get; set; }
 
-        public IEventProcessor Processor { get; set; }
+        public IProcessor Processor { get; set; }
 
         public string Name { get; private set; }
 
@@ -55,12 +55,12 @@
             return keyer;
         }
 
-        private IEventProcessor CreateProcessor(XmlNode node, IConfiguratedRules context)
+        private IProcessor CreateProcessor(XmlNode node, IConfiguratedRules context)
         {
             var nProcessor = node.SelectSingleNode("processor");
             var typeName = nProcessor.Attributes["type"].Value;
             var type = Type.GetType(typeName);
-            var processor = (IEventProcessor)Activator.CreateInstance(type);
+            var processor = (IProcessor)Activator.CreateInstance(type);
             var configurable = processor as IXmlConfigurable;
             if (configurable != null)
                 configurable.Configure(nProcessor, context);

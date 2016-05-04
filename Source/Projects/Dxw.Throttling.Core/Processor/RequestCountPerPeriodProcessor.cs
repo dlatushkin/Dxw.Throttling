@@ -1,4 +1,4 @@
-﻿namespace Dxw.Throttling.Core.EventProcessor
+﻿namespace Dxw.Throttling.Core.Processor
 {
     using System;
     using Rules;
@@ -6,7 +6,7 @@
     using System.Xml;
     using Configuration;
 
-    public class RequestCountPerPeriodProcessor : IEventProcessor, IXmlConfigurable
+    public class RequestCountPerPeriodProcessor : IProcessor, IXmlConfigurable
     {
         private const int DFLT_COUNT = 1;
         private static readonly TimeSpan DFLT_PERIOD = TimeSpan.FromSeconds(1);

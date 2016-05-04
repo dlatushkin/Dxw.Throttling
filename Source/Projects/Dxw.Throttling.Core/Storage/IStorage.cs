@@ -1,7 +1,8 @@
 ﻿namespace Dxw.Throttling.Core.Storage
 {
     using System;
-    using EventProcessor;
+
+    using Processor;
     using Rules;
 
     public delegate object StorageUpsertFunc(object currentValue);

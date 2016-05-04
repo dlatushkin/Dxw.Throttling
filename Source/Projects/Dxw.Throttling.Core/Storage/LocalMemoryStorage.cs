@@ -5,8 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Xml;
-    using Dxw.Throttling.Core.EventProcessor;
-    using Dxw.Throttling.Core.Keyer;
+    using Dxw.Throttling.Core.Processor;
     using Rules;
     using Configuration;
 

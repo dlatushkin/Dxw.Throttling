@@ -1,13 +1,11 @@
-﻿namespace Dxw.Throttling.Core.EventProcessor
+﻿namespace Dxw.Throttling.Core.Processor
 {
-    using System;
     using System.Xml;
     using Configuration;
-    using Keyer;
     using Rules;
     using Storage;
 
-    public class ConstantEventProcessor : IEventProcessor, IXmlConfigurable
+    public class ConstantEventProcessor : IProcessor, IXmlConfigurable
     {
         public bool Ok { get; set; }
 

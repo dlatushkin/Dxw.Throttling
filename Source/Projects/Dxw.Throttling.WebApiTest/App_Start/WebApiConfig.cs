@@ -1,5 +1,5 @@
 ﻿using Dxw.Throttling.Core;
-using Dxw.Throttling.Core.EventProcessor;
+using Dxw.Throttling.Core.Processor;
 using Dxw.Throttling.Core.Keyer;
 using Dxw.Throttling.Core.Rules;
 using Dxw.Throttling.Core.Storage;
