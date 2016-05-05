@@ -61,14 +61,11 @@
     <Compile Include="Rules\IRequireProcessor.cs" />
     <Compile Include="Rules\IRequireKeyer.cs" />
     <Compile Include="Rules\IRequireStorage.cs" />
-    <Compile Include="Rules\IRuleNode.cs" />
     <Compile Include="IXmlConfigurable.cs" />
     <Compile Include="Rules\IRule.cs" />
     <Compile Include="Rules\RuleSet.cs" />
     <Compile Include="Rules\RuleOrNode.cs" />
     <Compile Include="Rules\RuleAndNode.cs" />
-    <Compile Include="Rules\RuleBase.cs" />
-    <Compile Include="Rules\RuleNode.cs" />
     <Compile Include="Rules\StorageKeyerProcessorRule.cs" />
     <Compile Include="Rules\TooLateTooEarlyRule.cs" />
     <Compile Include="Storages\IStorageValue.cs" />
