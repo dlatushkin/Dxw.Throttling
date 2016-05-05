@@ -1,4 +1,4 @@
-﻿namespace Dxw.Throttling.Core.Storage
+﻿namespace Dxw.Throttling.Core.Storages
 {
     using System;
 

@@ -1,8 +1,8 @@
-﻿namespace Dxw.Throttling.Core.Keyer
+﻿namespace Dxw.Throttling.OwinSelfHostedDemo
 {
-    using Microsoft.Owin;
     using System.Linq;
-    using System.Net.Http;
+    using Microsoft.Owin;
+    using Core.Keyers;
 
     public class ControllerNameKeyer : IKeyer
     {

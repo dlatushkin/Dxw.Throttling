@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using Rules;
-    using Storage;
+    using Storages;
 
     public interface IConfiguration
     {

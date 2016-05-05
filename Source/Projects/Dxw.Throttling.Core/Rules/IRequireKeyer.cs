@@ -1,6 +1,6 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
-    using Keyer;
+    using Keyers;
 
     public interface IRequireKeyer
     {

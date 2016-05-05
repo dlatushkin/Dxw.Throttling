@@ -1,11 +1,10 @@
 ﻿namespace Dxw.Throttling.OwinSelfHostedDemo
 {
-    using Core.Storage;
-    using Core.Keyer;
+    using Core.Storages;
     using Owin;
     using System;
     using System.Web.Http;
-    using Core.Processor;
+    using Core.Processors;
     using Core.Rules;
     using Asp;
 

@@ -4,10 +4,9 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Xml;
-    using System.Linq;
 
     using Rules;
-    using Storage;
+    using Storages;
 
     public class ConfigurationSectionHandler : IConfigurationSectionHandler
     {

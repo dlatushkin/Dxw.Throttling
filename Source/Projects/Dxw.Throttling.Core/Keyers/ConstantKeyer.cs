@@ -1,4 +1,4 @@
-﻿namespace Dxw.Throttling.Core.Keyer
+﻿namespace Dxw.Throttling.Core.Keyers
 {
     using System.Net.Http;
 

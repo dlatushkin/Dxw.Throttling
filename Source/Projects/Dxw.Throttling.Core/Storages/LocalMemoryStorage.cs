@@ -1,11 +1,11 @@
-﻿namespace Dxw.Throttling.Core.Storage
+﻿namespace Dxw.Throttling.Core.Storages
 {
     using System;
     using System.Collections.Concurrent;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Xml;
-    using Dxw.Throttling.Core.Processor;
+    using Processors;
     using Rules;
     using Configuration;
 

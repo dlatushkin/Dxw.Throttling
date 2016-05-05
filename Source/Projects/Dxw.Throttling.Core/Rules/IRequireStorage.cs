@@ -1,6 +1,6 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
-    using Storage;
+    using Storages;
 
     public interface IRequireStorage
     {

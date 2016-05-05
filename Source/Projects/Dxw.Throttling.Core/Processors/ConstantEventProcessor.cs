@@ -1,9 +1,9 @@
-﻿namespace Dxw.Throttling.Core.Processor
+﻿namespace Dxw.Throttling.Core.Processors
 {
     using System.Xml;
     using Configuration;
     using Rules;
-    using Storage;
+    using Storages;
 
     public class ConstantEventProcessor : IProcessor, IXmlConfigurable
     {

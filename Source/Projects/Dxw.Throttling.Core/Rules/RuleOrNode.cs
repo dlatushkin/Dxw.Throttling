@@ -2,8 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Dxw.Throttling.Core.Keyer;
-    using Dxw.Throttling.Core.Storage;
 
     public class RuleOrNode : RuleSet
     {

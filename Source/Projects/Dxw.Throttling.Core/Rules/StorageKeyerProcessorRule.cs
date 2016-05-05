@@ -4,9 +4,9 @@
     using System.Xml;
     using System.Linq;
 
-    using Storage;
-    using Keyer;
-    using Processor;
+    using Storages;
+    using Keyers;
+    using Processors;
     using Configuration;
 
     public class StorageKeyerProcessorRule : IRule, IRequireStorage, IRequireKeyer, IRequireProcessor, IXmlConfigurable, INamed

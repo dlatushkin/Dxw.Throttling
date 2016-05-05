@@ -1,7 +1,5 @@
-﻿namespace Dxw.Throttling.Core.Keyer
+﻿namespace Dxw.Throttling.Core.Keyers
 {
-    using System.Net.Http;
-
     public interface IKeyer
     {
         object GetKey(object context);

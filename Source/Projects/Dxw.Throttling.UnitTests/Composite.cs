@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Dxw.Throttling.Core.Storage;
-using Dxw.Throttling.Core.Keyer;
-using Dxw.Throttling.Core.Processor;
+using Dxw.Throttling.Core.Storages;
+using Dxw.Throttling.Core.Keyers;
+using Dxw.Throttling.Core.Processors;
 using Dxw.Throttling.Core.Rules;
 using System.Net.Http;
 using System.Linq;

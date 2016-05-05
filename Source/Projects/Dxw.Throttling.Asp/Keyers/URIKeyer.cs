@@ -4,7 +4,7 @@
 
     using Microsoft.Owin;
     
-    using Core.Keyer;
+    using Core.Keyers;
     using Core.Exceptions;
 
     public class URIKeyer : IKeyer

@@ -4,7 +4,7 @@
 
     using Microsoft.Owin;
 
-    using Core.Keyer;
+    using Core.Keyers;
 
     public class URIMethodKeyer : IKeyer
     {

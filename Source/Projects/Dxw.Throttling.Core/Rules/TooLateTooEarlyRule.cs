@@ -1,7 +1,5 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
-    using Storage;
-    using Keyer;
     using System;
 
     public class TooLateTooEarlyRule : IRule

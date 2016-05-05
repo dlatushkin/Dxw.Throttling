@@ -1,8 +1,7 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
     using System;
-    using Dxw.Throttling.Core.Keyer;
-    using Dxw.Throttling.Core.Storage;
+    using Dxw.Throttling.Core.Keyers;
 
     public class RuleBase : IRule
     {
