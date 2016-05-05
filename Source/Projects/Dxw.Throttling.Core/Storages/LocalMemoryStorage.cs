@@ -12,13 +12,13 @@
     public class LocalMemoryStorage : IStorage, IXmlConfigurable, INamed, IDisposable
     {
         private ConcurrentDictionary<object, IStorageValue> _store = new ConcurrentDictionary<object, IStorageValue>();
-        private CancellationTokenSource _cleanUpCancellationTokenSource;
+        private CancellationTokenSource _cleanupCancellationTokenSource;
         private Task _cleanupTask;
 
         public LocalMemoryStorage()
         {
-            _cleanUpCancellationTokenSource = new CancellationTokenSource();
-            _cleanupTask = Task.Factory.StartNew(CleanupRoutine, _cleanUpCancellationTokenSource.Token, TaskCreationOptions.LongRunning);
+            _cleanupCancellationTokenSource = new CancellationTokenSource();
+            _cleanupTask = Task.Factory.StartNew(CleanupRoutine, _cleanupCancellationTokenSource.Token, TaskCreationOptions.LongRunning);
         }
 
         public string Name { get; private set; }
@@ -46,10 +46,10 @@
 
         public void Dispose()
         {
-            _cleanUpCancellationTokenSource.Cancel();
+            _cleanupCancellationTokenSource.Cancel();
             _cleanupTask.Wait();
-            _cleanUpCancellationTokenSource.Dispose();
-            _cleanUpCancellationTokenSource = null;
+            _cleanupCancellationTokenSource.Dispose();
+            _cleanupCancellationTokenSource = null;
             _store.Clear();
             _store = null;
         }
