@@ -71,7 +71,6 @@
     <Compile Include="Processor\IProcessor.cs" />
     <Compile Include="Processor\ConstantEventProcessor.cs" />
     <Compile Include="INamed.cs" />
-    <Compile Include="Keyer\IRequestContext.cs" />
     <Compile Include="Keyer\IKeyer.cs" />
     <Compile Include="Keyer\ConstantKeyer.cs" />
     <Compile Include="Keyer\URIMethodKeyer.cs" />

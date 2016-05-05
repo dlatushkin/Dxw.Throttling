@@ -1,6 +1,5 @@
 ﻿namespace Dxw.Throttling.Core.Keyer
 {
-    using Exceptions;
     using Microsoft.Owin;
     using System.Net.Http;
 
