@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.OwinSelfHost
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.UnitTests", "Projects\Dxw.Throttling.UnitTests\Dxw.Throttling.UnitTests.csproj", "{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.Asp", "Projects\Dxw.Throttling.Asp\Dxw.Throttling.Asp.csproj", "{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

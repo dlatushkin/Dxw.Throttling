@@ -1,9 +1,10 @@
-﻿namespace Dxw.Throttling.Core
+﻿namespace Dxw.Throttling.Asp
 {
     using System.Threading.Tasks;
+
     using Microsoft.Owin;
-    using System.Net.Http;
-    using Rules;
+
+    using Core.Rules;
 
     public class ThrottlingMiddleware : OwinMiddleware
     {

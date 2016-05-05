@@ -1,12 +1,11 @@
-﻿using Dxw.Throttling.Core;
+﻿using System;
+using System.Web.Http;
+
 using Dxw.Throttling.Core.Processor;
 using Dxw.Throttling.Core.Keyer;
 using Dxw.Throttling.Core.Rules;
 using Dxw.Throttling.Core.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+using Dxw.Throttling.Asp;
 
 namespace Dxw.Throttling.WebApiTest
 {

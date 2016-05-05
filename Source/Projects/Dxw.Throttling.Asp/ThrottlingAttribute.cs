@@ -1,4 +1,4 @@
-﻿namespace Dxw.Throttling.Core
+﻿namespace Dxw.Throttling.Asp
 {
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;

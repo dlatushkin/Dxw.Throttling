@@ -7,6 +7,7 @@
     using System.Web.Http;
     using Core.Processor;
     using Core.Rules;
+    using Asp;
 
     public class Startup
     {
@@ -24,7 +25,7 @@
             var processor = new RequestCountPerPeriodProcessor() { Count = 1, Period = TimeSpan.FromSeconds(10) };
             var ruleBlock = new StorageKeyerProcessorRule { Storage = storage, Keyer = keyer, Processor = processor };
 
-            appBuilder.Use(typeof(Core.ThrottlingMiddleware), ruleBlock);
+            appBuilder.Use(typeof(ThrottlingMiddleware), ruleBlock);
 
             appBuilder.UseWebApi(config);
         }

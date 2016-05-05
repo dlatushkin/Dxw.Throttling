@@ -1,9 +1,10 @@
-﻿namespace Dxw.Throttling.Core
+﻿namespace Dxw.Throttling.Asp
 {
-    using Rules;
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
+
+    using Core.Rules;
 
     public class ThrottlingHandler: DelegatingHandler
     {

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{325802CC-DCFB-4D84-8EF8-50CB19351B1A}</ProjectGuid>
+    <ProjectGuid>{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dxw.Throttling.Core</RootNamespace>
-    <AssemblyName>Dxw.Throttling.Core</AssemblyName>
+    <RootNamespace>Dxw.Throttling.Asp</RootNamespace>
+    <AssemblyName>Dxw.Throttling.Asp</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    <Reference Include="Microsoft.Owin, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.2.0.2\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -43,15 +43,17 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -62,48 +64,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ThrottlingConfiguration.cs" />
-    <Compile Include="Configuration\IConfiguration.cs" />
-    <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
-    <Compile Include="Exceptions\ThrottlingRuleException.cs" />
-    <Compile Include="Exceptions\ThrottlingException.cs" />
-    <Compile Include="Processor\RequestCountPerPeriodProcessor.cs" />
-    <Compile Include="Processor\IProcessor.cs" />
-    <Compile Include="Processor\ConstantEventProcessor.cs" />
-    <Compile Include="INamed.cs" />
-    <Compile Include="Keyer\IRequestContext.cs" />
-    <Compile Include="Keyer\IKeyer.cs" />
-    <Compile Include="Keyer\ConstantKeyer.cs" />
-    <Compile Include="Keyer\URIMethodKeyer.cs" />
-    <Compile Include="Keyer\URIKeyer.cs" />
-    <Compile Include="Keyer\IPKeyer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Exceptions\ThrottlingConfigurationException.cs" />
-    <Compile Include="Rules\IApplyError.cs" />
-    <Compile Include="Rules\IApplyResultSet.cs" />
-    <Compile Include="Rules\IApplyResult.cs" />
-    <Compile Include="Rules\IRequireProcessor.cs" />
-    <Compile Include="Rules\IRequireKeyer.cs" />
-    <Compile Include="Rules\IRequireStorage.cs" />
-    <Compile Include="Rules\IRuleNode.cs" />
-    <Compile Include="IXmlConfigurable.cs" />
-    <Compile Include="Rules\IRule.cs" />
-    <Compile Include="Rules\RuleSet.cs" />
-    <Compile Include="Rules\RuleOrNode.cs" />
-    <Compile Include="Rules\RuleAndNode.cs" />
-    <Compile Include="Rules\RuleBase.cs" />
-    <Compile Include="Rules\RuleNode.cs" />
-    <Compile Include="Rules\StorageKeyerProcessorRule.cs" />
-    <Compile Include="Rules\TooLateTooEarlyRule.cs" />
-    <Compile Include="Storage\IStorageValue.cs" />
-    <Compile Include="Storage\IStorage.cs" />
-    <Compile Include="Storage\LocalMemoryStorage.cs" />
+    <Compile Include="ThrottlingAttribute.cs" />
+    <Compile Include="ThrottlingFilter.cs" />
+    <Compile Include="ThrottlingHandler.cs" />
+    <Compile Include="ThrottlingMiddleware.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Dxw.Throttling.Core.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj">
+      <Project>{325802cc-dcfb-4d84-8ef8-50cb19351b1a}</Project>
+      <Name>Dxw.Throttling.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
