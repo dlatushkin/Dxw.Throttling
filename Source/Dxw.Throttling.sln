@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{CA0F78
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.OwinSelfHostedDemo", "Projects\Dxw.Throttling.OwinSelfHostedDemo\Dxw.Throttling.OwinSelfHostedDemo.csproj", "{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.UnitTests", "Dxw.Throttling.UnitTests\Dxw.Throttling.UnitTests.csproj", "{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.UnitTests", "Projects\Dxw.Throttling.UnitTests\Dxw.Throttling.UnitTests.csproj", "{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

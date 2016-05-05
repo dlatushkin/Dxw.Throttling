@@ -64,7 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Projects\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj">
+    <ProjectReference Include="..\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj">
       <Project>{325802cc-dcfb-4d84-8ef8-50cb19351b1a}</Project>
       <Name>Dxw.Throttling.Core</Name>
     </ProjectReference>
