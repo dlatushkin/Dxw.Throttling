@@ -1,10 +1,12 @@
-﻿namespace Dxw.Throttling.Core.Keyer
+﻿namespace Dxw.Throttling.Asp.Keyers
 {
-    using Exceptions;
-    using Microsoft.Owin;
     using System.Net.Http;
 
-    public class URIKeyer : IKeyer
+    using Microsoft.Owin;
+
+    using Core.Keyer;
+
+    public class URIMethodKeyer : IKeyer
     {
         public object GetKey(object context)
         {
@@ -16,7 +18,7 @@
             if (request != null)
                 return request.RequestUri;
 
-            throw new ThrottlingRuleException("Nor OwinRequest neither HttpRequestMessage are set in context argument");
+            return new { request.RequestUri, request.Method };
         }
     }
 }

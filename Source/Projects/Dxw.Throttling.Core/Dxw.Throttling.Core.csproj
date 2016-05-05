@@ -73,9 +73,6 @@
     <Compile Include="INamed.cs" />
     <Compile Include="Keyer\IKeyer.cs" />
     <Compile Include="Keyer\ConstantKeyer.cs" />
-    <Compile Include="Keyer\URIMethodKeyer.cs" />
-    <Compile Include="Keyer\URIKeyer.cs" />
-    <Compile Include="Keyer\IPKeyer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Exceptions\ThrottlingConfigurationException.cs" />
     <Compile Include="Rules\IApplyError.cs" />
