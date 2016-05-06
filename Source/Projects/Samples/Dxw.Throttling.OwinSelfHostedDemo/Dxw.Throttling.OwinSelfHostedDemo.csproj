@@ -87,11 +87,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dxw.Throttling.Asp\Dxw.Throttling.Asp.csproj">
+    <ProjectReference Include="..\..\Dxw.Throttling.Asp\Dxw.Throttling.Asp.csproj">
       <Project>{cf22dbeb-d8e7-4f2c-b7e2-d406d3ba5cf6}</Project>
       <Name>Dxw.Throttling.Asp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj">
+    <ProjectReference Include="..\..\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj">
       <Project>{325802cc-dcfb-4d84-8ef8-50cb19351b1a}</Project>
       <Name>Dxw.Throttling.Core</Name>
     </ProjectReference>
