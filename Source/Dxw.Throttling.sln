@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.Core", "Projects\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj", "{325802CC-DCFB-4D84-8EF8-50CB19351B1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.WebApiTest", "Projects\Dxw.Throttling.WebApiTest\Dxw.Throttling.WebApiTest.csproj", "{E6589819-39E2-43B5-87B6-1CB43B632A2F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{CA0F781B-04BC-4681-9AE4-33BE69A0177C}"
 	ProjectSection(SolutionItems) = preProject
 		..\LICENSE = ..\LICENSE
@@ -32,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.UnitTests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.ConsoleTest", "Projects\Tests\Dxw.Throttling.ConsoleTest\Dxw.Throttling.ConsoleTest.csproj", "{1FE08F5A-5942-4396-A729-3B0847789B9D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{20791FC8-5CEB-4566-A48E-4EDDFF43DA5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.WebApiTest", "Projects\Samples\Dxw.Throttling.WebApiTest\Dxw.Throttling.WebApiTest.csproj", "{E6589819-39E2-43B5-87B6-1CB43B632A2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,10 +44,6 @@ Global
 		{325802CC-DCFB-4D84-8EF8-50CB19351B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{325802CC-DCFB-4D84-8EF8-50CB19351B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{325802CC-DCFB-4D84-8EF8-50CB19351B1A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6589819-39E2-43B5-87B6-1CB43B632A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6589819-39E2-43B5-87B6-1CB43B632A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6589819-39E2-43B5-87B6-1CB43B632A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6589819-39E2-43B5-87B6-1CB43B632A2F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -62,6 +60,10 @@ Global
 		{1FE08F5A-5942-4396-A729-3B0847789B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FE08F5A-5942-4396-A729-3B0847789B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FE08F5A-5942-4396-A729-3B0847789B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6589819-39E2-43B5-87B6-1CB43B632A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6589819-39E2-43B5-87B6-1CB43B632A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6589819-39E2-43B5-87B6-1CB43B632A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6589819-39E2-43B5-87B6-1CB43B632A2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,5 +71,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF} = {76416CD3-A544-41D8-89B4-1DC15F826665}
 		{1FE08F5A-5942-4396-A729-3B0847789B9D} = {76416CD3-A544-41D8-89B4-1DC15F826665}
+		{E6589819-39E2-43B5-87B6-1CB43B632A2F} = {20791FC8-5CEB-4566-A48E-4EDDFF43DA5B}
 	EndGlobalSection
 EndGlobal
