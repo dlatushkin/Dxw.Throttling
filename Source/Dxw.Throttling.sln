@@ -17,9 +17,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{CA0F78
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.OwinSelfHostedDemo", "Projects\Dxw.Throttling.OwinSelfHostedDemo\Dxw.Throttling.OwinSelfHostedDemo.csproj", "{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.UnitTests", "Projects\Dxw.Throttling.UnitTests\Dxw.Throttling.UnitTests.csproj", "{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.Asp", "Projects\Dxw.Throttling.Asp\Dxw.Throttling.Asp.csproj", "{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elements", "Elements", "{FF9422BD-14EA-44FF-9378-29EF62A594D8}"
+	ProjectSection(SolutionItems) = preProject
+		Elements\throttling.png = Elements\throttling.png
+		Elements\throttling_16x16.ico = Elements\throttling_16x16.ico
+		Elements\throttling_24x24.ico = Elements\throttling_24x24.ico
+		Elements\throttling_32x32.ico = Elements\throttling_32x32.ico
+		Elements\throttling_64x64.ico = Elements\throttling_64x64.ico
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{76416CD3-A544-41D8-89B4-1DC15F826665}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.UnitTests", "Projects\Tests\Dxw.Throttling.UnitTests\Dxw.Throttling.UnitTests.csproj", "{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,16 +54,19 @@ Global
 		{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8C8E620C-1B63-494F-B573-F4ED54FBD6BF} = {76416CD3-A544-41D8-89B4-1DC15F826665}
 	EndGlobalSection
 EndGlobal
