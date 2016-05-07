@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dxw.Throttling.Redis.Storages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,11 @@ namespace Dxw.Throttling.ConsoleTest
         {
             //var config = System.Configuration.ConfigurationManager.GetSection("Throttling");
 
-            var config1 = System.Configuration.ConfigurationManager.GetSection("throttling");
+            //var config1 = System.Configuration.ConfigurationManager.GetSection("throttling");
 
             //var configSection = System.Configuration.ConfigurationManager.GetSection("ThrottlingSection");
+
+            var storage = new RedisStorage();
 
             Console.WriteLine("done"); Console.ReadKey();
         }

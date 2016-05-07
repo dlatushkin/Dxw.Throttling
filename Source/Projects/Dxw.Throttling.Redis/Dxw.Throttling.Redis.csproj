@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1FE08F5A-5942-4396-A729-3B0847789B9D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{72ADBB59-3DA0-49FA-BD21-6D919555FB13}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dxw.Throttling.ConsoleTest</RootNamespace>
-    <AssemblyName>Dxw.Throttling.ConsoleTest</AssemblyName>
+    <RootNamespace>Dxw.Throttling.Redis</RootNamespace>
+    <AssemblyName>Dxw.Throttling.Redis</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,8 +30,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ServiceStack.Common, Version=4.0.56.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Common.4.0.56\lib\net40\ServiceStack.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Interfaces.4.0.56\lib\portable-wp80+sl5+net40+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.0.56.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Text.4.0.56\lib\net40\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.0.316.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StackExchange.Redis.1.0.488\lib\net45\StackExchange.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,23 +56,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storages\RedisStorage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj">
+    <ProjectReference Include="..\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj">
       <Project>{325802cc-dcfb-4d84-8ef8-50cb19351b1a}</Project>
       <Name>Dxw.Throttling.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Dxw.Throttling.Redis\Dxw.Throttling.Redis.csproj">
-      <Project>{72adbb59-3da0-49fa-bd21-6d919555fb13}</Project>
-      <Name>Dxw.Throttling.Redis</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

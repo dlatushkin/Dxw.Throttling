@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.WebApiTest",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.OwinSelfHostedDemo", "Projects\Samples\Dxw.Throttling.OwinSelfHostedDemo\Dxw.Throttling.OwinSelfHostedDemo.csproj", "{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.Redis", "Projects\Dxw.Throttling.Redis\Dxw.Throttling.Redis.csproj", "{72ADBB59-3DA0-49FA-BD21-6D919555FB13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72ADBB59-3DA0-49FA-BD21-6D919555FB13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72ADBB59-3DA0-49FA-BD21-6D919555FB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72ADBB59-3DA0-49FA-BD21-6D919555FB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72ADBB59-3DA0-49FA-BD21-6D919555FB13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
