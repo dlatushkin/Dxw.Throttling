@@ -13,13 +13,14 @@
             var connectionMultiplexer = ConnectionMultiplexer.Connect("localhost");
             var db = connectionMultiplexer.GetDatabase();
             
+
         }
 
         public string Name { get; set; }
 
         public string ConnectionString { get; set; }
 
-        public IProcessEventResult Upsert(object key, object context, IRule rule, Func<object, IStorageValue, IRule, IProcessEventResult> upsertFunc)
+        public IProcessEventResult Upsert(object key, object context, IRule rule, Func<object, IStorage, IStorageValue, IRule, IProcessEventResult> upsertFunc)
         {
             throw new NotImplementedException();
         }

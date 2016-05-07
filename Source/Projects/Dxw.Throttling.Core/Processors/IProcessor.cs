@@ -18,6 +18,6 @@
 
     public interface IProcessor
     {
-        IProcessEventResult Process(object context = null, IStorageValue prevState = null, IRule rule = null);
+        IProcessEventResult Process(object context = null, IStorage storage = null, IStorageValue prevState = null, IRule rule = null);
     }
 }

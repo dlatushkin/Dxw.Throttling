@@ -39,7 +39,7 @@
             Period = DFLT_PERIOD;
         }
 
-        public IProcessEventResult Process(object context = null, IStorageValue prevState = null, IRule rule = null)
+        public IProcessEventResult Process(object context = null, IStorage storage = null, IStorageValue prevState = null, IRule rule = null)
         {
             var utcNow = DateTime.UtcNow;
 
