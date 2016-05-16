@@ -87,13 +87,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Dxw.Throttling.Asp\Dxw.Throttling.Asp.csproj">
-      <Project>{cf22dbeb-d8e7-4f2c-b7e2-d406d3ba5cf6}</Project>
-      <Name>Dxw.Throttling.Asp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj">
       <Project>{325802cc-dcfb-4d84-8ef8-50cb19351b1a}</Project>
       <Name>Dxw.Throttling.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dxw.Throttling.Owin\Dxw.Throttling.Owin.csproj">
+      <Project>{f78ee0cc-bdc2-4dff-90f6-7dcd2bda2725}</Project>
+      <Name>Dxw.Throttling.Owin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
