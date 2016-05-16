@@ -1,0 +1,1 @@
+nuget pack Dxw.Throttling.Owin.csproj -Prop Configuration=Release -IncludeReferencedProjects

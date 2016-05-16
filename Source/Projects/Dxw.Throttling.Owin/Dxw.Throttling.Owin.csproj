@@ -52,6 +52,7 @@
     <Compile Include="ThrottlingMiddleware.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Dxw.Throttling.Owin.nuget_pack.bat" />
     <None Include="Dxw.Throttling.Owin.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

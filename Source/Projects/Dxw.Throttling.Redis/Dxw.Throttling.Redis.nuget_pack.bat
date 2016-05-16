@@ -1,0 +1,1 @@
+nuget pack Dxw.Throttling.Redis.csproj -Prop Configuration=Release -IncludeReferencedProjects

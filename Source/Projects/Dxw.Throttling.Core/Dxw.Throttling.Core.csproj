@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Dxw.Throttling.Core.nuget_pack.bat" />
     <None Include="Dxw.Throttling.Core.nuspec" />
   </ItemGroup>
   <ItemGroup>

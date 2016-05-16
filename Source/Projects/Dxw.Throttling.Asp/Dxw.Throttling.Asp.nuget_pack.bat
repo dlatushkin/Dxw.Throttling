@@ -1,0 +1,1 @@
+nuget pack Dxw.Throttling.Asp.csproj -Prop Configuration=Release -IncludeReferencedProjects

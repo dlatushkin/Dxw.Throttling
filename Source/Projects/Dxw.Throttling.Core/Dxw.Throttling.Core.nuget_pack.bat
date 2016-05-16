@@ -1,0 +1,1 @@
+nuget pack Dxw.Throttling.Core.csproj -Prop Configuration=Release
