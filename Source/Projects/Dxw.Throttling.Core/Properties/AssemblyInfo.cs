@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Dxw.Throttling.Core")]
-[assembly: AssemblyDescription("Throttling functionality for WebAPI")]
+[assembly: AssemblyDescription("General purpose throttling functionality")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Denis Latushkin")]
 [assembly: AssemblyProduct("Dxw.Throttling.Core")]

@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Dxw.Throttling.Redis.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
