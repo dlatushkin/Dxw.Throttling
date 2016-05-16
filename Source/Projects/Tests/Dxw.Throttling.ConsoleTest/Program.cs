@@ -19,16 +19,16 @@ namespace Dxw.Throttling.ConsoleTest
 
             //var config1 = System.Configuration.ConfigurationManager.GetSection("throttling");
 
-            //var configSection = System.Configuration.ConfigurationManager.GetSection("ThrottlingSection");
+            var configSection = System.Configuration.ConfigurationManager.GetSection("throttling");
 
-            var storage = new RedisStorage();
+            //var storage = new RedisStorage();
 
-            storage.Upsert("1", null, null, 
-                (context, storage1, oldValue, rule) => new ProcessEventResult
-                                                            {
-                                                                NewState = new SimpleStorageValue { Value = "2" },
-                                                                Result = ApplyResult.Ok()
-                                                            });
+            //storage.Upsert("1", null, null, 
+            //    (context, storage1, oldValue, rule) => new ProcessEventResult
+            //                                                {
+            //                                                    NewState = new SimpleStorageValue { Value = "2" },
+            //                                                    Result = ApplyResult.Ok()
+            //                                                });
 
             Console.WriteLine("done"); Console.ReadKey();
         }
