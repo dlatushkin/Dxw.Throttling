@@ -73,6 +73,7 @@
     <Compile Include="ThrottlingHandler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Dxw.Throttling.Asp.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
