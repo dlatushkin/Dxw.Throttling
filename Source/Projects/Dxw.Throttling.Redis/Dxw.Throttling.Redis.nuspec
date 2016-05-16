@@ -8,7 +8,7 @@
     <owners>$author$</owners>
       <licenseUrl>https://github.com/dlatushkin/Dxw.Throttling/blob/master/LICENSE</licenseUrl>
       <projectUrl>https://github.com/dlatushkin/Dxw.Throttling</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Pre-release.</releaseNotes>

@@ -2,17 +2,15 @@
 {
     using System.Net.Http;
 
-    using Microsoft.Owin;
-
     using Core.Keyers;
 
     public class URIMethodKeyer : IKeyer
     {
         public object GetKey(object context)
         {
-            var owinContext = context as OwinRequest;
-            if (owinContext != null)
-                return owinContext.Uri;
+            //var owinContext = context as OwinRequest;
+            //if (owinContext != null)
+            //    return owinContext.Uri;
 
             var request = context as HttpRequestMessage;
             if (request != null)
