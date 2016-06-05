@@ -9,7 +9,7 @@
     using Rules;
     using Configuration;
 
-    public class LocalMemoryStorage : IStorage, IXmlConfigurable, INamed, IDisposable
+    public class LocalMemoryStorage : IStorage, IXmlConfigurable, INamed, IPurgable, IDisposable
     {
         private ConcurrentDictionary<object, IStorageValue> _store = new ConcurrentDictionary<object, IStorageValue>();
         private CancellationTokenSource _cleanupCancellationTokenSource;
@@ -83,6 +83,11 @@
         public void Configure(XmlNode node, IConfiguration context)
         {
             Name = node.Attributes["name"].Value;
+        }
+
+        public void Purge()
+        {
+            _store.Clear();
         }
     }
 }

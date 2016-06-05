@@ -71,6 +71,7 @@
     <Compile Include="Rules\RuleAndNode.cs" />
     <Compile Include="Rules\StorageKeyerProcessorRule.cs" />
     <Compile Include="Rules\TooLateTooEarlyRule.cs" />
+    <Compile Include="IPurgable.cs" />
     <Compile Include="Storages\IStorageValue.cs" />
     <Compile Include="Storages\IStorage.cs" />
     <Compile Include="Storages\LocalMemoryStorage.cs" />

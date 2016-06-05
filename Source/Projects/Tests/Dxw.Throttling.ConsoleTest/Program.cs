@@ -8,6 +8,7 @@ using Dxw.Throttling.Core.Processors;
 using Dxw.Throttling.Core.Rules;
 using Dxw.Throttling.Core.Storages;
 using Dxw.Throttling.Redis.Storages;
+using Dxw.Throttling.Core.Configuration;
 
 namespace Dxw.Throttling.ConsoleTest
 {
@@ -19,7 +20,7 @@ namespace Dxw.Throttling.ConsoleTest
 
             //var config1 = System.Configuration.ConfigurationManager.GetSection("throttling");
 
-            var configSection = System.Configuration.ConfigurationManager.GetSection("throttling");
+            var configSection = System.Configuration.ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration;
 
             //var storage = new RedisStorage();
 
