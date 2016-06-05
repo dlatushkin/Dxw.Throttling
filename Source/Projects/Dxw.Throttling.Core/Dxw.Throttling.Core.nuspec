@@ -8,7 +8,7 @@
     <owners>$author$</owners>
     <licenseUrl>https://github.com/dlatushkin/Dxw.Throttling/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/dlatushkin/Dxw.Throttling</projectUrl>
-    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <iconUrl>https://github.com/dlatushkin/Dxw.Throttling/blob/master/Source/Elements/throttling.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Pre-release.</releaseNotes>
@@ -16,7 +16,7 @@
     <tags>Throttling</tags>
   </metadata>
   <files>
-    <file src="\bin\Debug\Dxw.Throttling.Core.dll" target="lib\net46\Dxw.Throttling.Core.dll" />
+    <!--<file src="\bin\Debug\Dxw.Throttling.Core.dll" target="lib\net46\Dxw.Throttling.Core.dll" />-->
     <file src="\bin\Debug\Dxw.Throttling.Core.pdb" target="lib\net46\Dxw.Throttling.Core.pdb" />
   </files>
 </package>
