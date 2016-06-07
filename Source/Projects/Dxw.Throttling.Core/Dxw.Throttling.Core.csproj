@@ -50,6 +50,7 @@
     <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
     <Compile Include="Exceptions\ThrottlingRuleException.cs" />
     <Compile Include="Exceptions\ThrottlingException.cs" />
+    <Compile Include="Policy.cs" />
     <Compile Include="Processors\RequestCountPerPeriodProcessor.cs" />
     <Compile Include="Processors\IProcessor.cs" />
     <Compile Include="Processors\ConstantEventProcessor.cs" />
