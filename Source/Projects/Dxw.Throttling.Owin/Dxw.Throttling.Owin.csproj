@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Keyers\IPKeyer.cs" />
+    <Compile Include="Keyers\URIKeyer.cs" />
+    <Compile Include="Keyers\URIMethodKeyer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThrottlingMiddleware.cs" />
   </ItemGroup>

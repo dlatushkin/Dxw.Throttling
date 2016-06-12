@@ -26,7 +26,6 @@
             var errorMsg = applyResult.Reason.Message;
 
             var response = request.CreateResponse((System.Net.HttpStatusCode)429, errorMsg);
-            //response.Headers.Add("Retry-After", new string[] { retryAfter });
             return Task.FromResult(response);
         }
     }
