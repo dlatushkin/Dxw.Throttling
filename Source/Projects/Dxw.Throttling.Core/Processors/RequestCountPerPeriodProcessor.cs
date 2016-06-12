@@ -14,13 +14,13 @@
         private const int DFLT_COUNT = 1;
         private static readonly TimeSpan DFLT_PERIOD = TimeSpan.FromSeconds(1);
 
-        private class SlotData
+        protected class SlotData
         {
             public int Hits;
             public DateTime ExpiresAt;
         }
 
-        private class StorageValue: IStorageValue
+        protected class StorageValue: IStorageValue
         {
             public SlotData SlotData;
 
@@ -42,7 +42,7 @@
             Period = DFLT_PERIOD;
         }
 
-        public IProcessEventResult Process(object key, object context = null, object storeEndpoint = null, IRule rule = null)
+        public virtual IProcessEventResult Process(object key, object context = null, object storeEndpoint = null, IRule rule = null)
         {
             var dict = storeEndpoint as ConcurrentDictionary<object, IStorageValue>;
 

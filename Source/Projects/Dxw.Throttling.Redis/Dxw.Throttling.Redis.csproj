@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storages\RedisStorage.cs" />
+    <Compile Include="Processors\RequestCountPerPeriodProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj">

@@ -3,13 +3,17 @@
     using System;
     using System.IO;
 
+    using System.Runtime.Serialization.Formatters.Binary;
+    using System.Xml;
+    using Core;
     using Core.Processors;
     using Core.Rules;
     using Core.Storages;
+    using Core.Configuration;
     using StackExchange.Redis;
-    using System.Runtime.Serialization.Formatters.Binary;
+    using System.Runtime.CompilerServices;
 
-    public class RedisStorage : IStorage
+    public class RedisStorage : IStorage, IXmlConfigurable
     {
         private IDatabase _db;
 
@@ -19,6 +23,8 @@
 
         public string ConnectionString { get; set; }
 
+
+        
         //public IProcessEventResult Upsert(object key, object context, IRule rule, Func<object, IStorage, IStorageValue, IRule, IProcessEventResult> upsertFunc)
         //{
         //    EnsureConnected();
@@ -39,6 +45,7 @@
 
         public object GetStorePoint()
         {
+            EnsureConnected();
             return _db;
         }
 
@@ -66,6 +73,7 @@
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnsureConnected()
         {
             if (_db == null)
@@ -76,8 +84,14 @@
 
         private void Connect()
         {
-            var connectionMultiplexer = ConnectionMultiplexer.Connect("localhost");
+            var connectionMultiplexer = ConnectionMultiplexer.Connect(ConnectionString);
             _db = connectionMultiplexer.GetDatabase();
+        }
+
+        public void Configure(XmlNode node, IConfiguration context)
+        {
+            Name = node.Attributes["name"].Value;
+            ConnectionString = node.Attributes["connectionString"].Value;
         }
     }
 }

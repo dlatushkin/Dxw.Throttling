@@ -25,7 +25,7 @@
         {
             var key = Keyer.GetKey(context);
 
-            var result = Processor.Process(key, Storage.GetStorePoint(), context, this);
+            var result = Processor.Process(key, context, Storage.GetStorePoint(), this);
 
             return result.Result;
         }
