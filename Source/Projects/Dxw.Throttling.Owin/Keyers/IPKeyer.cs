@@ -1,8 +1,9 @@
 ﻿namespace Dxw.Throttling.Owin.Keyers
 {
-    using Core.Keyers;
     using Microsoft.Owin;
-    using System.Net.Http;
+
+    using Core.Keyers;
+    using Core.Exceptions;
 
     public class IPKeyer : IKeyer
     {
@@ -11,13 +12,15 @@
 
         public object GetKey(object context)
         {
-            object ip = null;
-
             var owinContext = context as IOwinContext;
-            if (owinContext != null)
-                ip = owinContext.Request.RemoteIpAddress;
+            if (owinContext == null)
+                throw new ThrottlingRuleException("Context should be an instance of IOwinContext.");
 
-            return ip;
+            var owinRequest = owinContext.Request;
+            if (owinRequest == null)
+                throw new ThrottlingRuleException("Context should contain an instance of IOwinRequest.");
+
+            return owinRequest.RemoteIpAddress;
         }
     }
 }

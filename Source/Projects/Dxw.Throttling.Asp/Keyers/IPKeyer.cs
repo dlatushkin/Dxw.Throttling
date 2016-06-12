@@ -1,7 +1,8 @@
 ﻿namespace Dxw.Throttling.Asp.Keyers
 {
-    using Core.Keyers;
     using System.Net.Http;
+
+    using Core.Keyers;
 
     public class IPKeyer : IKeyer
     {

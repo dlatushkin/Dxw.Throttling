@@ -8,10 +8,6 @@
     {
         public object GetKey(object context)
         {
-            //var owinContext = context as OwinRequest;
-            //if (owinContext != null)
-            //    return owinContext.Uri;
-
             var request = context as HttpRequestMessage;
             if (request != null)
                 return request.RequestUri;
