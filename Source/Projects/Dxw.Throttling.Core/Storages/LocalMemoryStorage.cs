@@ -23,26 +23,31 @@
 
         public string Name { get; private set; }
 
-        public IProcessEventResult Upsert(object key, object context, IRule rule, Func<object, IStorage, IStorageValue, IRule, IProcessEventResult> upsertFunc)
+        public object GetStorePoint()
         {
-            IProcessEventResult result = null;
-
-            Func<object, IStorageValue> addValueFactory = k =>
-            {
-                result = upsertFunc(context, this, null, rule);
-                return result.NewState;
-            };
-
-            Func<object, IStorageValue, IStorageValue> updateValueFactory = (k, v) =>
-            {
-                result = upsertFunc(context, this, v, rule);
-                return result.NewState;
-            };
-
-            var val = _store.AddOrUpdate(key, addValueFactory, updateValueFactory);
-
-            return result;
+            return _store;
         }
+
+        //public IProcessEventResult Upsert(object key, object context, IRule rule, Func<object, IStorage, IStorageValue, IRule, IProcessEventResult> upsertFunc)
+        //{
+        //    IProcessEventResult result = null;
+
+        //    Func<object, IStorageValue> addValueFactory = k =>
+        //    {
+        //        result = upsertFunc(context, this, null, rule);
+        //        return result.NewState;
+        //    };
+
+        //    Func<object, IStorageValue, IStorageValue> updateValueFactory = (k, v) =>
+        //    {
+        //        result = upsertFunc(context, this, v, rule);
+        //        return result.NewState;
+        //    };
+
+        //    var val = _store.AddOrUpdate(key, addValueFactory, updateValueFactory);
+
+        //    return result;
+        //}
 
         public void Dispose()
         {

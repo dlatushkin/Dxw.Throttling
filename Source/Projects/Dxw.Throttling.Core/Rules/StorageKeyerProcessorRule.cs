@@ -1,13 +1,15 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
     using System;
-    using System.Xml;
+    using System.Collections.Concurrent;
     using System.Linq;
+    using System.Xml;
 
     using Storages;
     using Keyers;
     using Processors;
     using Configuration;
+    using Exceptions;
 
     public class StorageKeyerProcessorRule : IRule, IRequireStorage, IRequireKeyer, IRequireProcessor, IXmlConfigurable, INamed
     {
@@ -22,8 +24,20 @@
         public IApplyResult Apply(object context = null)
         {
             var key = Keyer.GetKey(context);
-            var result = Storage.Upsert(key, context, this, Processor.Process);
+
+            var result = Processor.Process(key, Storage.GetStorePoint(), context, this);
+
             return result.Result;
+        }
+
+        private IStorageValue AddValue(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private IStorageValue UpdateValue(object obj, IStorageValue curValue)
+        {
+            throw new NotImplementedException();
         }
 
         public void Configure(XmlNode node, IConfiguration context)

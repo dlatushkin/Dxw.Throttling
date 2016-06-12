@@ -5,6 +5,9 @@
     using Storages;
     using System.Xml;
     using Configuration;
+    using System.Collections.Concurrent;
+    using Exceptions;
+    using System.Runtime.CompilerServices;
 
     public class RequestCountPerPeriodProcessor : IProcessor, IXmlConfigurable
     {
@@ -39,40 +42,39 @@
             Period = DFLT_PERIOD;
         }
 
-        public IProcessEventResult Process(object context = null, IStorage storage = null, IStorageValue prevState = null, IRule rule = null)
+        public IProcessEventResult Process(object key, object context = null, object storeEndpoint = null, IRule rule = null)
+        {
+            var dict = storeEndpoint as ConcurrentDictionary<object, IStorageValue>;
+
+            if (dict == null)
+                throw new ThrottlingException(
+                    "Storage must return valid " + typeof(ConcurrentDictionary<object, IStorageValue>).Name + " store point.");
+
+            var newVal = dict.AddOrUpdate(key, AddFunc, UpdateFunc);
+            var newData = newVal.Value as SlotData;
+
+            if (newData.Hits > Count)
+                return new ProcessEventResult { NewState = newVal, Result = ApplyResult.Error(rule, "The query limit is exceeded") };
+            else
+                return new ProcessEventResult { NewState = newVal, Result = ApplyResult.Ok(rule) };
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private IStorageValue AddFunc(object context)
         {
             var utcNow = DateTime.UtcNow;
+            var newVal = new StorageValue { SlotData = new SlotData { Hits = 1, ExpiresAt = utcNow.Add(Period) } };
+            return newVal;
+        }
 
-            ProcessEventResult result;
-            
-            StorageValue storageValue = prevState as StorageValue;
-            if (storageValue == null || storageValue.SlotData.ExpiresAt < utcNow)
-            {
-                storageValue = new StorageValue { SlotData = new SlotData { Hits = 1, ExpiresAt = utcNow.Add(Period) } };
-            }
-            else
-            {
-                storageValue.SlotData.Hits++;
-            }
-
-            if (storageValue.SlotData.Hits > Count)
-            {
-                result = new ProcessEventResult
-                {
-                    NewState = storageValue,
-                    Result = ApplyResult.Error(rule, "The query limit exceeded.")
-                };
-            }
-            else
-            {
-                result = new ProcessEventResult
-                {
-                    NewState = storageValue,
-                    Result = ApplyResult.Ok()
-                };
-            }
-            
-            return result;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private IStorageValue UpdateFunc(object context, IStorageValue curValue)
+        {
+            var utcNow = DateTime.UtcNow;
+            var data = curValue.Value as SlotData;
+            data.Hits++;
+            data.ExpiresAt = utcNow.Add(Period);
+            return curValue;
         }
 
         public void Configure(XmlNode node, IConfiguration context)
