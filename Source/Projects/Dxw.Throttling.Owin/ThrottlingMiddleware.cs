@@ -5,14 +5,37 @@
     using Microsoft.Owin;
 
     using Core.Rules;
+    using Core.Configuration;
+    using Core.Exceptions;
 
     public class ThrottlingMiddleware : OwinMiddleware
     {
+        private readonly string DFLT_CONFIG_SECTION_NAME = "throttling";
+
         private IRule _rule;
 
-        public ThrottlingMiddleware(OwinMiddleware next, IRule rule = null) : base(next)
+        private readonly string _configSectionName;
+
+        public ThrottlingMiddleware(OwinMiddleware next, IRule rule = null, string configSectionName = null) : base(next)
         {
-            _rule = rule;
+            if (rule != null)
+            {
+                _rule = rule;
+                return;
+            }
+
+            _configSectionName = configSectionName ?? DFLT_CONFIG_SECTION_NAME;
+
+            var throttlingConfigSection = 
+                System.Configuration.ConfigurationManager.GetSection(_configSectionName) as ThrottlingConfiguration;
+
+            if (throttlingConfigSection == null)
+                throw new ThrottlingException(
+                    string.Format(
+                        "Neither rule was provided nor configuration section '{0}' was setup in config file.", 
+                            _configSectionName));
+
+            _rule = throttlingConfigSection.Rule;
         }
 
         public override async Task Invoke(IOwinContext context)
