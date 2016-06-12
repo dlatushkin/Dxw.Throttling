@@ -1,4 +1,4 @@
-﻿namespace Dxw.Throttling.Asp
+﻿namespace Dxw.Throttling.Owin
 {
     using System.Threading.Tasks;
 

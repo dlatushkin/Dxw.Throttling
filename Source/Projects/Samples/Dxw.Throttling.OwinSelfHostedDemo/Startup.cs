@@ -1,13 +1,15 @@
-﻿namespace Dxw.Throttling.OwinSelfHostedDemo
-{
-    using Core.Storages;
-    using Owin;
-    using System;
-    using System.Web.Http;
-    using Core.Processors;
-    using Core.Rules;
-    using Asp;
+﻿using System;
+using System.Web.Http;
 
+using Owin;
+
+using Dxw.Throttling.Core.Storages;
+using Dxw.Throttling.Core.Processors;
+using Dxw.Throttling.Core.Rules;
+using Dxw.Throttling.Owin;
+
+namespace Dxw.Throttling.OwinSelfHostedDemo
+{
     public class Startup
     {
         public void Configuration(IAppBuilder appBuilder)
