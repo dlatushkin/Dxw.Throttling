@@ -26,7 +26,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue(r.Block);
+                Assert.IsTrue((bool)r.Verdict);
 
                 var ruleSet = r as IApplyResultSet;
                 Assert.IsNotNull(ruleSet);
@@ -35,7 +35,7 @@ namespace Dxw.Throttling.UnitTests
 
                 var blockRuleResult = ruleSet.Results.Single();
                 Assert.IsNotNull(blockRuleResult);
-                Assert.IsTrue(blockRuleResult.Block);
+                Assert.IsTrue((bool)blockRuleResult.Verdict);
 
                 var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
@@ -59,7 +59,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue(r.Block);
+                Assert.IsTrue((bool)r.Verdict);
 
                 var ruleSet = r as IApplyResultSet;
                 Assert.IsNotNull(ruleSet);
@@ -68,7 +68,7 @@ namespace Dxw.Throttling.UnitTests
 
                 var blockRuleResult = ruleSet.Results.Single();
                 Assert.IsNotNull(blockRuleResult);
-                Assert.IsTrue(blockRuleResult.Block);
+                Assert.IsTrue((bool)blockRuleResult.Verdict);
 
                 var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
@@ -92,7 +92,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue(r.Block);
+                Assert.IsTrue((bool)r.Verdict);
 
                 var ruleSet = r as IApplyResultSet;
                 Assert.IsNotNull(ruleSet);
@@ -101,7 +101,7 @@ namespace Dxw.Throttling.UnitTests
 
                 var blockRuleResult = ruleSet.Results.First();
                 Assert.IsNotNull(blockRuleResult);
-                Assert.IsTrue(blockRuleResult.Block);
+                Assert.IsTrue((bool)blockRuleResult.Verdict);
 
                 var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
@@ -109,7 +109,7 @@ namespace Dxw.Throttling.UnitTests
 
                 var passRuleResult = ruleSet.Results.Skip(1).First();
                 Assert.IsNotNull(passRuleResult);
-                Assert.IsFalse(passRuleResult.Block);
+                Assert.IsFalse((bool)passRuleResult.Verdict);
 
                 var passRuleResultRuled = passRuleResult as IRuledResult;
                 Assert.IsNotNull(passRuleResultRuled);
@@ -133,7 +133,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue(r.Block);
+                Assert.IsTrue((bool)r.Verdict);
 
                 var ruleSet = r as IApplyResultSet;
                 Assert.IsNotNull(ruleSet);
@@ -142,7 +142,7 @@ namespace Dxw.Throttling.UnitTests
 
                 var blockRuleResult = ruleSet.Results.First();
                 Assert.IsNotNull(blockRuleResult);
-                Assert.IsTrue(blockRuleResult.Block);
+                Assert.IsTrue((bool)blockRuleResult.Verdict);
 
                 var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
@@ -166,7 +166,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsFalse(r.Block);
+                Assert.IsFalse((bool)r.Verdict);
             }
         }
 
@@ -191,7 +191,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue(r.Block);
+                Assert.IsTrue((bool)r.Verdict);
 
                 var ruleSet = r as IApplyResultSet;
                 Assert.IsNotNull(ruleSet);

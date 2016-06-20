@@ -18,20 +18,20 @@
             {
                 var result = rule.Apply(context);
 
-                if (result.Block || !BlockResultsOnly) childResults.Add(result);
+                if ((bool)result.Verdict || !BlockResultsOnly) childResults.Add(result);
 
-                if (result.Block && !CallEachRule) break;
+                if ((bool)result.Verdict && !CallEachRule) break;
             }
             applyResultSet.Results = childResults;
 
-            if (childResults.All(chr => !chr.Block))
+            if (childResults.All(chr => !(bool)chr.Verdict))
             {
-                applyResultSet.Block = false;
+                applyResultSet.Verdict = false;
                 return applyResultSet;
             }
 
-            applyResultSet.Block = true;
-            var firstBlockResult = childResults.FirstOrDefault(chr => chr.Block);
+            applyResultSet.Verdict = true;
+            var firstBlockResult = childResults.FirstOrDefault(chr => (bool)chr.Verdict);
             if (firstBlockResult != null) applyResultSet.Reason = firstBlockResult.Reason;
 
             return applyResultSet;

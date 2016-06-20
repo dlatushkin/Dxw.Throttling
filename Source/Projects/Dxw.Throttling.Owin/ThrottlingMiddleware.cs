@@ -43,7 +43,7 @@
             var request = context.Request as OwinRequest;
 
             var applyResult = _rule.Apply(request);
-            if (!applyResult.Block)
+            if (!(bool)applyResult.Verdict)
             {
                 await Next.Invoke(context);
                 return;

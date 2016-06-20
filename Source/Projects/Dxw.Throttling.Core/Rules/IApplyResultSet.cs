@@ -9,7 +9,7 @@
 
     public class ApplyResultSet : IApplyResult, IRuledResult, IApplyResultSet
     {
-        public bool Block { get; set; }
+        public object Verdict { get; set; }
 
         public IApplyError Reason { get; set; }
 

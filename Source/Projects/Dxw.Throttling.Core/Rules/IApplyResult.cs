@@ -2,7 +2,7 @@
 {
     public interface IApplyResult
     {
-        bool Block { get; }
+        object Verdict { get; }
         IApplyError Reason { get; }
     }
 
@@ -15,15 +15,15 @@
     {
         public static ApplyResult Ok(IRule rule = null)
         {
-            return new ApplyResult { Rule = rule, Block = false };
+            return new ApplyResult { Rule = rule, Verdict = false };
         }
 
         public static ApplyResult Error(IRule rule = null, string msg = null)
         {
-            return new ApplyResult { Rule = rule, Block = true, Reason = new ApplyError { Message = msg } };
+            return new ApplyResult { Rule = rule, Verdict = true, Reason = new ApplyError { Message = msg } };
         }
 
-        public bool Block { get; set; }
+        public object Verdict { get; set; }
 
         public IApplyError Reason { get; set; }
 

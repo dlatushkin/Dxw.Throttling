@@ -24,7 +24,7 @@ namespace Dxw.Throttling.UnitTests
 
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue(r.Block);
+                Assert.IsTrue((bool)r.Verdict);
 
                 var r1 = r as IRuledResult;
                 Assert.AreSame(r1.Rule, rule);
@@ -33,7 +33,7 @@ namespace Dxw.Throttling.UnitTests
             processor.Ok = true;
             {
                 var r = rule.Apply(context);
-                Assert.IsFalse(r.Block);
+                Assert.IsFalse((bool)r.Verdict);
 
                 var r1 = r as IRuledResult;
                 Assert.AreSame(r1.Rule, rule);

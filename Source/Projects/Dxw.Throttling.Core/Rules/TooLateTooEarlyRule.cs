@@ -17,7 +17,7 @@
             if (now.TimeOfDay < new TimeSpan(6, 0, 0))
                 return ApplyResult.Error(msg: "It's too early now");
 
-            return new ApplyResult { Block = false };
+            return new ApplyResult { Verdict = false };
         }
     }
 }

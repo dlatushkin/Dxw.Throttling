@@ -18,7 +18,7 @@
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var applyResult = _rule.Apply(request);
-            if (!applyResult.Block)
+            if (!(bool)applyResult.Verdict)
             {
                 return base.SendAsync(request, cancellationToken);
             }
