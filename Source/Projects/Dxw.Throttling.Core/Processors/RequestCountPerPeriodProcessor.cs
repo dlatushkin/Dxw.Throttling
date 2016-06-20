@@ -54,9 +54,9 @@
             var newData = newVal.Value as SlotData;
 
             if (newData.Hits > Count)
-                return new ProcessEventResult { NewState = newVal, Result = ApplyResult.Error(rule, "The query limit is exceeded") };
+                return new ProcessEventResult { Result = ApplyResult.Error(rule, "The query limit is exceeded") };
             else
-                return new ProcessEventResult { NewState = newVal, Result = ApplyResult.Ok(rule) };
+                return new ProcessEventResult { Result = ApplyResult.Ok(rule) };
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

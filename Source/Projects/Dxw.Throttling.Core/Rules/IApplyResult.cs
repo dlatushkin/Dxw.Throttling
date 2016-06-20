@@ -6,12 +6,12 @@
         IApplyError Reason { get; }
     }
 
-    public interface IRuleResult
+    public interface IRuledResult
     {
         IRule Rule { get; }
     }
 
-    public class ApplyResult : IApplyResult, IRuleResult
+    public class ApplyResult : IApplyResult, IRuledResult
     {
         public static ApplyResult Ok(IRule rule = null)
         {

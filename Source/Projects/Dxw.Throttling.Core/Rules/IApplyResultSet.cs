@@ -7,7 +7,7 @@
         IEnumerable<IApplyResult> Results { get; }
     }
 
-    public class ApplyResultSet : IApplyResult, IRuleResult, IApplyResultSet
+    public class ApplyResultSet : IApplyResult, IRuledResult, IApplyResultSet
     {
         public bool Block { get; set; }
 

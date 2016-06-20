@@ -5,14 +5,11 @@
 
     public interface IProcessEventResult
     {
-        IStorageValue NewState { get; }
         IApplyResult Result { get; }
     }
 
     public struct ProcessEventResult : IProcessEventResult
     {
-        public IStorageValue NewState { get; set; }
-
         public IApplyResult Result { get; set; }
     }
 }

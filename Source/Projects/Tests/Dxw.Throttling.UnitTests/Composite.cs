@@ -37,7 +37,7 @@ namespace Dxw.Throttling.UnitTests
                 Assert.IsNotNull(blockRuleResult);
                 Assert.IsTrue(blockRuleResult.Block);
 
-                var blockRuleResultRuled = blockRuleResult as IRuleResult;
+                var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
                 Assert.AreSame(blockRule, blockRuleResultRuled.Rule);
             }
@@ -70,7 +70,7 @@ namespace Dxw.Throttling.UnitTests
                 Assert.IsNotNull(blockRuleResult);
                 Assert.IsTrue(blockRuleResult.Block);
 
-                var blockRuleResultRuled = blockRuleResult as IRuleResult;
+                var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
                 Assert.AreSame(ruleBlock, blockRuleResultRuled.Rule);
             }
@@ -103,7 +103,7 @@ namespace Dxw.Throttling.UnitTests
                 Assert.IsNotNull(blockRuleResult);
                 Assert.IsTrue(blockRuleResult.Block);
 
-                var blockRuleResultRuled = blockRuleResult as IRuleResult;
+                var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
                 Assert.AreSame(ruleBlock, blockRuleResultRuled.Rule);
 
@@ -111,7 +111,7 @@ namespace Dxw.Throttling.UnitTests
                 Assert.IsNotNull(passRuleResult);
                 Assert.IsFalse(passRuleResult.Block);
 
-                var passRuleResultRuled = passRuleResult as IRuleResult;
+                var passRuleResultRuled = passRuleResult as IRuledResult;
                 Assert.IsNotNull(passRuleResultRuled);
                 Assert.AreSame(rulePass, passRuleResultRuled.Rule);
             }
@@ -144,7 +144,7 @@ namespace Dxw.Throttling.UnitTests
                 Assert.IsNotNull(blockRuleResult);
                 Assert.IsTrue(blockRuleResult.Block);
 
-                var blockRuleResultRuled = blockRuleResult as IRuleResult;
+                var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
                 Assert.AreSame(ruleBlock, blockRuleResultRuled.Rule);
             }

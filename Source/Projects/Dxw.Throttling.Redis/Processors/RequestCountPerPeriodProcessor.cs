@@ -1,7 +1,5 @@
 ﻿namespace Dxw.Throttling.Redis.Processors
 {
-    using System;
-
     using StackExchange.Redis;
 
     using Core.Processors;
@@ -42,9 +40,9 @@
             var newVal = new StorageValue { SlotData = new SlotData { Hits = hits } };
 
             if (hits > Count)
-                return new ProcessEventResult { NewState = newVal, Result = ApplyResult.Error(rule, "The query limit is exceeded") };
+                return new ProcessEventResult { Result = ApplyResult.Error(rule, "The query limit is exceeded") };
             else
-                return new ProcessEventResult { NewState = newVal, Result = ApplyResult.Ok(rule) };
+                return new ProcessEventResult { Result = ApplyResult.Ok(rule) };
         }
     }
 }
