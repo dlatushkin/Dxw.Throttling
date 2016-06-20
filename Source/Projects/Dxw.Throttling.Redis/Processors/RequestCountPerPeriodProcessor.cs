@@ -18,7 +18,7 @@
 
         private static LuaScript _luaIncrExpire;
 
-        public override IProcessEventResult Process(object key, object context, object storeEndpoint, IRule rule = null)
+        public override IApplyResult Process(object key, object context, object storeEndpoint, IRule rule = null)
         {
             var db = storeEndpoint as IDatabase;
 
@@ -40,9 +40,9 @@
             var newVal = new StorageValue { SlotData = new SlotData { Hits = hits } };
 
             if (hits > Count)
-                return new ProcessEventResult { Result = ApplyResult.Error(rule, "The query limit is exceeded") };
+                return ApplyResult.Error(rule, "The query limit is exceeded");
             else
-                return new ProcessEventResult { Result = ApplyResult.Ok(rule) };
+                return ApplyResult.Ok(rule);
         }
     }
 }

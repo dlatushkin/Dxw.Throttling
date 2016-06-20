@@ -27,7 +27,7 @@
 
             var result = Processor.Process(key, context, Storage.GetStorePoint(), this);
 
-            return result.Result;
+            return result;
         }
 
         private IStorageValue AddValue(object obj)

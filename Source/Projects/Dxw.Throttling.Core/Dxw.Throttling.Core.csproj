@@ -52,7 +52,6 @@
     <Compile Include="Exceptions\ThrottlingException.cs" />
     <Compile Include="IPolicy.cs" />
     <Compile Include="Policy.cs" />
-    <Compile Include="Processors\IProcessEventResult.cs" />
     <Compile Include="Processors\RequestCountPerPeriodProcessor.cs" />
     <Compile Include="Processors\IProcessor.cs" />
     <Compile Include="Processors\ConstantEventProcessor.cs" />

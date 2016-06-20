@@ -12,6 +12,6 @@
         /// <param name="storage">Storage instance.</param>
         /// <param name="rule">Caller</param>
         /// <returns></returns>
-        IProcessEventResult Process(object key = null, object context = null, object storeEndpoint = null, IRule rule = null);
+        IApplyResult Process(object key = null, object context = null, object storeEndpoint = null, IRule rule = null);
     }
 }

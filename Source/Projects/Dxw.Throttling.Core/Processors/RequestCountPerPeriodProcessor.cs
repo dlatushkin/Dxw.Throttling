@@ -42,7 +42,7 @@
             Period = DFLT_PERIOD;
         }
 
-        public virtual IProcessEventResult Process(object key, object context = null, object storeEndpoint = null, IRule rule = null)
+        public virtual IApplyResult Process(object key, object context = null, object storeEndpoint = null, IRule rule = null)
         {
             var dict = storeEndpoint as ConcurrentDictionary<object, IStorageValue>;
 
@@ -54,9 +54,9 @@
             var newData = newVal.Value as SlotData;
 
             if (newData.Hits > Count)
-                return new ProcessEventResult { Result = ApplyResult.Error(rule, "The query limit is exceeded") };
+                return ApplyResult.Error(rule, "The query limit is exceeded");
             else
-                return new ProcessEventResult { Result = ApplyResult.Ok(rule) };
+                return ApplyResult.Ok(rule);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
