@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.Redis", "Pro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.Owin", "Projects\Dxw.Throttling.Owin\Dxw.Throttling.Owin.csproj", "{F78EE0CC-BDC2-4DFF-90F6-7DCD2BDA2725}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.IntegrationTests", "Projects\Tests\Dxw.Throttling.IntegrationTests\Dxw.Throttling.IntegrationTests.csproj", "{B0778822-6A8C-4073-9DC4-7ED9A215F4A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{F78EE0CC-BDC2-4DFF-90F6-7DCD2BDA2725}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F78EE0CC-BDC2-4DFF-90F6-7DCD2BDA2725}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F78EE0CC-BDC2-4DFF-90F6-7DCD2BDA2725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0778822-6A8C-4073-9DC4-7ED9A215F4A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0778822-6A8C-4073-9DC4-7ED9A215F4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0778822-6A8C-4073-9DC4-7ED9A215F4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0778822-6A8C-4073-9DC4-7ED9A215F4A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,5 +91,6 @@ Global
 		{1FE08F5A-5942-4396-A729-3B0847789B9D} = {76416CD3-A544-41D8-89B4-1DC15F826665}
 		{E6589819-39E2-43B5-87B6-1CB43B632A2F} = {20791FC8-5CEB-4566-A48E-4EDDFF43DA5B}
 		{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7} = {20791FC8-5CEB-4566-A48E-4EDDFF43DA5B}
+		{B0778822-6A8C-4073-9DC4-7ED9A215F4A1} = {76416CD3-A544-41D8-89B4-1DC15F826665}
 	EndGlobalSection
 EndGlobal

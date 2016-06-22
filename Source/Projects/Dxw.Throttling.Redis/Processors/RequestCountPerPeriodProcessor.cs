@@ -12,7 +12,7 @@
                                                 local current
                                                 current = redis.call('incr', @key)
                                                 if tonumber(current) == 1 then
-                                                    redis.call('expire', @key, 1)
+                                                    redis.call('expire', @key, @expireSec)
                                                 end
                                                 return current";
 
@@ -33,7 +33,7 @@
             if (_luaIncrExpire == null)
                 _luaIncrExpire = LuaScript.Prepare(LUA_INCR_EXPIRE);
 
-            var result = _luaIncrExpire.Evaluate(db, new { key = (RedisKey)"mykey" });
+            var result = _luaIncrExpire.Evaluate(db, new { key = (RedisKey)key.ToString(), expireSec = Period.TotalSeconds });
 
             var hits = (int)result;
 
