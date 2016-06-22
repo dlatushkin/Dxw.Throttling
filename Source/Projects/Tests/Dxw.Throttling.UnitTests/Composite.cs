@@ -26,7 +26,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue((bool)r.Verdict);
+                Assert.IsTrue(r.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
 
                 var ruleSet = r as IApplyResultSet;
                 Assert.IsNotNull(ruleSet);
@@ -35,7 +35,7 @@ namespace Dxw.Throttling.UnitTests
 
                 var blockRuleResult = ruleSet.Results.Single();
                 Assert.IsNotNull(blockRuleResult);
-                Assert.IsTrue((bool)blockRuleResult.Verdict);
+                Assert.IsTrue(r.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
 
                 var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
@@ -59,7 +59,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue((bool)r.Verdict);
+                Assert.IsTrue(r.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
 
                 var ruleSet = r as IApplyResultSet;
                 Assert.IsNotNull(ruleSet);
@@ -68,7 +68,7 @@ namespace Dxw.Throttling.UnitTests
 
                 var blockRuleResult = ruleSet.Results.Single();
                 Assert.IsNotNull(blockRuleResult);
-                Assert.IsTrue((bool)blockRuleResult.Verdict);
+                Assert.IsTrue(blockRuleResult.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
 
                 var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
@@ -92,7 +92,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue((bool)r.Verdict);
+                Assert.IsTrue(r.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
 
                 var ruleSet = r as IApplyResultSet;
                 Assert.IsNotNull(ruleSet);
@@ -101,7 +101,7 @@ namespace Dxw.Throttling.UnitTests
 
                 var blockRuleResult = ruleSet.Results.First();
                 Assert.IsNotNull(blockRuleResult);
-                Assert.IsTrue((bool)blockRuleResult.Verdict);
+                Assert.IsTrue(blockRuleResult.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
 
                 var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
@@ -109,7 +109,7 @@ namespace Dxw.Throttling.UnitTests
 
                 var passRuleResult = ruleSet.Results.Skip(1).First();
                 Assert.IsNotNull(passRuleResult);
-                Assert.IsFalse((bool)passRuleResult.Verdict);
+                Assert.IsFalse(passRuleResult.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
 
                 var passRuleResultRuled = passRuleResult as IRuledResult;
                 Assert.IsNotNull(passRuleResultRuled);
@@ -133,7 +133,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue((bool)r.Verdict);
+                Assert.IsTrue(r.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
 
                 var ruleSet = r as IApplyResultSet;
                 Assert.IsNotNull(ruleSet);
@@ -142,7 +142,7 @@ namespace Dxw.Throttling.UnitTests
 
                 var blockRuleResult = ruleSet.Results.First();
                 Assert.IsNotNull(blockRuleResult);
-                Assert.IsTrue((bool)blockRuleResult.Verdict);
+                Assert.IsTrue(blockRuleResult.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
 
                 var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
@@ -166,7 +166,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsFalse((bool)r.Verdict);
+                Assert.IsFalse(r.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
             }
         }
 
@@ -191,7 +191,7 @@ namespace Dxw.Throttling.UnitTests
             var context = new HttpRequestMessage();
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue((bool)r.Verdict);
+                Assert.IsTrue(r.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
 
                 var ruleSet = r as IApplyResultSet;
                 Assert.IsNotNull(ruleSet);

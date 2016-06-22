@@ -18,7 +18,7 @@ namespace Dxw.Throttling.ConsoleTest
 
             var res = redisRule.Apply();
 
-            Console.WriteLine(res.Verdict);
+            Console.WriteLine(res.GetVerdict<bool>());
         }
     }
 }

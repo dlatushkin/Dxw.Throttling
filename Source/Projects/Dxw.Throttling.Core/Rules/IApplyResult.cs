@@ -1,8 +1,10 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
+    using System;
+
     public interface IApplyResult
     {
-        object Verdict { get; }
+        T GetVerdict<T>();
         IApplyError Reason { get; }
     }
 
@@ -11,19 +13,26 @@
         IRule Rule { get; }
     }
 
-    public class ApplyResult : IApplyResult, IRuledResult
+    public enum PassBlockVerdict { Pass, Block }
+
+    public class ApplyResultPassBlock : IApplyResult, IRuledResult
     {
-        public static ApplyResult Ok(IRule rule = null)
+        protected PassBlockVerdict _verdict;
+
+        public static IApplyResult Pass(IRule rule = null)
         {
-            return new ApplyResult { Rule = rule, Verdict = false };
+            return new ApplyResultPassBlock { Rule = rule, _verdict = PassBlockVerdict.Pass };
         }
 
-        public static ApplyResult Error(IRule rule = null, string msg = null)
+        public static IApplyResult Block(IRule rule = null, string msg = null)
         {
-            return new ApplyResult { Rule = rule, Verdict = true, Reason = new ApplyError { Message = msg } };
+            return new ApplyResultPassBlock { Rule = rule, _verdict = PassBlockVerdict.Block, Reason = new ApplyError { Message = msg } };
         }
 
-        public object Verdict { get; set; }
+        public T GetVerdict<T>()
+        {
+            return (T)Convert.ChangeType(_verdict, typeof(T));
+        }
 
         public IApplyError Reason { get; set; }
 

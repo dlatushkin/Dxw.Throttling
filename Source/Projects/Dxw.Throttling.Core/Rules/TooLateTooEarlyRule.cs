@@ -12,12 +12,12 @@
             var now = DateTime.Now;
 
             if (now.TimeOfDay > new TimeSpan(18, 0, 0))
-                return ApplyResult.Error(msg: "It's too late now");
+                return ApplyResultPassBlock.Block(msg: "It's too late now");
 
             if (now.TimeOfDay < new TimeSpan(6, 0, 0))
-                return ApplyResult.Error(msg: "It's too early now");
+                return ApplyResultPassBlock.Block(msg: "It's too early now");
 
-            return new ApplyResult { Verdict = false };
+            return ApplyResultPassBlock.Pass(this);
         }
     }
 }

@@ -40,9 +40,9 @@
             var newVal = new StorageValue { SlotData = new SlotData { Hits = hits } };
 
             if (hits > Count)
-                return ApplyResult.Error(rule, "The query limit is exceeded");
+                return ApplyResultPassBlock.Block(rule, "The query limit is exceeded");
             else
-                return ApplyResult.Ok(rule);
+                return ApplyResultPassBlock.Pass(rule);
         }
     }
 }

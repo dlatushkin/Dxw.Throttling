@@ -12,9 +12,9 @@
         public IApplyResult Process(object key, object context = null, object storeEndpoint = null, IRule rule = null)
         {
             if (Ok)
-                return ApplyResult.Ok(rule);
+                return ApplyResultPassBlock.Pass(rule);
             else
-                return ApplyResult.Error(rule);
+                return ApplyResultPassBlock.Block(rule);
         }
 
         public void Configure(XmlNode node, IConfiguration context)

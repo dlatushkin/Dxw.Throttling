@@ -7,7 +7,7 @@
     {
         public override IApplyResult Apply(object context = null)
         {
-            var applyResultSet = new ApplyResultSet
+            var applyResultSet = new ApplyResultSetPassBlock
             {
                 Rule = this,
                 Results = new List<IApplyResult>()
@@ -18,20 +18,20 @@
             {
                 var result = rule.Apply(context);
 
-                if ((bool)result.Verdict || !BlockResultsOnly) childResults.Add(result);
+                if (result.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block || !BlockResultsOnly) childResults.Add(result);
 
-                if ((bool)result.Verdict && !CallEachRule) break;
+                if (result.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block && !CallEachRule) break;
             }
             applyResultSet.Results = childResults;
 
-            if (childResults.All(chr => !(bool)chr.Verdict))
+            if (childResults.All(chr => chr.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Pass))
             {
-                applyResultSet.Verdict = false;
+                applyResultSet.SetVerdict(PassBlockVerdict.Pass);
                 return applyResultSet;
             }
 
-            applyResultSet.Verdict = true;
-            var firstBlockResult = childResults.FirstOrDefault(chr => (bool)chr.Verdict);
+            applyResultSet.SetVerdict(PassBlockVerdict.Block);
+            var firstBlockResult = childResults.FirstOrDefault(chr => chr.GetVerdict<PassBlockVerdict>() == PassBlockVerdict.Block);
             if (firstBlockResult != null) applyResultSet.Reason = firstBlockResult.Reason;
 
             return applyResultSet;
