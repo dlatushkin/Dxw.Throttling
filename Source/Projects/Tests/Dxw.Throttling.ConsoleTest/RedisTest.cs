@@ -18,7 +18,7 @@ namespace Dxw.Throttling.ConsoleTest
 
             var res = redisRule.Apply();
 
-            Console.WriteLine(res.GetVerdict<bool>());
+            Console.WriteLine(res.GetVerdict<PassBlockVerdict>());
         }
     }
 }
