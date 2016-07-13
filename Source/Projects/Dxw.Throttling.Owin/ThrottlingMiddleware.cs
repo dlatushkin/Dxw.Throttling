@@ -12,7 +12,7 @@
     {
         private readonly string DFLT_CONFIG_SECTION_NAME = "throttling";
 
-        private IRule _rule;
+        private IRule<PassBlockVerdict> _rule;
 
         private readonly string _configSectionName;
 
@@ -20,7 +20,7 @@
         {
             if (rule != null)
             {
-                _rule = rule;
+                _rule = rule as IRule<PassBlockVerdict>;
                 return;
             }
 
@@ -35,7 +35,7 @@
                         "Neither rule was provided nor configuration section '{0}' was setup in config file.", 
                             _configSectionName));
 
-            _rule = throttlingConfigSection.Rule;
+            _rule = throttlingConfigSection.Rule as IRule<PassBlockVerdict>;
         }
 
         public override async Task Invoke(IOwinContext context)
@@ -43,7 +43,7 @@
             var request = context.Request as OwinRequest;
 
             var applyResult = _rule.Apply(request);
-            if (!applyResult.GetVerdict<bool>())
+            if (applyResult.Verdict == PassBlockVerdict.Pass)
             {
                 await Next.Invoke(context);
                 return;

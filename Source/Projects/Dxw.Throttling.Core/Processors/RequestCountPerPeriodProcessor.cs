@@ -9,7 +9,27 @@
     using Exceptions;
     using System.Runtime.CompilerServices;
 
-    public class RequestCountPerPeriodProcessor : IProcessor, IXmlConfigurable
+    public class RequestCountPerPeriodProcessorBlockPass : RequestCountPerPeriodProcessor<PassBlockVerdict>
+    {
+        public override IApplyResult<PassBlockVerdict> Process(object key, object context = null, object storeEndpoint = null/*, IRule<PassBlockVerdict> rule = null*/)
+        {
+            var dict = storeEndpoint as ConcurrentDictionary<object, IStorageValue<SlotData>>;
+
+            if (dict == null)
+                throw new ThrottlingException(
+                    "Storage must return valid " + typeof(ConcurrentDictionary<object, IStorageValue<SlotData>>).Name + " store point.");
+
+            var newVal = dict.AddOrUpdate(key, AddFunc, UpdateFunc);
+            var newData = newVal.Value as SlotData;
+
+            if (newData.Hits > Count)
+                return ApplyResultPassBlock.Block(/*rule,*/ msg: "The query limit is exceeded");
+            else
+                return ApplyResultPassBlock.Pass(/*rule*/);
+        }
+    }
+
+    public abstract class RequestCountPerPeriodProcessor<T> : IProcessor<T>, IXmlConfigurable
     {
         private const int DFLT_COUNT = 1;
         private static readonly TimeSpan DFLT_PERIOD = TimeSpan.FromSeconds(1);
@@ -20,11 +40,11 @@
             public DateTime ExpiresAt;
         }
 
-        protected class StorageValue: IStorageValue
+        protected class StorageValue: IStorageValue<SlotData>
         {
             public SlotData SlotData;
 
-            public object Value => SlotData;
+            public SlotData Value => SlotData;
 
             public bool IsExpired(DateTime utcNow)
             {
@@ -42,25 +62,10 @@
             Period = DFLT_PERIOD;
         }
 
-        public virtual IApplyResult Process(object key, object context = null, object storeEndpoint = null, IRule rule = null)
-        {
-            var dict = storeEndpoint as ConcurrentDictionary<object, IStorageValue>;
-
-            if (dict == null)
-                throw new ThrottlingException(
-                    "Storage must return valid " + typeof(ConcurrentDictionary<object, IStorageValue>).Name + " store point.");
-
-            var newVal = dict.AddOrUpdate(key, AddFunc, UpdateFunc);
-            var newData = newVal.Value as SlotData;
-
-            if (newData.Hits > Count)
-                return ApplyResultPassBlock.Block(rule, "The query limit is exceeded");
-            else
-                return ApplyResultPassBlock.Pass(rule);
-        }
+        public abstract IApplyResult<T> Process(object key, object context = null, object storeEndpoint = null/*, IRule<T> rule = null*/);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private IStorageValue AddFunc(object context)
+        protected IStorageValue<SlotData> AddFunc(object context)
         {
             var utcNow = DateTime.UtcNow;
             var newVal = new StorageValue { SlotData = new SlotData { Hits = 1, ExpiresAt = utcNow.Add(Period) } };
@@ -68,7 +73,7 @@
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private IStorageValue UpdateFunc(object context, IStorageValue curValue)
+        protected IStorageValue<SlotData> UpdateFunc(object context, IStorageValue<SlotData> curValue)
         {
             var utcNow = DateTime.UtcNow;
             var data = curValue.Value as SlotData;

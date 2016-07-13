@@ -23,23 +23,23 @@
         {
             var throttlingConfiguration = ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration;
 
-            var redisRule = throttlingConfiguration.Rules.OfType<INamed>().FirstOrDefault(r => r.Name == "singleRedis") as IRule;
+            var redisRule = throttlingConfiguration.Rules.OfType<INamed>().FirstOrDefault(r => r.Name == "singleRedis") as IRule<PassBlockVerdict>;
 
-            IApplyResult res;
-
-            res = redisRule.Apply();
-            Assert.AreEqual(res.GetVerdict<PassBlockVerdict>(), PassBlockVerdict.Pass);
+            IApplyResult<PassBlockVerdict> res;
 
             res = redisRule.Apply();
-            Assert.AreEqual(res.GetVerdict<PassBlockVerdict>(), PassBlockVerdict.Pass);
+            Assert.AreEqual(res.Verdict, PassBlockVerdict.Pass);
 
             res = redisRule.Apply();
-            Assert.AreEqual(res.GetVerdict<PassBlockVerdict>(), PassBlockVerdict.Block);
+            Assert.AreEqual(res.Verdict, PassBlockVerdict.Pass);
+
+            res = redisRule.Apply();
+            Assert.AreEqual(res.Verdict, PassBlockVerdict.Block);
 
             Thread.Sleep(1001);
 
             res = redisRule.Apply();
-            Assert.AreEqual(res.GetVerdict<PassBlockVerdict>(), PassBlockVerdict.Pass);
+            Assert.AreEqual(res.Verdict, PassBlockVerdict.Pass);
         }
     }
 }

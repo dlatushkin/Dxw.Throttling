@@ -3,18 +3,20 @@
     using System;
     using System.Collections.Generic;
 
-    public interface IApplyResultSet
+    public interface IApplyResultSet<out T>
     {
-        IEnumerable<IApplyResult> Results { get; }
+        IEnumerable<IApplyResult<T>> Results { get; }
     }
 
-    public class ApplyResultSetPassBlock : ApplyResultPassBlock, IRuledResult, IApplyResultSet
+    public interface IApplyResultSet : IApplyResultSet<object> {}
+
+    public class ApplyResultSetPassBlock : ApplyResultPassBlock, IRuledResult<PassBlockVerdict>, IApplyResultSet<PassBlockVerdict>
     {
         public void SetVerdict(PassBlockVerdict verdict)
         {
             _verdict = verdict;
         }
 
-        public IEnumerable<IApplyResult> Results { get; set; }
+        public IEnumerable<IApplyResult<PassBlockVerdict>> Results { get; set; }
     }
 }

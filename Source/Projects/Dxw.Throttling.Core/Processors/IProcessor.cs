@@ -1,8 +1,9 @@
 ﻿namespace Dxw.Throttling.Core.Processors
 {
     using Rules;
-        
-    public interface IProcessor
+    using System.Collections;
+
+    public interface IProcessor<out T>
     {
         /// <summary>
         /// Processes an event
@@ -12,6 +13,6 @@
         /// <param name="storage">Storage instance.</param>
         /// <param name="rule">Caller</param>
         /// <returns></returns>
-        IApplyResult Process(object key = null, object context = null, object storeEndpoint = null, IRule rule = null);
+        IApplyResult<T> Process(object key = null, object context = null, object storeEndpoint = null/*, IRule<T> rule = null*/);
     }
 }

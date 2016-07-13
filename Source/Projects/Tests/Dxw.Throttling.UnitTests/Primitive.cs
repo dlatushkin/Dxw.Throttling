@@ -16,24 +16,24 @@ namespace Dxw.Throttling.UnitTests
         {
             var storage = new LocalMemoryStorage();
             var keyer = new ConstantKeyer();
-            var processor = new ConstantEventProcessor();
+            var processor = new ConstantEventProcessor<PassBlockVerdict>();
 
-            var rule = new StorageKeyerProcessorRule { Storage = storage, Keyer = keyer, Processor = processor };
+            var rule = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = processor };
 
             var context = new HttpRequestMessage();
 
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue(r.GetVerdict<bool>());
+                Assert.IsTrue(r.Verdict == PassBlockVerdict.Block);
 
                 var r1 = r as IRuledResult;
                 Assert.AreSame(r1.Rule, rule);
             }
 
-            processor.Ok = true;
+            processor.Value = PassBlockVerdict.Pass;
             {
                 var r = rule.Apply(context);
-                Assert.IsFalse(r.GetVerdict<bool>());
+                Assert.AreEqual(PassBlockVerdict.Pass, r.Verdict);
 
                 var r1 = r as IRuledResult;
                 Assert.AreSame(r1.Rule, rule);

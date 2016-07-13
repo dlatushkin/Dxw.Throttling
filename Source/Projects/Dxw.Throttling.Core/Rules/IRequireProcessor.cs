@@ -2,8 +2,8 @@
 {
     using Dxw.Throttling.Core.Processors;
 
-    public interface IRequireProcessor
+    public interface IRequireProcessor<in T>
     {
-        IProcessor Processor { set; }
+        IProcessor<T> Processor { set; }
     }
 }

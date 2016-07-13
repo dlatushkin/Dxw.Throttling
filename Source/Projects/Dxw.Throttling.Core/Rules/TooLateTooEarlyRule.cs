@@ -2,12 +2,12 @@
 {
     using System;
 
-    public class TooLateTooEarlyRule : IRule
+    public class TooLateTooEarlyRule : IRule<PassBlockVerdict>
     {
         public int Times { get; set; }
         public TimeSpan PerPeriod { get; set; }
 
-        public IApplyResult Apply(object context = null)
+        public IApplyResult<PassBlockVerdict> Apply(object context = null)
         {
             var now = DateTime.Now;
 

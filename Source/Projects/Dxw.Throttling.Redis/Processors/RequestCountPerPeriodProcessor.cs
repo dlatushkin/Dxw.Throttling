@@ -6,7 +6,7 @@
     using Core.Rules;
     using Core.Exceptions;
 
-    public class RequestCountPerPeriodProcessor : Core.Processors.RequestCountPerPeriodProcessor
+    public class RequestCountPerPeriodProcessor : Core.Processors.RequestCountPerPeriodProcessor<PassBlockVerdict>
     {
         private const string LUA_INCR_EXPIRE = @"
                                                 local current
@@ -18,7 +18,7 @@
 
         private static LuaScript _luaIncrExpire;
 
-        public override IApplyResult Process(object key, object context, object storeEndpoint, IRule rule = null)
+        public override IApplyResult<PassBlockVerdict> Process(object key, object context, object storeEndpoint)
         {
             var db = storeEndpoint as IDatabase;
 
@@ -40,9 +40,9 @@
             var newVal = new StorageValue { SlotData = new SlotData { Hits = hits } };
 
             if (hits > Count)
-                return ApplyResultPassBlock.Block(rule, "The query limit is exceeded");
+                return ApplyResultPassBlock.Block(msg: "The query limit is exceeded");
             else
-                return ApplyResultPassBlock.Pass(rule);
+                return ApplyResultPassBlock.Pass();
         }
     }
 }

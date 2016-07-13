@@ -11,7 +11,7 @@
 
     public class LocalMemoryStorage : IStorage, IXmlConfigurable, INamed, IPurgable, IDisposable
     {
-        private ConcurrentDictionary<object, IStorageValue> _store = new ConcurrentDictionary<object, IStorageValue>();
+        private ConcurrentDictionary<object, IStorageValue<object>> _store = new ConcurrentDictionary<object, IStorageValue<object>>();
         private CancellationTokenSource _cleanupCancellationTokenSource;
         private Task _cleanupTask;
 
@@ -78,7 +78,7 @@
                 {
                     if (kv.Value.IsExpired(utcNow))
                     {
-                        IStorageValue val;
+                        IStorageValue<object> val;
                         _store.TryRemove(kv.Key, out val);
                     }
                 }
