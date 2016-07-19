@@ -74,9 +74,19 @@
             var typeName = nProcessor.Attributes["type"].Value;
             var type = Type.GetType(typeName);
             var processor = (IProcessor<T>)Activator.CreateInstance(type);
-            var configurable = processor as IXmlConfigurable<T>;
-            if (configurable != null)
-                configurable.Configure(nProcessor, context);
+
+            var configurableTyped = processor as IXmlConfigurable<T>;
+            if (configurableTyped != null)
+            {
+                configurableTyped.Configure(nProcessor, context);
+            }
+            else
+            {
+                var configurable = processor as IXmlConfigurable;
+                if (configurable != null)
+                    configurable.Configure(nProcessor, context);
+            }
+
             return processor;
         }
     }

@@ -6,7 +6,7 @@
     using Core.Rules;
     using Core.Exceptions;
 
-    public class RequestCountPerPeriodProcessor : Core.Processors.RequestCountPerPeriodProcessor<PassBlockVerdict>
+    public class RequestCountPerPeriodProcessorBlockPass : Core.Processors.RequestCountPerPeriodProcessor<PassBlockVerdict>
     {
         private const string LUA_INCR_EXPIRE = @"
                                                 local current

@@ -21,15 +21,13 @@
         [TestMethod]
         public void RedisTest_01()
         {
-            var t = typeof(ConfigurationSectionHandler<PassBlockVerdict>);
-
             var throttlingConfiguration = ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration<PassBlockVerdict>;
 
-            //var redisRule = throttlingConfiguration.Rules.OfType<INamed>().FirstOrDefault(r => r.Name == "singleRedis") as IRule<PassBlockVerdict>;
+            var redisRule = throttlingConfiguration.Rules.OfType<INamed>().FirstOrDefault(r => r.Name == "singleRedis") as IRule<PassBlockVerdict>;
 
-            //IApplyResult<PassBlockVerdict> res;
+            IApplyResult<PassBlockVerdict> res;
 
-            //res = redisRule.Apply();
+            res = redisRule.Apply();
             //Assert.AreEqual(res.Verdict, PassBlockVerdict.Pass);
 
             //res = redisRule.Apply();
