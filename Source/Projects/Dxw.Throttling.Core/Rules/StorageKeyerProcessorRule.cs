@@ -34,11 +34,6 @@
             return ruledResult;
         }
 
-        //IApplyResult<object> IRule<object>.Apply(object context)
-        //{
-        //    return this.Apply(context) as IApplyResult;
-        //}
-
         public void Configure(XmlNode node, IConfiguration<T> context)
         {
             Name = node.Attributes["name"]?.Value;

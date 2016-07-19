@@ -1,13 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.Core", "Projects\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj", "{325802CC-DCFB-4D84-8EF8-50CB19351B1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{CA0F781B-04BC-4681-9AE4-33BE69A0177C}"
 	ProjectSection(SolutionItems) = preProject
 		..\LICENSE = ..\LICENSE
+		..\OpenRuleModel.md = ..\OpenRuleModel.md
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject

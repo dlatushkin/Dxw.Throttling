@@ -17,9 +17,11 @@ elements.
 - Local in-memory storage.
 
 ### Unique features
-- Open rule model.
 - Multiple rules can be applied in combination using built-in logical and/or operators.
-- Redis/Lua storage implementation.
+- Arbitary result types are allowed.
+- Pre- / Post- rule process phase are supported.
+- Redis/Lua storage is implemented.
+- [Open rule model.](OpenRuleModel.md)
 
 ### Dxw.Throttling as a ready-to-use library
 The most common use cases are already implemented and can be used "out-of-the-box".
@@ -30,6 +32,8 @@ public static void Foo()
 {
 }
 ```
+
+### Dxw.Throttling 
 
 ### Dxw.Throttling as a throttling framework
 Dxw.Throttling is extremelly extensible throttling framework.
