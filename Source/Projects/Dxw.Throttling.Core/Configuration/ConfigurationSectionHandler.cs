@@ -8,11 +8,11 @@
     using Rules;
     using Storages;
 
-    public class ConfigurationSectionHandler : IConfigurationSectionHandler
+    public class ConfigurationSectionHandler<T> : IConfigurationSectionHandler
     {
         public object Create(object parent, object configContext, XmlNode section)
         {
-            var conf = new ThrottlingConfiguration();
+            var conf = new ThrottlingConfiguration<T>();
 
             var storagesSection = section.SelectSingleNode("storages");
             if (storagesSection != null)
@@ -25,7 +25,7 @@
             return conf;
         }
 
-        private IList<IStorage> CreateStorages(XmlNode section, IConfiguration context)
+        private IList<IStorage> CreateStorages(XmlNode section, IConfiguration<T> context)
         {
             var storages = new List<IStorage>();
 
@@ -43,21 +43,21 @@
             return storages;
         }
 
-        private IEnumerable<IRule> CreateRules(XmlNode section, IConfiguration context)
+        private IEnumerable<IRule<T>> CreateRules(XmlNode section, IConfiguration<T> context)
         {
-            var rules = new List<IRule>();
-
+            var rules = new List<IRule<T>>();
+            
             foreach (XmlNode nRule in section.ChildNodes)
             {
                 var typeName = nRule.Attributes["type"].Value;
                 var type = Type.GetType(typeName);
-                var rule = (IRule)Activator.CreateInstance(type);
+                var rule = (IRule<T>)Activator.CreateInstance(type);
                 var configurable = rule as IXmlConfigurable;
                 if (configurable != null)
                     configurable.Configure(nRule, context);
                 rules.Add(rule);
             }
-
+    
             return rules;
         }
     }

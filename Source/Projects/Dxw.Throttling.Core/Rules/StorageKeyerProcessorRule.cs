@@ -11,7 +11,9 @@
     using Configuration;
     using Exceptions;
 
-    public class StorageKeyerProcessorRule<T> : IRule<T>, IRequireStorage, IRequireKeyer, IRequireProcessor<T>, IXmlConfigurable, INamed
+    public class StorageKeyerProcessorPassBlockRule : StorageKeyerProcessorRule<PassBlockVerdict> { }
+
+    public class StorageKeyerProcessorRule<T> : IRule<T>, IRequireStorage, IRequireKeyer, IRequireProcessor<T>, IXmlConfigurable<T>, INamed
     {
         public IStorage Storage { get; set; }
 
@@ -37,7 +39,7 @@
         //    return this.Apply(context) as IApplyResult;
         //}
 
-        public void Configure(XmlNode node, IConfiguration context)
+        public void Configure(XmlNode node, IConfiguration<T> context)
         {
             Name = node.Attributes["name"]?.Value;
 
@@ -46,7 +48,7 @@
             Processor = CreateProcessor(node, context);
         }
 
-        private IStorage CreateStorage(XmlNode node, IConfiguration context)
+        private IStorage CreateStorage(XmlNode node, IConfiguration<T> context)
         {
             var nStorage = node.SelectSingleNode("storage");
             var storageName = nStorage.Attributes["name"].Value;
@@ -54,25 +56,25 @@
             return storage;
         }
 
-        private IKeyer CreateKeyer(XmlNode node, IConfiguration context)
+        private IKeyer CreateKeyer(XmlNode node, IConfiguration<T> context)
         {
             var nKeyer = node.SelectSingleNode("keyer");
             var typeName = nKeyer.Attributes["type"].Value;
             var type = Type.GetType(typeName);
             var keyer = (IKeyer)Activator.CreateInstance(type);
-            var configurable = keyer as IXmlConfigurable;
+            var configurable = keyer as IXmlConfigurable<T>;
             if (configurable != null)
                 configurable.Configure(nKeyer, context);
             return keyer;
         }
 
-        private IProcessor<T> CreateProcessor(XmlNode node, IConfiguration context)
+        private IProcessor<T> CreateProcessor(XmlNode node, IConfiguration<T> context)
         {
             var nProcessor = node.SelectSingleNode("processor");
             var typeName = nProcessor.Attributes["type"].Value;
             var type = Type.GetType(typeName);
             var processor = (IProcessor<T>)Activator.CreateInstance(type);
-            var configurable = processor as IXmlConfigurable;
+            var configurable = processor as IXmlConfigurable<T>;
             if (configurable != null)
                 configurable.Configure(nProcessor, context);
             return processor;

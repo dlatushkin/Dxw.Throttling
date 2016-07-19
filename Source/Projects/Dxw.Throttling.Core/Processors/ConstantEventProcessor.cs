@@ -10,13 +10,9 @@
     {
         public T Value { get; set; }
 
-        public IApplyResult<T> Process(object key, object context = null, object storeEndpoint = null/*, IRule<T> rule = null*/)
+        public IApplyResult<T> Process(object key, object context = null, object storeEndpoint = null)
         {
             return new ApplyResult<T> { Verdict = Value };
-            //if (Ok)
-            //    return ApplyResultPassBlock.Pass(rule);
-            //else
-            //    return ApplyResultPassBlock.Block(rule);
         }
 
         public void Configure(XmlNode node, IConfiguration context)

@@ -7,4 +7,9 @@
     {
         void Configure(XmlNode node, IConfiguration context);
     }
+
+    public interface IXmlConfigurable<T>
+    {
+        void Configure(XmlNode node, IConfiguration<T> context);
+    }
 }

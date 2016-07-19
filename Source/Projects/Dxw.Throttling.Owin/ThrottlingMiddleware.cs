@@ -8,26 +8,26 @@
     using Core.Configuration;
     using Core.Exceptions;
 
-    public class ThrottlingMiddleware : OwinMiddleware
+    public class ThrottlingMiddleware<T> : OwinMiddleware
     {
         private readonly string DFLT_CONFIG_SECTION_NAME = "throttling";
 
-        private IRule<PassBlockVerdict> _rule;
+        private IRule<T> _rule;
 
         private readonly string _configSectionName;
 
-        public ThrottlingMiddleware(OwinMiddleware next, IRule rule = null, string configSectionName = null) : base(next)
+        public ThrottlingMiddleware(OwinMiddleware next, IRule<T> rule = null, string configSectionName = null) : base(next)
         {
             if (rule != null)
             {
-                _rule = rule as IRule<PassBlockVerdict>;
+                _rule = rule as IRule<T>;
                 return;
             }
 
             _configSectionName = configSectionName ?? DFLT_CONFIG_SECTION_NAME;
 
             var throttlingConfigSection = 
-                System.Configuration.ConfigurationManager.GetSection(_configSectionName) as ThrottlingConfiguration;
+                System.Configuration.ConfigurationManager.GetSection(_configSectionName) as ThrottlingConfiguration<T>;
 
             if (throttlingConfigSection == null)
                 throw new ThrottlingException(
@@ -35,7 +35,7 @@
                         "Neither rule was provided nor configuration section '{0}' was setup in config file.", 
                             _configSectionName));
 
-            _rule = throttlingConfigSection.Rule as IRule<PassBlockVerdict>;
+            _rule = throttlingConfigSection.Rule as IRule<T>;
         }
 
         public override async Task Invoke(IOwinContext context)
@@ -43,11 +43,11 @@
             var request = context.Request as OwinRequest;
 
             var applyResult = _rule.Apply(request);
-            if (applyResult.Verdict == PassBlockVerdict.Pass)
-            {
-                await Next.Invoke(context);
-                return;
-            }
+            //if (applyResult.Verdict == PassBlockVerdict.Pass)
+            //{
+            //    await Next.Invoke(context);
+            //    return;
+            //}
 
             var response = context.Response;
             var errorMsg = applyResult.Reason.Message;

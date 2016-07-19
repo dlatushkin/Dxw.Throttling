@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Xml;
 
-    public abstract class RuleSet<T> : IRule<T>, IXmlConfigurable
+    public abstract class RuleSet<T> : IRule<T>, IXmlConfigurable<T>
     {
         public IEnumerable<IRule<T>> Rules { get; set; }
 
@@ -20,7 +20,7 @@
             BlockResultsOnly = true;
         }
 
-        public void Configure(XmlNode node, IConfiguration context)
+        public void Configure(XmlNode node, IConfiguration<T> context)
         {
             var rules = new List<IRule<T>>();
 
