@@ -13,7 +13,7 @@
 
     public class StorageKeyerProcessorPassBlockRule : StorageKeyerProcessorRule<PassBlockVerdict> { }
 
-    public class StorageKeyerProcessorRule<T> : IRule<T>, IRequireStorage, IRequireKeyer, IRequireProcessor<T>, IXmlConfigurable<T>, INamed
+    public class StorageKeyerProcessorRule<T> : IRule<T>, IXmlConfigurable<T>, INamed//, IRequireProcessor<T>, IRequireStorage, IRequireKeyer
     {
         public IStorage Storage { get; set; }
 
@@ -27,7 +27,7 @@
         {
             var key = Keyer.GetKey(context);
 
-            var result = Processor.Process(key, context, Storage.GetStorePoint()/*, this*/);
+            var result = Processor.Process(key, context, Storage.GetStorePoint());
 
             var ruledResult = ApplyResult<T>.FromResultAndRule(result, this);
 

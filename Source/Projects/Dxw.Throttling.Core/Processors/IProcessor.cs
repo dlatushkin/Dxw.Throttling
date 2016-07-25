@@ -13,6 +13,6 @@
         /// <param name="storage">Storage instance.</param>
         /// <param name="rule">Caller</param>
         /// <returns></returns>
-        IApplyResult<T> Process(object key = null, object context = null, object storeEndpoint = null/*, IRule<T> rule = null*/);
+        IApplyResult<T> Process(object key = null, object context = null, object storeEndpoint = null);
     }
 }

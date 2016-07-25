@@ -1,9 +1,9 @@
-﻿namespace Dxw.Throttling.Core.Rules
-{
-    using Keyers;
+﻿//namespace Dxw.Throttling.Core.Rules
+//{
+//    using Keyers;
 
-    public interface IRequireKeyer
-    {
-        IKeyer Keyer { set; }
-    }
-}
+//    public interface IRequireKeyer
+//    {
+//        IKeyer Keyer { set; }
+//    }
+//}
