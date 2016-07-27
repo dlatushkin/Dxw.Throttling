@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class RuleOrNode : RuleSet<PassBlockVerdict>
+    public class RuleOrNode : RuleSet<PassBlockVerdict, object>
     {
         public override IApplyResult<PassBlockVerdict> Apply(object context = null)
         {

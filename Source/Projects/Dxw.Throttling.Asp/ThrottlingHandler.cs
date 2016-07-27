@@ -8,11 +8,11 @@
 
     public class ThrottlingHandler: DelegatingHandler
     {
-        private IRule<PassBlockVerdict> _rule;
+        private IRule<PassBlockVerdict, HttpRequestMessage> _rule;
 
         public ThrottlingHandler(IRule rule = null)
         {
-            _rule = rule as IRule<PassBlockVerdict>;
+            _rule = rule as IRule<PassBlockVerdict, HttpRequestMessage>;
         }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)

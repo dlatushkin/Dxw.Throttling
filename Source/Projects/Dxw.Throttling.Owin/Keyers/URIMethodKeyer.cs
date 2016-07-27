@@ -5,9 +5,9 @@
     using Core.Keyers;
     using Core.Exceptions;
 
-    public class URIMethodKeyer : IKeyer
+    public class URIMethodKeyer : IKeyer<IOwinContext>
     {
-        public object GetKey(object context)
+        public object GetKey(IOwinContext context)
         {
             var owinContext = context as IOwinContext;
             if (owinContext == null)

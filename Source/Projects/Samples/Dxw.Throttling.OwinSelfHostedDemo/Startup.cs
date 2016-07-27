@@ -7,6 +7,7 @@ using Dxw.Throttling.Core.Storages;
 using Dxw.Throttling.Core.Processors;
 using Dxw.Throttling.Core.Rules;
 using Dxw.Throttling.Owin;
+using Microsoft.Owin;
 
 namespace Dxw.Throttling.OwinSelfHostedDemo
 {
@@ -24,7 +25,7 @@ namespace Dxw.Throttling.OwinSelfHostedDemo
             var keyer = new ControllerNameKeyer();
             //var processor = new ConstantEventProcessor() { Ok = true};
             var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(10) };
-            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = processor };
+            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IOwinRequest> { Storage = storage, Keyer = keyer, Processor = processor };
 
             appBuilder.Use(typeof(ThrottlingMiddleware<PassBlockVerdict>), ruleBlock);
 

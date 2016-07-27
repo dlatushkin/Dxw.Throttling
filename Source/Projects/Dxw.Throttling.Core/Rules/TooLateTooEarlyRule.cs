@@ -2,10 +2,12 @@
 {
     using System;
 
-    public class TooLateTooEarlyRule : IRule<PassBlockVerdict>
+    public class TooLateTooEarlyRule : IRule<PassBlockVerdict, object>
     {
         public int Times { get; set; }
         public TimeSpan PerPeriod { get; set; }
+
+        public virtual string Name { get { return this.GetType().Name; } }
 
         public IApplyResult<PassBlockVerdict> Apply(object context = null)
         {

@@ -21,9 +21,9 @@
         [TestMethod]
         public void RedisTest_01()
         {
-            var throttlingConfiguration = ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration<PassBlockVerdict>;
+            var throttlingConfiguration = ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration<PassBlockVerdict, object>;
 
-            var redisRule = throttlingConfiguration.Rules.OfType<INamed>().FirstOrDefault(r => r.Name == "singleRedis") as IRule<PassBlockVerdict>;
+            var redisRule = throttlingConfiguration.Rules.OfType<INamed>().FirstOrDefault(r => r.Name == "singleRedis") as IRule<PassBlockVerdict, object>;
 
             IApplyResult<PassBlockVerdict> res;
 

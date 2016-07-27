@@ -5,12 +5,12 @@
     using Core.Keyers;
     using Core.Exceptions;
 
-    public class IPKeyer : IKeyer
+    public class IPKeyer : IKeyer<IOwinContext>
     {
         private const string HttpContext = "MS_OwinContext";
         private const string RemoteEndpointMessage = "System.ServiceModel.Channels.RemoteEndpointMessageProperty";
 
-        public object GetKey(object context)
+        public object GetKey(IOwinContext context)
         {
             var owinContext = context as IOwinContext;
             if (owinContext == null)

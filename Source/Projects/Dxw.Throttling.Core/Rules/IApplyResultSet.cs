@@ -10,7 +10,7 @@
 
     public interface IApplyResultSet : IApplyResultSet<object> {}
 
-    public class ApplyResultSetPassBlock : ApplyResultPassBlock, IRuledResult<PassBlockVerdict>, IApplyResultSet<PassBlockVerdict>
+    public class ApplyResultSetPassBlock : ApplyResultPassBlock, IRuledResult, IApplyResultSet<PassBlockVerdict>
     {
         public void SetVerdict(PassBlockVerdict verdict)
         {

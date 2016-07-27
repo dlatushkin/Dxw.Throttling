@@ -4,12 +4,12 @@
 
     using Core.Keyers;
 
-    public class IPKeyer : IKeyer
+    public class IPKeyer : IKeyer<HttpRequestMessage>
     {
         private const string HttpContext = "MS_HttpContext";
         private const string RemoteEndpointMessage = "System.ServiceModel.Channels.RemoteEndpointMessageProperty";
 
-        public object GetKey(object context)
+        public object GetKey(HttpRequestMessage context)
         {
             object ip = null;
 

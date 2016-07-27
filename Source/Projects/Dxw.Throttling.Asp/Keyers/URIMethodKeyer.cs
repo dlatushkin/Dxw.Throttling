@@ -4,9 +4,9 @@
 
     using Core.Keyers;
 
-    public class URIMethodKeyer : IKeyer
+    public class URIMethodKeyer : IKeyer<HttpRequestMessage>
     {
-        public object GetKey(object context)
+        public object GetKey(HttpRequestMessage context)
         {
             var request = context as HttpRequestMessage;
             if (request != null)

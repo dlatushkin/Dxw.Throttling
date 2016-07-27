@@ -19,7 +19,7 @@ namespace Dxw.Throttling.WebApiTest
             //var keyer = new ControllerNameKeyer();
             //var processor = new ConstantEventProcessor() { Ok = true};
             var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(10) };
-            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = processor } as IRule;
+            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = processor } as IRule;
             var throttlingHandler = new ThrottlingHandler(ruleBlock);
             config.MessageHandlers.Add(throttlingHandler);
 

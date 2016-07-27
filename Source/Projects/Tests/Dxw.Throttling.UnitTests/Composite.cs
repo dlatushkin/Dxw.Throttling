@@ -19,7 +19,7 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>() { Value = PassBlockVerdict.Block };
 
-            var blockRule = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = processor };
+            var blockRule = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = processor };
 
             var rule = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new [] { blockRule } };
 
@@ -37,7 +37,7 @@ namespace Dxw.Throttling.UnitTests
                 Assert.IsNotNull(blockRuleResult);
                 Assert.AreEqual(r.Verdict, PassBlockVerdict.Block);
 
-                var blockRuleResultRuled = blockRuleResult as IRuledResult<PassBlockVerdict>;
+                var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
                 Assert.AreSame(blockRule, blockRuleResultRuled.Rule);
             }
@@ -51,8 +51,8 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>();
 
-            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict>() { Value = PassBlockVerdict.Block } };
-            var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value=PassBlockVerdict.Pass } };
+            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict>() { Value = PassBlockVerdict.Block } };
+            var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value=PassBlockVerdict.Pass } };
 
             var rule = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock, rulePass } };
 
@@ -70,7 +70,7 @@ namespace Dxw.Throttling.UnitTests
                 Assert.IsNotNull(blockRuleResult);
                 Assert.AreEqual(blockRuleResult.Verdict, PassBlockVerdict.Block);
 
-                var blockRuleResultRuled = blockRuleResult as IRuledResult<PassBlockVerdict>;
+                var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
                 Assert.AreSame(ruleBlock, blockRuleResultRuled.Rule);
             }
@@ -84,8 +84,8 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>();
 
-            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
-            var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
+            var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
 
             var rule = new RuleAndNode { CallEachRule = true, BlockResultsOnly = false, Rules = new[] { ruleBlock, rulePass } };
 
@@ -103,7 +103,7 @@ namespace Dxw.Throttling.UnitTests
                 Assert.IsNotNull(blockRuleResult);
                 Assert.AreEqual(blockRuleResult.Verdict, PassBlockVerdict.Block);
 
-                var blockRuleResultRuled = blockRuleResult as IRuledResult<PassBlockVerdict>;
+                var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
                 Assert.AreSame(ruleBlock, blockRuleResultRuled.Rule);
 
@@ -111,7 +111,7 @@ namespace Dxw.Throttling.UnitTests
                 Assert.IsNotNull(passRuleResult);
                 Assert.AreEqual(passRuleResult.Verdict, PassBlockVerdict.Pass);
 
-                var passRuleResultRuled = passRuleResult as IRuledResult<PassBlockVerdict>;
+                var passRuleResultRuled = passRuleResult as IRuledResult;
                 Assert.IsNotNull(passRuleResultRuled);
                 Assert.AreSame(rulePass, passRuleResultRuled.Rule);
             }
@@ -125,8 +125,8 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>();
 
-            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
-            var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
+            var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
 
             var rule = new RuleAndNode { CallEachRule = false, BlockResultsOnly = false, Rules = new[] { ruleBlock, rulePass } };
 
@@ -144,7 +144,7 @@ namespace Dxw.Throttling.UnitTests
                 Assert.IsNotNull(blockRuleResult);
                 Assert.AreEqual(r.Verdict, PassBlockVerdict.Block);
 
-                var blockRuleResultRuled = blockRuleResult as IRuledResult<PassBlockVerdict>;
+                var blockRuleResultRuled = blockRuleResult as IRuledResult;
                 Assert.IsNotNull(blockRuleResultRuled);
                 Assert.AreSame(ruleBlock, blockRuleResultRuled.Rule);
             }
@@ -158,8 +158,8 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>();
 
-            var rulePass1 = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
-            var rulePass2 = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var rulePass1 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var rulePass2 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
 
             var rule = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { rulePass1, rulePass2 } };
 
@@ -178,12 +178,12 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>();
 
-            var ruleBlock1 = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block} };
-            var rulePass1 = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var ruleBlock1 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block} };
+            var rulePass1 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
             var rule1 = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock1, rulePass1 } };
 
-            var ruleBlock2 = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
-            var rulePass2 = new StorageKeyerProcessorRule<PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var ruleBlock2 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
+            var rulePass2 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
             var rule2 = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock2, rulePass2 } };
 
             var rule = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { rule1, rule2 } };

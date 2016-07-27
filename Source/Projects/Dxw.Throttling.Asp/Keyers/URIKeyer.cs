@@ -5,9 +5,9 @@
     using Core.Keyers;
     using Core.Exceptions;
 
-    public class URIKeyer : IKeyer
+    public class URIKeyer : IKeyer<HttpRequestMessage>
     {
-        public object GetKey(object context)
+        public object GetKey(HttpRequestMessage context)
         {
             var request = context as HttpRequestMessage;
             if (request != null)

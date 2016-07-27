@@ -12,22 +12,22 @@
     {
         private readonly string DFLT_CONFIG_SECTION_NAME = "throttling";
 
-        private IRule<T> _rule;
+        private IRule<T, OwinRequest> _rule;
 
         private readonly string _configSectionName;
 
-        public ThrottlingMiddleware(OwinMiddleware next, IRule<T> rule = null, string configSectionName = null) : base(next)
+        public ThrottlingMiddleware(OwinMiddleware next, IRule<T, OwinRequest> rule = null, string configSectionName = null) : base(next)
         {
             if (rule != null)
             {
-                _rule = rule as IRule<T>;
+                _rule = rule as IRule<T, OwinRequest>;
                 return;
             }
 
             _configSectionName = configSectionName ?? DFLT_CONFIG_SECTION_NAME;
 
             var throttlingConfigSection = 
-                System.Configuration.ConfigurationManager.GetSection(_configSectionName) as ThrottlingConfiguration<T>;
+                System.Configuration.ConfigurationManager.GetSection(_configSectionName) as ThrottlingConfiguration<T, OwinRequest>;
 
             if (throttlingConfigSection == null)
                 throw new ThrottlingException(
@@ -35,7 +35,7 @@
                         "Neither rule was provided nor configuration section '{0}' was setup in config file.", 
                             _configSectionName));
 
-            _rule = throttlingConfigSection.Rule as IRule<T>;
+            _rule = throttlingConfigSection.Rule as IRule<T, OwinRequest>;
         }
 
         public override async Task Invoke(IOwinContext context)

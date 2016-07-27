@@ -15,18 +15,18 @@
         IApplyError Reason { get; }
     }
 
-    public interface IApplyResult : IApplyResult<object> { }
+    //public interface IApplyResult : IApplyResult<object> { }
 
-    public interface IRuledResult<out T>: IApplyResult<T>
+    public interface IRuledResult
     {
-        IRule<T> Rule { get; }
+        IRule Rule { get; }
     }
 
-    public interface IRuledResult : IRuledResult<object> { };
+    //public interface IRuledResult : IRuledResult<object, object> { };
 
-    public class ApplyResult<T> : IApplyResult<T>, IRuledResult<T>
+    public class ApplyResult<T> : IApplyResult<T>, IRuledResult
     {
-        public static ApplyResult<T> FromResultAndRule(IApplyResult<T> src, IRule<T> rule)
+        public static ApplyResult<T> FromResultAndRule(IApplyResult<T> src, IRule rule)
         {
             return new ApplyResult<T>
             {
@@ -40,35 +40,31 @@
 
         public IApplyError Reason { get; set; }
 
-        public IRule<T> Rule { get; set; }
-    }
+        public IRule Rule { get; set; }
 
+        IRule IRuledResult.Rule { get { return this.Rule; } }
+    }
+    
     public enum PassBlockVerdict { Pass, Block }
 
-    public class ApplyResultPassBlock : IApplyResult<PassBlockVerdict>, IRuledResult<PassBlockVerdict>
+    public class ApplyResultPassBlock : IApplyResult<PassBlockVerdict>, IRuledResult
     {
         protected PassBlockVerdict _verdict;
 
-        public static IApplyResult<PassBlockVerdict> Pass(IRule<PassBlockVerdict> rule = null)
+        public static IApplyResult<PassBlockVerdict> Pass(IRule rule = null)
         {
             return new ApplyResultPassBlock { Rule = rule, _verdict = PassBlockVerdict.Pass };
         }
 
-        public static IApplyResult<PassBlockVerdict> Block(IRule<PassBlockVerdict> rule = null, string msg = null)
+        public static IApplyResult<PassBlockVerdict> Block(IRule rule = null, string msg = null)
         {
             return new ApplyResultPassBlock { Rule = rule, _verdict = PassBlockVerdict.Block, Reason = new ApplyError { Message = msg } };
         }
 
-        public PassBlockVerdict Verdict
-        {
-            get
-            {
-                return _verdict;
-            }
-        }
+        public PassBlockVerdict Verdict { get { return _verdict; } }
 
         public IApplyError Reason { get; set; }
 
-        public IRule<PassBlockVerdict> Rule { get; set; }
+        public IRule Rule { get; set; }
     }
 }
