@@ -21,6 +21,8 @@
         [TestMethod]
         public void RedisTest_01()
         {
+            var processort = typeof(Dxw.Throttling.Redis.Processors.RequestCountPerPeriodProcessorBlockPass).FullName;
+
             var throttlingConfiguration = ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration<PassBlockVerdict, object>;
 
             var redisRule = throttlingConfiguration.Rules.OfType<INamed>().FirstOrDefault(r => r.Name == "singleRedis") as IRule<PassBlockVerdict, object>;
