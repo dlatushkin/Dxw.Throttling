@@ -8,8 +8,8 @@
         void Configure(XmlNode node, IConfiguration context);
     }
 
-    public interface IXmlConfigurable<T, TArg>
+    public interface IXmlConfigurable<TRes, TArg>
     {
-        void Configure(XmlNode node, IConfiguration<T, TArg> context);
+        void Configure(XmlNode node, IConfiguration<TRes, TArg> context);
     }
 }
