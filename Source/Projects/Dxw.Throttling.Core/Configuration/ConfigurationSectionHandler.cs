@@ -8,11 +8,11 @@
     using Rules;
     using Storages;
 
-    public class ConfigurationSectionHandler<T, TArg> : IConfigurationSectionHandler
+    public class ConfigurationSectionHandler<TRes, TArg> : IConfigurationSectionHandler
     {
         public object Create(object parent, object configContext, XmlNode section)
         {
-            var conf = new ThrottlingConfiguration<T, TArg>();
+            var conf = new ThrottlingConfiguration<TRes, TArg>();
 
             var storagesSection = section.SelectSingleNode("storages");
             if (storagesSection != null)
@@ -25,7 +25,7 @@
             return conf;
         }
 
-        private IList<IStorage> CreateStorages(XmlNode section, IConfiguration<T, TArg> context)
+        private IList<IStorage> CreateStorages(XmlNode section, IConfiguration<TRes, TArg> context)
         {
             var storages = new List<IStorage>();
 
@@ -43,17 +43,17 @@
             return storages;
         }
 
-        private IEnumerable<IRule<T, TArg>> CreateRules(XmlNode section, IConfiguration<T, TArg> context)
+        private IEnumerable<IRule<TRes, TArg>> CreateRules(XmlNode section, IConfiguration<TRes, TArg> context)
         {
-            var rules = new List<IRule<T, TArg>>();
+            var rules = new List<IRule<TRes, TArg>>();
             
             foreach (XmlNode nRule in section.ChildNodes)
             {
                 var typeName = nRule.Attributes["type"].Value;
                 var type = Type.GetType(typeName);
-                var rule = (IRule<T, TArg>)Activator.CreateInstance(type);
+                var rule = (IRule<TRes, TArg>)Activator.CreateInstance(type);
 
-                var configurableTyped = rule as IXmlConfigurable<T, TArg>;
+                var configurableTyped = rule as IXmlConfigurable<TRes, TArg>;
                 if (configurableTyped != null)
                 {
                     configurableTyped.Configure(nRule, context);

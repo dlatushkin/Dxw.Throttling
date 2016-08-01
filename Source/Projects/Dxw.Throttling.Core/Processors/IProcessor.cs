@@ -3,7 +3,7 @@
     using Rules;
     using System.Collections;
 
-    public interface IProcessor<out T>
+    public interface IProcessor<out TRes>
     {
         /// <summary>
         /// Processes an event
@@ -13,6 +13,6 @@
         /// <param name="storage">Storage instance.</param>
         /// <param name="rule">Caller</param>
         /// <returns></returns>
-        IApplyResult<T> Process(object key = null, object context = null, object storeEndpoint = null);
+        IApplyResult<TRes> Process(object key = null, object context = null, object storeEndpoint = null);
     }
 }

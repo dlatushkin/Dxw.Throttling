@@ -3,32 +3,22 @@
     using System;
     using System.Collections.Generic;
 
-    //public interface IApplyResult
-    //{
-    //    object Verdict { get; }
-    //    IApplyError Reason { get; }
-    //}
-
-    public interface IApplyResult<out T>
+    public interface IApplyResult<out TRes>
     {
-        T Verdict { get; }
+        TRes Verdict { get; }
         IApplyError Reason { get; }
     }
-
-    //public interface IApplyResult : IApplyResult<object> { }
 
     public interface IRuledResult
     {
         IRule Rule { get; }
     }
 
-    //public interface IRuledResult : IRuledResult<object, object> { };
-
-    public class ApplyResult<T> : IApplyResult<T>, IRuledResult
+    public class ApplyResult<TRes> : IApplyResult<TRes>, IRuledResult
     {
-        public static ApplyResult<T> FromResultAndRule(IApplyResult<T> src, IRule rule)
+        public static ApplyResult<TRes> FromResultAndRule(IApplyResult<TRes> src, IRule rule)
         {
-            return new ApplyResult<T>
+            return new ApplyResult<TRes>
             {
                 Verdict = src.Verdict,
                 Reason = src.Reason,
@@ -36,7 +26,7 @@
             };
         }
 
-        public T Verdict { get; set; }
+        public TRes Verdict { get; set; }
 
         public IApplyError Reason { get; set; }
 

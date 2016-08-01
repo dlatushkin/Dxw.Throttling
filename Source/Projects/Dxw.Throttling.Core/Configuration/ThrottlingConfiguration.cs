@@ -6,7 +6,7 @@
     using Rules;
     using Storages;
 
-    public class ThrottlingConfiguration<T, TArg> : IConfiguration<T, TArg>
+    public class ThrottlingConfiguration<TRes, TArg> : IConfiguration<TRes, TArg>
     {
         private IEnumerable<IStorage> _storages;
         public IEnumerable<IStorage> Storages
@@ -21,8 +21,8 @@
             }
         }
 
-        private IRule<T, TArg> _rule;
-        public IRule<T, TArg> Rule
+        private IRule<TRes, TArg> _rule;
+        public IRule<TRes, TArg> Rule
         {
             get
             {
@@ -34,12 +34,12 @@
             }
         }
 
-        private IEnumerable<IRule<T, TArg>> _rules;
-        public IEnumerable<IRule<T, TArg>> Rules
+        private IEnumerable<IRule<TRes, TArg>> _rules;
+        public IEnumerable<IRule<TRes, TArg>> Rules
         {
             get
             {
-                return _rules ?? Enumerable.Empty<IRule<T, TArg>>();
+                return _rules ?? Enumerable.Empty<IRule<TRes, TArg>>();
             }
             set
             {

@@ -6,13 +6,13 @@
     using Storages;
     using System;
 
-    public class ConstantEventProcessor<T> : IProcessor<T>, IXmlConfigurable
+    public class ConstantEventProcessor<TRes> : IProcessor<TRes>, IXmlConfigurable
     {
-        public T Value { get; set; }
+        public TRes Value { get; set; }
 
-        public IApplyResult<T> Process(object key, object context = null, object storeEndpoint = null)
+        public IApplyResult<TRes> Process(object key, object context = null, object storeEndpoint = null)
         {
-            return new ApplyResult<T> { Verdict = Value };
+            return new ApplyResult<TRes> { Verdict = Value };
         }
 
         public void Configure(XmlNode node, IConfiguration context)
@@ -20,7 +20,7 @@
             var okAttr = node.Attributes["Ok"];
             if (okAttr == null) return;
 
-            Value = (T)Convert.ChangeType(okAttr, typeof(T));
+            Value = (TRes)Convert.ChangeType(okAttr, typeof(TRes));
         }
     }
 }

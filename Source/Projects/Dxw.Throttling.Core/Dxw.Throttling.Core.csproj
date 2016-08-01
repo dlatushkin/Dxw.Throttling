@@ -50,7 +50,6 @@
     <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
     <Compile Include="Exceptions\ThrottlingRuleException.cs" />
     <Compile Include="Exceptions\ThrottlingException.cs" />
-    <Compile Include="Processors\IRuledProcessor.cs" />
     <Compile Include="Processors\RequestCountPerPeriodProcessor.cs" />
     <Compile Include="Processors\IProcessor.cs" />
     <Compile Include="Processors\ConstantEventProcessor.cs" />
@@ -62,9 +61,6 @@
     <Compile Include="Rules\IApplyError.cs" />
     <Compile Include="Rules\IApplyResultSet.cs" />
     <Compile Include="Rules\IApplyResult.cs" />
-    <Compile Include="Rules\IRequireProcessor.cs" />
-    <Compile Include="Rules\IRequireKeyer.cs" />
-    <Compile Include="Rules\IRequireStorage.cs" />
     <Compile Include="IXmlConfigurable.cs" />
     <Compile Include="Rules\IRule.cs" />
     <Compile Include="Rules\RuleSet.cs" />
