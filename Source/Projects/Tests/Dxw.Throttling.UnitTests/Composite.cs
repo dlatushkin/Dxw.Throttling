@@ -21,7 +21,7 @@ namespace Dxw.Throttling.UnitTests
 
             var blockRule = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = processor };
 
-            var rule = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new [] { blockRule } };
+            var rule = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new [] { blockRule } };
 
             var context = new HttpRequestMessage();
             {
@@ -54,7 +54,7 @@ namespace Dxw.Throttling.UnitTests
             var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict>() { Value = PassBlockVerdict.Block } };
             var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value=PassBlockVerdict.Pass } };
 
-            var rule = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock, rulePass } };
+            var rule = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock, rulePass } };
 
             var context = new HttpRequestMessage();
             {
@@ -87,7 +87,7 @@ namespace Dxw.Throttling.UnitTests
             var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
             var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
 
-            var rule = new RuleAndNode { CallEachRule = true, BlockResultsOnly = false, Rules = new[] { ruleBlock, rulePass } };
+            var rule = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = false, Rules = new[] { ruleBlock, rulePass } };
 
             var context = new HttpRequestMessage();
             {
@@ -128,7 +128,7 @@ namespace Dxw.Throttling.UnitTests
             var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
             var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
 
-            var rule = new RuleAndNode { CallEachRule = false, BlockResultsOnly = false, Rules = new[] { ruleBlock, rulePass } };
+            var rule = new RuleAndNode<object> { CallEachRule = false, BlockResultsOnly = false, Rules = new[] { ruleBlock, rulePass } };
 
             var context = new HttpRequestMessage();
             {
@@ -161,7 +161,7 @@ namespace Dxw.Throttling.UnitTests
             var rulePass1 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
             var rulePass2 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
 
-            var rule = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { rulePass1, rulePass2 } };
+            var rule = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { rulePass1, rulePass2 } };
 
             var context = new HttpRequestMessage();
             {
@@ -180,13 +180,13 @@ namespace Dxw.Throttling.UnitTests
 
             var ruleBlock1 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block} };
             var rulePass1 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
-            var rule1 = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock1, rulePass1 } };
+            var rule1 = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock1, rulePass1 } };
 
             var ruleBlock2 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
             var rulePass2 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
-            var rule2 = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock2, rulePass2 } };
+            var rule2 = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock2, rulePass2 } };
 
-            var rule = new RuleAndNode { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { rule1, rule2 } };
+            var rule = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { rule1, rule2 } };
 
             var context = new HttpRequestMessage();
             {

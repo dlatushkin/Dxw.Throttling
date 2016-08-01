@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class RuleAndNode : RuleSet<PassBlockVerdict, object>
+    public class RuleAndNode<TArg> : RuleSet<PassBlockVerdict, TArg>
     {
-        public override IApplyResult<PassBlockVerdict> Apply(object context = null)
+        public override IApplyResult<PassBlockVerdict> Apply(TArg context = default(TArg))
         {
             var applyResultSet = new ApplyResultSetPassBlock
             {
