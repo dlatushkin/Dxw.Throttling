@@ -10,9 +10,8 @@
         private const string HttpContext = "MS_OwinContext";
         private const string RemoteEndpointMessage = "System.ServiceModel.Channels.RemoteEndpointMessageProperty";
 
-        public object GetKey(IOwinContext context)
+        public object GetKey(IOwinContext owinContext)
         {
-            var owinContext = context as IOwinContext;
             if (owinContext == null)
                 throw new ThrottlingRuleException("Context should be an instance of IOwinContext.");
 

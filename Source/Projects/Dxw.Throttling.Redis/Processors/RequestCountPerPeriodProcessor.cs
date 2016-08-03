@@ -25,7 +25,7 @@
             if (db == null)
             {
                 throw new ThrottlingException(
-                    "storePoint argument mst be a valid instance of StackExchange.Redis.IDatabase.");
+                    "storePoint argument must be a valid instance of StackExchange.Redis.IDatabase.");
             }
 
             var redisKey = key.ToString();

@@ -6,9 +6,8 @@
 
     public class URIMethodKeyer : IKeyer<HttpRequestMessage>
     {
-        public object GetKey(HttpRequestMessage context)
+        public object GetKey(HttpRequestMessage request)
         {
-            var request = context as HttpRequestMessage;
             if (request != null)
                 return request.RequestUri;
 
