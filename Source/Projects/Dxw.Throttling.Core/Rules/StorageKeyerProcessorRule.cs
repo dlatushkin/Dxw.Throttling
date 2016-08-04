@@ -1,32 +1,40 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
     using System;
-    using System.Xml;
+    using System.Collections.Concurrent;
     using System.Linq;
+    using System.Xml;
 
     using Storages;
     using Keyers;
     using Processors;
     using Configuration;
+    using Exceptions;
 
-    public class StorageKeyerProcessorRule : IRule, IRequireStorage, IRequireKeyer, IRequireProcessor, IXmlConfigurable, INamed
+    public class StorageKeyerProcessorPassBlockRule : StorageKeyerProcessorRule<PassBlockVerdict, object> { }
+
+    public class StorageKeyerProcessorRule<TRes, TArg> : IRule<TRes, TArg>, IXmlConfigurable<TRes, TArg>, INamed//, IRequireProcessor<T>, IRequireStorage, IRequireKeyer
     {
         public IStorage Storage { get; set; }
 
-        public IKeyer Keyer { get; set; }
+        public IKeyer<TArg> Keyer { get; set; }
 
-        public IProcessor Processor { get; set; }
+        public IProcessor<TRes> Processor { get; set; }
 
         public string Name { get; private set; }
 
-        public IApplyResult Apply(object context = null)
+        public IApplyResult<TRes> Apply(TArg context = default(TArg))
         {
             var key = Keyer.GetKey(context);
-            var result = Storage.Upsert(key, context, this, Processor.Process);
-            return result.Result;
+
+            var result = Processor.Process(key, context, Storage.GetStorePoint());
+
+            var ruledResult = ApplyResult<TRes>.FromResultAndRule(result, this);
+
+            return ruledResult;
         }
 
-        public void Configure(XmlNode node, IConfiguration context)
+        public void Configure(XmlNode node, IConfiguration<TRes, TArg> context)
         {
             Name = node.Attributes["name"]?.Value;
 
@@ -35,7 +43,7 @@
             Processor = CreateProcessor(node, context);
         }
 
-        private IStorage CreateStorage(XmlNode node, IConfiguration context)
+        private IStorage CreateStorage(XmlNode node, IConfiguration<TRes, TArg> context)
         {
             var nStorage = node.SelectSingleNode("storage");
             var storageName = nStorage.Attributes["name"].Value;
@@ -43,27 +51,37 @@
             return storage;
         }
 
-        private IKeyer CreateKeyer(XmlNode node, IConfiguration context)
+        private IKeyer<TArg> CreateKeyer(XmlNode node, IConfiguration<TRes, TArg> context)
         {
             var nKeyer = node.SelectSingleNode("keyer");
             var typeName = nKeyer.Attributes["type"].Value;
             var type = Type.GetType(typeName);
-            var keyer = (IKeyer)Activator.CreateInstance(type);
-            var configurable = keyer as IXmlConfigurable;
+            var keyer = (IKeyer<TArg>)Activator.CreateInstance(type);
+            var configurable = keyer as IXmlConfigurable<TRes, TArg>;
             if (configurable != null)
                 configurable.Configure(nKeyer, context);
             return keyer;
         }
 
-        private IProcessor CreateProcessor(XmlNode node, IConfiguration context)
+        private IProcessor<TRes> CreateProcessor(XmlNode node, IConfiguration<TRes, TArg> context)
         {
             var nProcessor = node.SelectSingleNode("processor");
             var typeName = nProcessor.Attributes["type"].Value;
             var type = Type.GetType(typeName);
-            var processor = (IProcessor)Activator.CreateInstance(type);
-            var configurable = processor as IXmlConfigurable;
-            if (configurable != null)
-                configurable.Configure(nProcessor, context);
+            var processor = (IProcessor<TRes>)Activator.CreateInstance(type);
+
+            var configurableTyped = processor as IXmlConfigurable<TRes, TArg>;
+            if (configurableTyped != null)
+            {
+                configurableTyped.Configure(nProcessor, context);
+            }
+            else
+            {
+                var configurable = processor as IXmlConfigurable;
+                if (configurable != null)
+                    configurable.Configure(nProcessor, context);
+            }
+
             return processor;
         }
     }

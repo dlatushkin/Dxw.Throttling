@@ -2,9 +2,11 @@
 {
     using System;
 
-    public interface IStorageValue
+    public interface IStorageValue<out T>
     {
         bool IsExpired(DateTime utcNow);
-        object Value { get; }
+        T Value { get; }
     }
+
+    public interface IStorageValue : IStorageValue<object> { }
 }

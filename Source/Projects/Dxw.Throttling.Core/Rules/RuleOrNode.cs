@@ -3,35 +3,35 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class RuleOrNode : RuleSet
+    public class RuleOrNode<TArg> : RuleSet<PassBlockVerdict, TArg>
     {
-        public override IApplyResult Apply(object context = null)
+        public override IApplyResult<PassBlockVerdict> Apply(TArg context = default(TArg))
         {
-            var applyResultSet = new ApplyResultSet
+            var applyResultSet = new ApplyResultSetPassBlock
             {
                 Rule = this,
-                Results = new List<IApplyResult>()
+                Results = new List<IApplyResult<PassBlockVerdict>>()
             };
 
-            var childResults = new List<IApplyResult>();
+            var childResults = new List<IApplyResult<PassBlockVerdict>>();
             foreach (var rule in Rules)
             {
                 var result = rule.Apply(context);
 
-                if (result.Block || !BlockResultsOnly) childResults.Add(result);
+                if (result.Verdict == PassBlockVerdict.Block || !BlockResultsOnly) childResults.Add(result);
 
-                if (!result.Block && !CallEachRule) break;
+                if (result.Verdict == PassBlockVerdict.Pass && !CallEachRule) break;
             }
             applyResultSet.Results = childResults;
 
-            if (childResults.Any(chr => !chr.Block))
+            if (childResults.Any(chr => chr.Verdict == PassBlockVerdict.Pass))
             {
-                applyResultSet.Block = false;
+                applyResultSet.SetVerdict(PassBlockVerdict.Pass);
                 return applyResultSet;
             }
 
-            applyResultSet.Block = true;
-            var firstBlockResult = childResults.FirstOrDefault(chr => chr.Block);
+            applyResultSet.SetVerdict(PassBlockVerdict.Block);
+            var firstBlockResult = childResults.FirstOrDefault(chr => chr.Verdict == PassBlockVerdict.Block);
             if (firstBlockResult != null) applyResultSet.Reason = firstBlockResult.Reason;
 
             return applyResultSet;

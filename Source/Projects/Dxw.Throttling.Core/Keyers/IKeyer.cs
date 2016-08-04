@@ -1,7 +1,7 @@
 ﻿namespace Dxw.Throttling.Core.Keyers
 {
-    public interface IKeyer
+    public interface IKeyer<in TArg>
     {
-        object GetKey(object context);
+        object GetKey(TArg context);
     }
 }

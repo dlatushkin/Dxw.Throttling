@@ -4,17 +4,15 @@
     using Configuration;
     using Rules;
     using Storages;
+    using System;
 
-    public class ConstantEventProcessor : IProcessor, IXmlConfigurable
+    public class ConstantEventProcessor<TRes> : IProcessor<TRes>, IXmlConfigurable
     {
-        public bool Ok { get; set; }
+        public TRes Value { get; set; }
 
-        public IProcessEventResult Process(object context = null, IStorage storage = null, IStorageValue prevState = null, IRule rule = null)
+        public IApplyResult<TRes> Process(object key, object context = null, object storeEndpoint = null)
         {
-            if (Ok)
-                return new ProcessEventResult { Result = ApplyResult.Ok(rule) };
-            else
-                return new ProcessEventResult { Result = ApplyResult.Error(rule) };
+            return new ApplyResult<TRes> { Verdict = Value };
         }
 
         public void Configure(XmlNode node, IConfiguration context)
@@ -22,9 +20,7 @@
             var okAttr = node.Attributes["Ok"];
             if (okAttr == null) return;
 
-            bool ok;
-            bool.TryParse(okAttr.Value, out ok);
-            Ok = ok;
+            Value = (TRes)Convert.ChangeType(okAttr, typeof(TRes));
         }
     }
 }

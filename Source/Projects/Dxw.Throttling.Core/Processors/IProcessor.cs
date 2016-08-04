@@ -1,23 +1,18 @@
 ﻿namespace Dxw.Throttling.Core.Processors
 {
     using Rules;
-    using Storages;
+    using System.Collections;
 
-    public interface IProcessEventResult
+    public interface IProcessor<out TRes>
     {
-        IStorageValue NewState { get; }
-        IApplyResult Result { get; }
-    }
-
-    public struct ProcessEventResult : IProcessEventResult
-    {
-        public IStorageValue NewState { get; set; }
-
-        public IApplyResult Result { get; set; }
-    }
-
-    public interface IProcessor
-    {
-        IProcessEventResult Process(object context = null, IStorage storage = null, IStorageValue prevState = null, IRule rule = null);
+        /// <summary>
+        /// Processes an event
+        /// </summary>
+        /// <param name="key">Key of the operation.</param>
+        /// <param name="context">Event context (e.g. HttpRequestMessage).</param>
+        /// <param name="storage">Storage instance.</param>
+        /// <param name="rule">Caller</param>
+        /// <returns></returns>
+        IApplyResult<TRes> Process(object key = null, object context = null, object storeEndpoint = null);
     }
 }

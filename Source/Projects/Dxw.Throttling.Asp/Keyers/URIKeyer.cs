@@ -5,19 +5,14 @@
     using Core.Keyers;
     using Core.Exceptions;
 
-    public class URIKeyer : IKeyer
+    public class URIKeyer : IKeyer<HttpRequestMessage>
     {
-        public object GetKey(object context)
+        public object GetKey(HttpRequestMessage request)
         {
-            //var owinContext = context as OwinRequest;
-            //if (owinContext != null)
-            //    return owinContext.Uri;
-
-            var request = context as HttpRequestMessage;
             if (request != null)
-                return request.RequestUri;
+                throw new ThrottlingRuleException("Nor OwinRequest neither HttpRequestMessage are set in context argument");
 
-            throw new ThrottlingRuleException("Nor OwinRequest neither HttpRequestMessage are set in context argument");
+            return request.RequestUri;
         }
     }
 }

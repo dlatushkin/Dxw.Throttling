@@ -1,20 +1,22 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
+    using System;
     using System.Collections.Generic;
 
-    public interface IApplyResultSet
+    public interface IApplyResultSet<out T>
     {
-        IEnumerable<IApplyResult> Results { get; }
+        IEnumerable<IApplyResult<T>> Results { get; }
     }
 
-    public class ApplyResultSet : IApplyResult, IRuleResult, IApplyResultSet
+    public interface IApplyResultSet : IApplyResultSet<object> {}
+
+    public class ApplyResultSetPassBlock : ApplyResultPassBlock, IRuledResult, IApplyResultSet<PassBlockVerdict>
     {
-        public bool Block { get; set; }
+        public void SetVerdict(PassBlockVerdict verdict)
+        {
+            _verdict = verdict;
+        }
 
-        public IApplyError Reason { get; set; }
-
-        public IRule Rule { get; set; }
-
-        public IEnumerable<IApplyResult> Results { get; set; }
+        public IEnumerable<IApplyResult<PassBlockVerdict>> Results { get; set; }
     }
 }

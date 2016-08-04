@@ -1,7 +1,9 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
-    public interface IRule
+    public interface IRule : INamed { }
+
+    public interface IRule<out TRes, in TArg>: IRule
     {
-        IApplyResult Apply(object context = null);
+        IApplyResult<TRes> Apply(TArg context = default(TArg));
     }
 }

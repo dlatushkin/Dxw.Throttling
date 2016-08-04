@@ -7,7 +7,11 @@
     public interface IConfiguration
     {
         IEnumerable<IStorage> Storages { get; }
-        IEnumerable<IRule> Rules { get; }
-        IRule Rule { get; }
+    }
+
+    public interface IConfiguration<out T, in TArg>: IConfiguration
+    {
+        IEnumerable<IRule<T, TArg>> Rules { get; }
+        IRule<T, TArg> Rule { get; }
     }
 }

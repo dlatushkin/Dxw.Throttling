@@ -20,7 +20,7 @@ namespace Dxw.Throttling.ConsoleTest
 
             //var config1 = System.Configuration.ConfigurationManager.GetSection("throttling");
 
-            var configSection = System.Configuration.ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration;
+            //var configSection = System.Configuration.ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration;
 
             //var storage = new RedisStorage();
 
@@ -30,6 +30,8 @@ namespace Dxw.Throttling.ConsoleTest
             //                                                    NewState = new SimpleStorageValue { Value = "2" },
             //                                                    Result = ApplyResult.Ok()
             //                                                });
+
+            RedisTest.Run();
 
             Console.WriteLine("done"); Console.ReadKey();
         }

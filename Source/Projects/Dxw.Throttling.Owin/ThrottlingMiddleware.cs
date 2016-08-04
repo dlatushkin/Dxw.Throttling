@@ -1,18 +1,41 @@
-﻿namespace Dxw.Throttling.Asp
+﻿namespace Dxw.Throttling.Owin
 {
     using System.Threading.Tasks;
 
     using Microsoft.Owin;
 
     using Core.Rules;
+    using Core.Configuration;
+    using Core.Exceptions;
 
-    public class ThrottlingMiddleware : OwinMiddleware
+    public class ThrottlingMiddleware<T> : OwinMiddleware
     {
-        private IRule _rule;
+        private readonly string DFLT_CONFIG_SECTION_NAME = "throttling";
 
-        public ThrottlingMiddleware(OwinMiddleware next, IRule rule = null) : base(next)
+        private IRule<T, OwinRequest> _rule;
+
+        private readonly string _configSectionName;
+
+        public ThrottlingMiddleware(OwinMiddleware next, IRule<T, OwinRequest> rule = null, string configSectionName = null) : base(next)
         {
-            _rule = rule;
+            if (rule != null)
+            {
+                _rule = rule as IRule<T, OwinRequest>;
+                return;
+            }
+
+            _configSectionName = configSectionName ?? DFLT_CONFIG_SECTION_NAME;
+
+            var throttlingConfigSection = 
+                System.Configuration.ConfigurationManager.GetSection(_configSectionName) as ThrottlingConfiguration<T, OwinRequest>;
+
+            if (throttlingConfigSection == null)
+                throw new ThrottlingException(
+                    string.Format(
+                        "Neither rule was provided nor configuration section '{0}' was setup in config file.", 
+                            _configSectionName));
+
+            _rule = throttlingConfigSection.Rule as IRule<T, OwinRequest>;
         }
 
         public override async Task Invoke(IOwinContext context)
@@ -20,11 +43,11 @@
             var request = context.Request as OwinRequest;
 
             var applyResult = _rule.Apply(request);
-            if (!applyResult.Block)
-            {
-                await Next.Invoke(context);
-                return;
-            }
+            //if (applyResult.Verdict == PassBlockVerdict.Pass)
+            //{
+            //    await Next.Invoke(context);
+            //    return;
+            //}
 
             var response = context.Response;
             var errorMsg = applyResult.Reason.Message;

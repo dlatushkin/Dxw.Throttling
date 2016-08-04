@@ -4,15 +4,10 @@
 
     using Core.Keyers;
 
-    public class URIMethodKeyer : IKeyer
+    public class URIMethodKeyer : IKeyer<HttpRequestMessage>
     {
-        public object GetKey(object context)
+        public object GetKey(HttpRequestMessage request)
         {
-            //var owinContext = context as OwinRequest;
-            //if (owinContext != null)
-            //    return owinContext.Uri;
-
-            var request = context as HttpRequestMessage;
             if (request != null)
                 return request.RequestUri;
 

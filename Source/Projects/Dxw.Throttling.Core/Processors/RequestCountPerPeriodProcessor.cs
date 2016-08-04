@@ -5,23 +5,46 @@
     using Storages;
     using System.Xml;
     using Configuration;
+    using System.Collections.Concurrent;
+    using Exceptions;
+    using System.Runtime.CompilerServices;
 
-    public class RequestCountPerPeriodProcessor : IProcessor, IXmlConfigurable
+    public class RequestCountPerPeriodProcessorBlockPass : RequestCountPerPeriodProcessor<PassBlockVerdict>
+    {
+        public override IApplyResult<PassBlockVerdict> Process(object key, object context = null, object storeEndpoint = null/*, IRule<PassBlockVerdict> rule = null*/)
+        {
+            var dict = storeEndpoint as ConcurrentDictionary<object, IStorageValue<SlotData>>;
+
+            if (dict == null)
+                throw new ThrottlingException(
+                    "Storage must return valid " + typeof(ConcurrentDictionary<object, IStorageValue<SlotData>>).Name + " store point.");
+
+            var newVal = dict.AddOrUpdate(key, AddFunc, UpdateFunc);
+            var newData = newVal.Value as SlotData;
+
+            if (newData.Hits > Count)
+                return ApplyResultPassBlock.Block(/*rule,*/ msg: "The query limit is exceeded");
+            else
+                return ApplyResultPassBlock.Pass(/*rule*/);
+        }
+    }
+
+    public abstract class RequestCountPerPeriodProcessor<T> : IProcessor<T>, IXmlConfigurable
     {
         private const int DFLT_COUNT = 1;
         private static readonly TimeSpan DFLT_PERIOD = TimeSpan.FromSeconds(1);
 
-        private class SlotData
+        protected class SlotData
         {
             public int Hits;
             public DateTime ExpiresAt;
         }
 
-        private class StorageValue: IStorageValue
+        protected class StorageValue: IStorageValue<SlotData>
         {
             public SlotData SlotData;
 
-            public object Value => SlotData;
+            public SlotData Value => SlotData;
 
             public bool IsExpired(DateTime utcNow)
             {
@@ -39,40 +62,24 @@
             Period = DFLT_PERIOD;
         }
 
-        public IProcessEventResult Process(object context = null, IStorage storage = null, IStorageValue prevState = null, IRule rule = null)
+        public abstract IApplyResult<T> Process(object key, object context = null, object storeEndpoint = null/*, IRule<T> rule = null*/);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected IStorageValue<SlotData> AddFunc(object context)
         {
             var utcNow = DateTime.UtcNow;
+            var newVal = new StorageValue { SlotData = new SlotData { Hits = 1, ExpiresAt = utcNow.Add(Period) } };
+            return newVal;
+        }
 
-            ProcessEventResult result;
-            
-            StorageValue storageValue = prevState as StorageValue;
-            if (storageValue == null || storageValue.SlotData.ExpiresAt < utcNow)
-            {
-                storageValue = new StorageValue { SlotData = new SlotData { Hits = 1, ExpiresAt = utcNow.Add(Period) } };
-            }
-            else
-            {
-                storageValue.SlotData.Hits++;
-            }
-
-            if (storageValue.SlotData.Hits > Count)
-            {
-                result = new ProcessEventResult
-                {
-                    NewState = storageValue,
-                    Result = ApplyResult.Error(rule, "The query limit exceeded.")
-                };
-            }
-            else
-            {
-                result = new ProcessEventResult
-                {
-                    NewState = storageValue,
-                    Result = ApplyResult.Ok()
-                };
-            }
-            
-            return result;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected IStorageValue<SlotData> UpdateFunc(object context, IStorageValue<SlotData> curValue)
+        {
+            var utcNow = DateTime.UtcNow;
+            var data = curValue.Value as SlotData;
+            data.Hits++;
+            data.ExpiresAt = utcNow.Add(Period);
+            return curValue;
         }
 
         public void Configure(XmlNode node, IConfiguration context)

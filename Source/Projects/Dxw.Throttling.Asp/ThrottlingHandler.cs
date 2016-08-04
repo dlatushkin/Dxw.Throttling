@@ -8,17 +8,17 @@
 
     public class ThrottlingHandler: DelegatingHandler
     {
-        private IRule _rule;
+        private IRule<PassBlockVerdict, HttpRequestMessage> _rule;
 
         public ThrottlingHandler(IRule rule = null)
         {
-            _rule = rule;
+            _rule = rule as IRule<PassBlockVerdict, HttpRequestMessage>;
         }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var applyResult = _rule.Apply(request);
-            if (!applyResult.Block)
+            if (applyResult.Verdict == PassBlockVerdict.Pass)
             {
                 return base.SendAsync(request, cancellationToken);
             }
@@ -26,7 +26,6 @@
             var errorMsg = applyResult.Reason.Message;
 
             var response = request.CreateResponse((System.Net.HttpStatusCode)429, errorMsg);
-            //response.Headers.Add("Retry-After", new string[] { retryAfter });
             return Task.FromResult(response);
         }
     }

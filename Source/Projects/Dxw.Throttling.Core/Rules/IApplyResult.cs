@@ -1,29 +1,57 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
-    public interface IApplyResult
+    using System;
+    using System.Collections.Generic;
+
+    public interface IApplyResult<out TRes>
     {
-        bool Block { get; }
+        TRes Verdict { get; }
         IApplyError Reason { get; }
     }
 
-    public interface IRuleResult
+    public interface IRuledResult
     {
         IRule Rule { get; }
     }
 
-    public class ApplyResult : IApplyResult, IRuleResult
+    public class ApplyResult<TRes> : IApplyResult<TRes>, IRuledResult
     {
-        public static ApplyResult Ok(IRule rule = null)
+        public static ApplyResult<TRes> FromResultAndRule(IApplyResult<TRes> src, IRule rule)
         {
-            return new ApplyResult { Rule = rule, Block = false };
+            return new ApplyResult<TRes>
+            {
+                Verdict = src.Verdict,
+                Reason = src.Reason,
+                Rule = rule
+            };
         }
 
-        public static ApplyResult Error(IRule rule = null, string msg = null)
+        public TRes Verdict { get; set; }
+
+        public IApplyError Reason { get; set; }
+
+        public IRule Rule { get; set; }
+
+        IRule IRuledResult.Rule { get { return this.Rule; } }
+    }
+    
+    public enum PassBlockVerdict { Pass, Block }
+
+    public class ApplyResultPassBlock : IApplyResult<PassBlockVerdict>, IRuledResult
+    {
+        protected PassBlockVerdict _verdict;
+
+        public static IApplyResult<PassBlockVerdict> Pass(IRule rule = null)
         {
-            return new ApplyResult { Rule = rule, Block = true, Reason = new ApplyError { Message = msg } };
+            return new ApplyResultPassBlock { Rule = rule, _verdict = PassBlockVerdict.Pass };
         }
 
-        public bool Block { get; set; }
+        public static IApplyResult<PassBlockVerdict> Block(IRule rule = null, string msg = null)
+        {
+            return new ApplyResultPassBlock { Rule = rule, _verdict = PassBlockVerdict.Block, Reason = new ApplyError { Message = msg } };
+        }
+
+        public PassBlockVerdict Verdict { get { return _verdict; } }
 
         public IApplyError Reason { get; set; }
 

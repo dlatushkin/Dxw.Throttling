@@ -1,13 +1,16 @@
-﻿namespace Dxw.Throttling.OwinSelfHostedDemo
-{
-    using Core.Storages;
-    using Owin;
-    using System;
-    using System.Web.Http;
-    using Core.Processors;
-    using Core.Rules;
-    using Asp;
+﻿using System;
+using System.Web.Http;
 
+using Owin;
+
+using Dxw.Throttling.Core.Storages;
+using Dxw.Throttling.Core.Processors;
+using Dxw.Throttling.Core.Rules;
+using Dxw.Throttling.Owin;
+using Microsoft.Owin;
+
+namespace Dxw.Throttling.OwinSelfHostedDemo
+{
     public class Startup
     {
         public void Configuration(IAppBuilder appBuilder)
@@ -21,10 +24,10 @@
             //var keyer = new ConstantKeyer();
             var keyer = new ControllerNameKeyer();
             //var processor = new ConstantEventProcessor() { Ok = true};
-            var processor = new RequestCountPerPeriodProcessor() { Count = 1, Period = TimeSpan.FromSeconds(10) };
-            var ruleBlock = new StorageKeyerProcessorRule { Storage = storage, Keyer = keyer, Processor = processor };
+            var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(10) };
+            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IOwinRequest> { Storage = storage, Keyer = keyer, Processor = processor };
 
-            appBuilder.Use(typeof(ThrottlingMiddleware), ruleBlock);
+            appBuilder.Use(typeof(ThrottlingMiddleware<PassBlockVerdict>), ruleBlock);
 
             appBuilder.UseWebApi(config);
         }

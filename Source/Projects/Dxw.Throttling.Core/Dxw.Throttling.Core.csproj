@@ -61,9 +61,6 @@
     <Compile Include="Rules\IApplyError.cs" />
     <Compile Include="Rules\IApplyResultSet.cs" />
     <Compile Include="Rules\IApplyResult.cs" />
-    <Compile Include="Rules\IRequireProcessor.cs" />
-    <Compile Include="Rules\IRequireKeyer.cs" />
-    <Compile Include="Rules\IRequireStorage.cs" />
     <Compile Include="IXmlConfigurable.cs" />
     <Compile Include="Rules\IRule.cs" />
     <Compile Include="Rules\RuleSet.cs" />

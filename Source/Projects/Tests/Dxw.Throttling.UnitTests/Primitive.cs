@@ -4,6 +4,8 @@ using Dxw.Throttling.Core.Keyers;
 using Dxw.Throttling.Core.Processors;
 using Dxw.Throttling.Core.Rules;
 using System.Net.Http;
+using System;
+using System.Collections.Generic;
 
 namespace Dxw.Throttling.UnitTests
 {
@@ -16,26 +18,26 @@ namespace Dxw.Throttling.UnitTests
         {
             var storage = new LocalMemoryStorage();
             var keyer = new ConstantKeyer();
-            var processor = new ConstantEventProcessor();
+            var processor = new ConstantEventProcessor<PassBlockVerdict>() { Value = PassBlockVerdict.Block };
 
-            var rule = new StorageKeyerProcessorRule { Storage = storage, Keyer = keyer, Processor = processor };
+            var rule = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = processor };
 
             var context = new HttpRequestMessage();
 
             {
                 var r = rule.Apply(context);
-                Assert.IsTrue(r.Block);
+                Assert.IsTrue(r.Verdict == PassBlockVerdict.Block);
 
-                var r1 = r as IRuleResult;
+                var r1 = r as IRuledResult;
                 Assert.AreSame(r1.Rule, rule);
             }
 
-            processor.Ok = true;
+            processor.Value = PassBlockVerdict.Pass;
             {
                 var r = rule.Apply(context);
-                Assert.IsFalse(r.Block);
+                Assert.AreEqual(PassBlockVerdict.Pass, r.Verdict);
 
-                var r1 = r as IRuleResult;
+                var r1 = r as IRuledResult;
                 Assert.AreSame(r1.Rule, rule);
             }
         }
