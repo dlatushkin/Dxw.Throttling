@@ -24,6 +24,8 @@ elements.
 - [Open rule model.](OpenRuleModel.md)
 
 ### Dxw.Throttling as a ready-to-use library
+
+#### Owin
 The most common use cases are already implemented and can be used "out-of-the-box".
 Let's review trivial IP throttling implementation:
 
