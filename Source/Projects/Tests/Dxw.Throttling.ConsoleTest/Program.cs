@@ -37,7 +37,7 @@ namespace Dxw.Throttling.ConsoleTest
         }
 
         [Serializable]
-        class SimpleStorageValue : IStorageValue
+        class SimpleStorageValue : IStorageValue<object>
         {
             public object Value { get; set; }
 

@@ -65,7 +65,7 @@
         public abstract IApplyResult<T> Process(object key, object context = null, object storeEndpoint = null/*, IRule<T> rule = null*/);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected IStorageValue<SlotData> AddFunc(object context)
+        protected IStorageValue<object> AddFunc(object context)
         {
             var utcNow = DateTime.UtcNow;
             var newVal = new StorageValue { SlotData = new SlotData { Hits = 1, ExpiresAt = utcNow.Add(Period) } };
@@ -73,14 +73,19 @@
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected IStorageValue<SlotData> UpdateFunc(object context, object curValue)
+        protected IStorageValue<object> UpdateFunc(object context, IStorageValue<object> curValue)
         {
-            var curStorageVal = curValue as IStorageValue<SlotData>;
             var utcNow = DateTime.UtcNow;
-            var data = curStorageVal.Value as SlotData;
-            data.Hits++;
-            data.ExpiresAt = utcNow.Add(Period);
-            return curStorageVal;
+            var storageValue = curValue as StorageValue;
+            if (storageValue.IsExpired(utcNow))
+            {
+                return AddFunc(context);
+            }
+            else
+            {
+                storageValue.Value.Hits++;
+                return storageValue;
+            }
         }
 
         public void Configure(XmlNode node, IConfiguration context)
