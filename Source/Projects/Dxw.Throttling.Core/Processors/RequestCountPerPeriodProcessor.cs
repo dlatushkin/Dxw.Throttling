@@ -11,9 +11,9 @@
 
     public class RequestCountPerPeriodProcessorBlockPass : RequestCountPerPeriodProcessor<PassBlockVerdict>
     {
-        public override IApplyResult<PassBlockVerdict> Process(object key, object context = null, object storeEndpoint = null/*, IRule<PassBlockVerdict> rule = null*/)
+        public override IApplyResult<PassBlockVerdict> Process(object key, object context = null, object storeEndpoint = null)
         {
-            var dict = storeEndpoint as ConcurrentDictionary<object, IStorageValue<SlotData>>;
+            var dict = storeEndpoint as ConcurrentDictionary<object, IStorageValue<object>>;
 
             if (dict == null)
                 throw new ThrottlingException(
@@ -23,9 +23,9 @@
             var newData = newVal.Value as SlotData;
 
             if (newData.Hits > Count)
-                return ApplyResultPassBlock.Block(/*rule,*/ msg: "The query limit is exceeded");
+                return ApplyResultPassBlock.Block(msg: "The query limit is exceeded");
             else
-                return ApplyResultPassBlock.Pass(/*rule*/);
+                return ApplyResultPassBlock.Pass();
         }
     }
 
@@ -73,13 +73,14 @@
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected IStorageValue<SlotData> UpdateFunc(object context, IStorageValue<SlotData> curValue)
+        protected IStorageValue<SlotData> UpdateFunc(object context, object curValue)
         {
+            var curStorageVal = curValue as IStorageValue<SlotData>;
             var utcNow = DateTime.UtcNow;
-            var data = curValue.Value as SlotData;
+            var data = curStorageVal.Value as SlotData;
             data.Hits++;
             data.ExpiresAt = utcNow.Add(Period);
-            return curValue;
+            return curStorageVal;
         }
 
         public void Configure(XmlNode node, IConfiguration context)

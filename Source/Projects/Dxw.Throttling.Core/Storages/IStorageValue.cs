@@ -7,6 +7,4 @@
         bool IsExpired(DateTime utcNow);
         T Value { get; }
     }
-
-    public interface IStorageValue : IStorageValue<object> { }
 }
