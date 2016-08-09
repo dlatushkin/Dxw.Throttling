@@ -8,7 +8,7 @@
     using Core.Configuration;
     using Core.Exceptions;
 
-    public class ThrottlingMiddleware<T> : OwinMiddleware
+    public abstract class ThrottlingMiddleware<T> : OwinMiddleware
     {
         private readonly string DFLT_CONFIG_SECTION_NAME = "throttling";
 
@@ -16,7 +16,13 @@
 
         private readonly string _configSectionName;
 
-        public ThrottlingMiddleware(OwinMiddleware next, IRule<T, OwinRequest> rule = null, string configSectionName = null) : base(next)
+        public ThrottlingMiddleware(OwinMiddleware next) : this(next, null, null) { }
+
+        public ThrottlingMiddleware(OwinMiddleware next, IRule<T, OwinRequest> rule = null) : this(next, rule, null) { }
+
+        public ThrottlingMiddleware(OwinMiddleware next, string configSectionName) : this(next, null, configSectionName) { }
+
+        public ThrottlingMiddleware(OwinMiddleware next, IRule<T, OwinRequest> rule, string configSectionName) : base(next)
         {
             if (rule != null)
             {
@@ -40,24 +46,9 @@
 
         public override async Task Invoke(IOwinContext context)
         {
-            var request = context.Request as OwinRequest;
-
-            var applyResult = _rule.Apply(request);
-            //if (applyResult.Verdict == PassBlockVerdict.Pass)
-            //{
-            //    await Next.Invoke(context);
-            //    return;
-            //}
-
-            var response = context.Response;
-            var errorMsg = applyResult.Reason.Message;
-            response.OnSendingHeaders(state => 
-            {
-                var resp = (OwinResponse)state;
-                //resp.Headers.Add("Retry-After");
-                resp.StatusCode = 429;
-                resp.ReasonPhrase = errorMsg;
-            }, response);
+            await InvokeCore(context, _rule);
         }
+
+        protected abstract Task InvokeCore(IOwinContext context, IRule<T, OwinRequest> rule);
     }
 }

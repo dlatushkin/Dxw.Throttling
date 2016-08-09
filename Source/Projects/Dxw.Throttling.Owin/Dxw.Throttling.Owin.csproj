@@ -54,6 +54,7 @@
     <Compile Include="Keyers\URIKeyer.cs" />
     <Compile Include="Keyers\URIMethodKeyer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThrottlingPassBlockMiddleware.cs" />
     <Compile Include="ThrottlingMiddleware.cs" />
   </ItemGroup>
   <ItemGroup>

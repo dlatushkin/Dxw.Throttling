@@ -22,13 +22,11 @@ namespace Dxw.Throttling.OwinSelfHostedDemo
 
             var storage = new LocalMemoryStorage();
 
-            //var keyer = new ConstantKeyer();
             var keyer = new ControllerNameKeyer();
-            //var processor = new ConstantEventProcessor() { Ok = true};
-            var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(10) };
+            var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(15) };
             var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IOwinRequest> { Storage = storage, Keyer = keyer, Processor = processor };
 
-            appBuilder.Use(typeof(ThrottlingMiddleware<PassBlockVerdict>), ruleBlock);
+            appBuilder.Use(typeof(ThrottlingPassBlockMiddleware), ruleBlock);
 
             appBuilder.UseWebApi(config);
         }
