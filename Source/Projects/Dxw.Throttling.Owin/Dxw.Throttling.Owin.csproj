@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Keyers\ControllerNameKeyer.cs" />
     <Compile Include="Keyers\IPKeyer.cs" />
     <Compile Include="Keyers\URIKeyer.cs" />
     <Compile Include="Keyers\URIMethodKeyer.cs" />

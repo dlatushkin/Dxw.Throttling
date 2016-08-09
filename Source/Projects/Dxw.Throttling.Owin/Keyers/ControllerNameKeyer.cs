@@ -1,4 +1,4 @@
-﻿namespace Dxw.Throttling.OwinSelfHostedDemo
+﻿namespace Dxw.Throttling.Owin.Keyers
 {
     using System.Linq;
     using Microsoft.Owin;
@@ -8,10 +8,9 @@
     {
         public object GetKey(IOwinRequest request)
         {
-            var owinRequest = request as IOwinRequest;
-            if (owinRequest != null)
+            if (request != null)
             {
-                var controller = owinRequest.Path.Value.Split('/').Last();
+                var controller = request.Path.Value.Split('/').Last();
                 return controller;
             }
             return null;

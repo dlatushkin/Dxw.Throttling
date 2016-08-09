@@ -8,6 +8,7 @@ using Dxw.Throttling.Core.Processors;
 using Dxw.Throttling.Core.Rules;
 using Dxw.Throttling.Owin;
 using Microsoft.Owin;
+using Dxw.Throttling.Owin.Keyers;
 
 namespace Dxw.Throttling.OwinSelfHostedDemo
 {
