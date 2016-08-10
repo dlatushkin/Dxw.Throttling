@@ -5,9 +5,6 @@
     using Microsoft.Owin;
 
     using Core.Rules;
-    using Core.Configuration;
-    using Core.Exceptions;
-    using System;
 
     public class ThrottlingPassBlockMiddleware: ThrottlingMiddleware<PassBlockVerdict>
     {
@@ -33,7 +30,7 @@
             response.OnSendingHeaders(state => 
             {
                 var resp = (OwinResponse)state;
-                //resp.Headers.Add("Retry-After");
+                //resp.Headers.Add("Retry-After", new[] { "10s" });
                 resp.StatusCode = 429;
                 resp.ReasonPhrase = errorMsg;
             }, response);
