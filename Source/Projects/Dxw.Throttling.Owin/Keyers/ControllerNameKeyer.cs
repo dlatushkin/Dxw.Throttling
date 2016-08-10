@@ -4,16 +4,12 @@
     using Microsoft.Owin;
     using Core.Keyers;
 
-    public class ControllerNameKeyer : IKeyer<IOwinRequest>
+    public class ControllerNameKeyer : IKeyer<IOwinArgs>
     {
-        public object GetKey(IOwinRequest request)
+        public object GetKey(IOwinArgs owinArgs)
         {
-            if (request != null)
-            {
-                var controller = request.Path.Value.Split('/').Last();
-                return controller;
-            }
-            return null;
+            var controller = owinArgs.OwinContext.Request.Path.Value.Split('/').Last();
+            return controller;
         }
     }
 }

@@ -30,6 +30,29 @@ Let's review trivial IP throttling implementation:
 
 ##### Asp.Net Web Api usage
 ``` cs
+public static class WebApiConfig
+{
+    public static void Register(HttpConfiguration config)
+    {
+        var storage = new LocalMemoryStorage();
+        var keyer = new ControllerNameKeyer();
+        var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(10) };
+        var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, HttpRequestMessage> { Storage = storage, Keyer = keyer, Processor = processor } as IRule;
+        var throttlingHandler = new ThrottlingHandler(ruleBlock);
+        config.MessageHandlers.Add(throttlingHandler);
+
+        config.MapHttpAttributeRoutes();
+
+        config.Routes.MapHttpRoute(
+            name: "DefaultApi",
+            routeTemplate: "api/{controller}/{id}",
+            defaults: new { id = RouteParameter.Optional }
+        );
+    }
+}
+```
+##### Owin self-hosted app usage
+``` cs
 public class Startup
 {
     public void Configuration(IAppBuilder appBuilder)
@@ -41,17 +64,15 @@ public class Startup
         var storage = new LocalMemoryStorage();
 
         var keyer = new ControllerNameKeyer();
-        var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(10) };
+        var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(15) };
         var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IOwinRequest> { Storage = storage, Keyer = keyer, Processor = processor };
 
-        appBuilder.Use(typeof(ThrottlingMiddleware<PassBlockVerdict>), ruleBlock);
+        appBuilder.Use(typeof(ThrottlingPassBlockMiddleware), ruleBlock);
 
         appBuilder.UseWebApi(config);
     }
 }
 ```
-##### Owin self-hosted app usage
-
 
 ### Dxw.Throttling 
 

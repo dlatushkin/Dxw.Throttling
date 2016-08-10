@@ -24,7 +24,7 @@ namespace Dxw.Throttling.OwinSelfHostedDemo
 
             var keyer = new ControllerNameKeyer();
             var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(15) };
-            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IOwinRequest> { Storage = storage, Keyer = keyer, Processor = processor };
+            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IOwinArgs> { Storage = storage, Keyer = keyer, Processor = processor };
 
             appBuilder.Use(typeof(ThrottlingPassBlockMiddleware), ruleBlock);
 
