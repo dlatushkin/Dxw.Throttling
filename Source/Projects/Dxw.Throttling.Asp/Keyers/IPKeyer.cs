@@ -1,35 +1,32 @@
 ﻿namespace Dxw.Throttling.Asp.Keyers
 {
-    using System.Net.Http;
-
     using Core.Keyers;
 
-    public class IPKeyer : IKeyer<HttpRequestMessage>
+    public class IPKeyer : IKeyer<IAspArgs>
     {
         private const string HttpContext = "MS_HttpContext";
         private const string RemoteEndpointMessage = "System.ServiceModel.Channels.RemoteEndpointMessageProperty";
 
-        public object GetKey(HttpRequestMessage request)
+        public object GetKey(IAspArgs args)
         {
             object ip = null;
 
-            if (request != null)
+            var request = args.Request;
+
+            if (request.Properties.ContainsKey(HttpContext))
             {
-                if (request.Properties.ContainsKey(HttpContext))
+                dynamic cntx = request.Properties[HttpContext];
+                if (cntx != null)
                 {
-                    dynamic cntx = request.Properties[HttpContext];
-                    if (cntx != null)
-                    {
-                        ip = cntx.Request.UserHostAddress;
-                    }
+                    ip = cntx.Request.UserHostAddress;
                 }
-                else if (request.Properties.ContainsKey(RemoteEndpointMessage))
+            }
+            else if (request.Properties.ContainsKey(RemoteEndpointMessage))
+            {
+                dynamic remoteEndpoint = request.Properties[RemoteEndpointMessage];
+                if (remoteEndpoint != null)
                 {
-                    dynamic remoteEndpoint = request.Properties[RemoteEndpointMessage];
-                    if (remoteEndpoint != null)
-                    {
-                        ip = remoteEndpoint.Address;
-                    }
+                    ip = remoteEndpoint.Address;
                 }
             }
 

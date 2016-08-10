@@ -4,13 +4,11 @@
 
     using Core.Keyers;
 
-    public class URIMethodKeyer : IKeyer<HttpRequestMessage>
+    public class URIMethodKeyer : IKeyer<IAspArgs>
     {
-        public object GetKey(HttpRequestMessage request)
+        public object GetKey(IAspArgs args)
         {
-            if (request != null)
-                return request.RequestUri;
-
+            var request = args.Request;
             return new { request.RequestUri, request.Method };
         }
     }

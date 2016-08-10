@@ -7,28 +7,25 @@
 
     using Core.Keyers;
 
-    public class ControllerNameKeyer : IKeyer<HttpRequestMessage>
+    public class ControllerNameKeyer : IKeyer<IAspArgs>
     {
-        public object GetKey(HttpRequestMessage request)
+        public object GetKey(IAspArgs args)
         {
-            if (request != null)
-            {
-                var routeData = request.GetRouteData();
+            var request = args.Request;
 
-                var controllerName = (string)routeData.Values["controller"];
+            var routeData = request.GetRouteData();
 
-                return controllerName;
+            var controllerName = (string)routeData.Values["controller"];
 
-                //var attributedRoutesData = request.GetRouteData().GetSubRoutes();
-                //var subRouteData = attributedRoutesData.FirstOrDefault();
+            return controllerName;
 
-                //var actions = (ReflectedHttpActionDescriptor[])subRouteData.Route.DataTokens["actions"];
-                //var controllerName = actions[0].ControllerDescriptor.ControllerName;
+            //var attributedRoutesData = request.GetRouteData().GetSubRoutes();
+            //var subRouteData = attributedRoutesData.FirstOrDefault();
 
-                //return request.GetActionDescriptor().ActionName;
-            }
+            //var actions = (ReflectedHttpActionDescriptor[])subRouteData.Route.DataTokens["actions"];
+            //var controllerName = actions[0].ControllerDescriptor.ControllerName;
 
-            return null;
+            //return request.GetActionDescriptor().ActionName;
         }
     }
 }
