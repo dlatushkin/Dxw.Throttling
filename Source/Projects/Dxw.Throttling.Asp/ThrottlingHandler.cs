@@ -15,20 +15,28 @@
             _rule = rule as IRule<PassBlockVerdict, IAspArgs>;
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var args = new AspArgs { Phase = Core.EventPhase.Before, Request = request };
 
             var applyResult = _rule.Apply(args);
             if (applyResult.Verdict == PassBlockVerdict.Pass)
             {
-                return base.SendAsync(request, cancellationToken);
+                var response = await base.SendAsync(request, cancellationToken);
+
+                args.Phase = Core.EventPhase.After;
+                args.Response = response;
+                applyResult = _rule.Apply(args);
+
+                if (applyResult.Verdict == PassBlockVerdict.Pass)
+                {
+                    return response;
+                }
             }
 
             var errorMsg = applyResult.Reason.Message;
-
-            var response = request.CreateResponse((System.Net.HttpStatusCode)429, errorMsg);
-            return Task.FromResult(response);
+            var response429 = request.CreateResponse((System.Net.HttpStatusCode)429, errorMsg);
+            return response429;
         }
     }
 }

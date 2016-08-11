@@ -1,33 +1,12 @@
 ﻿namespace Dxw.Throttling.Core.Processors
 {
     using System;
+    using System.Runtime.CompilerServices;
+    using System.Xml;
+
     using Rules;
     using Storages;
-    using System.Xml;
     using Configuration;
-    using System.Collections.Concurrent;
-    using Exceptions;
-    using System.Runtime.CompilerServices;
-
-    public class RequestCountPerPeriodProcessorBlockPass : RequestCountPerPeriodProcessor<PassBlockVerdict>
-    {
-        public override IApplyResult<PassBlockVerdict> Process(object key, object context = null, object storeEndpoint = null)
-        {
-            var dict = storeEndpoint as ConcurrentDictionary<object, IStorageValue<object>>;
-
-            if (dict == null)
-                throw new ThrottlingException(
-                    "Storage must return valid " + typeof(ConcurrentDictionary<object, IStorageValue<SlotData>>).Name + " store point.");
-
-            var newVal = dict.AddOrUpdate(key, AddFunc, UpdateFunc);
-            var newData = newVal.Value as SlotData;
-
-            if (newData.Hits > Count)
-                return ApplyResultPassBlock.Block(msg: "The query limit is exceeded");
-            else
-                return ApplyResultPassBlock.Pass();
-        }
-    }
 
     public abstract class RequestCountPerPeriodProcessor<T> : IProcessor<T>, IXmlConfigurable
     {
@@ -40,7 +19,7 @@
             public DateTime ExpiresAt;
         }
 
-        protected class StorageValue: IStorageValue<SlotData>
+        protected class StorageValue : IStorageValue<SlotData>
         {
             public SlotData SlotData;
 
@@ -62,7 +41,7 @@
             Period = DFLT_PERIOD;
         }
 
-        public abstract IApplyResult<T> Process(object key, object context = null, object storeEndpoint = null/*, IRule<T> rule = null*/);
+        public abstract IApplyResult<T> Process(object key, object context = null, object storeEndpoint = null);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected IStorageValue<object> AddFunc(object context)

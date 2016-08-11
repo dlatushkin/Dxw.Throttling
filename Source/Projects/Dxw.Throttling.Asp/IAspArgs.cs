@@ -3,7 +3,7 @@
     using Core;
     using System.Net.Http;
 
-    public interface IAspArgs
+    public interface IAspArgs: IPhased
     {
         EventPhase Phase { get; }
 
