@@ -26,53 +26,51 @@ elements.
 ### Dxw.Throttling as a ready-to-use library
 
 The most common use cases are already implemented and can be used "out-of-the-box".
-Let's review trivial IP throttling implementation:
+Let's configure trivial IP throttling via code:
 
-##### Asp.Net Web Api usage
+Asp.Net Web Api usage
 ``` cs
-public static class WebApiConfig
+public static void Register(HttpConfiguration config)
 {
-    public static void Register(HttpConfiguration config)
-    {
-        var storage = new LocalMemoryStorage();
-        var keyer = new ControllerNameKeyer();
-        var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(10) };
-        var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, HttpRequestMessage> { Storage = storage, Keyer = keyer, Processor = processor } as IRule;
-        var throttlingHandler = new ThrottlingHandler(ruleBlock);
-        config.MessageHandlers.Add(throttlingHandler);
+    var storage = new LocalMemoryStorage();
+    var keyer = new ControllerNameKeyer();
+    var processor = new RequestCountPerPeriodProcessorPhased { Count = 1, Period = TimeSpan.FromSeconds(10) };
+    var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IAspArgs> { Storage = storage, Keyer = keyer, Processor = processor } as IRule;
+    var throttlingHandler = new ThrottlingHandler(ruleBlock);
+    config.MessageHandlers.Add(throttlingHandler);
 
-        config.MapHttpAttributeRoutes();
+    config.MapHttpAttributeRoutes();
 
-        config.Routes.MapHttpRoute(
-            name: "DefaultApi",
-            routeTemplate: "api/{controller}/{id}",
-            defaults: new { id = RouteParameter.Optional }
-        );
-    }
+    config.Routes.MapHttpRoute(
+        name: "DefaultApi",
+        routeTemplate: "api/{controller}/{id}",
+        defaults: new { id = RouteParameter.Optional }
+    );
 }
 ```
-##### Owin self-hosted app usage
+Owin self-hosted app usage
 ``` cs
-public class Startup
+public void Configuration(IAppBuilder appBuilder)
 {
-    public void Configuration(IAppBuilder appBuilder)
-    {
-        var config = new HttpConfiguration();
+    var config = new HttpConfiguration();
 
-        config.Routes.MapHttpRoute("Default", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+    config.Routes.MapHttpRoute("Default", "api/{controller}/{id}", new { id = RouteParameter.Optional });
 
-        var storage = new LocalMemoryStorage();
+    var storage = new LocalMemoryStorage();
 
-        var keyer = new ControllerNameKeyer();
-        var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(15) };
-        var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IOwinRequest> { Storage = storage, Keyer = keyer, Processor = processor };
+    var keyer = new ControllerNameKeyer();
+    var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(15) };
+    var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IOwinArgs> { Storage = storage, Keyer = keyer, Processor = processor };
 
-        appBuilder.Use(typeof(ThrottlingPassBlockMiddleware), ruleBlock);
+    appBuilder.Use(typeof(ThrottlingPassBlockMiddleware), ruleBlock);
 
-        appBuilder.UseWebApi(config);
-    }
+    appBuilder.UseWebApi(config);
 }
 ```
+
+The same throttling logic but configured via .config file:
+Asp.Net Web Api usage
+
 
 ### Dxw.Throttling 
 

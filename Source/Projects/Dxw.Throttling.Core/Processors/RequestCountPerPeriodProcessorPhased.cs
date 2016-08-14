@@ -28,7 +28,7 @@
             var newData = newVal.Value as SlotData;
 
             if (newData.Hits > Count)
-                return ApplyResultPassBlock.Block(msg: "The query limit is exceeded");
+                return ApplyResultPassBlock.Block(msg: "The query limit is exceeded.");
             else
                 return ApplyResultPassBlock.Pass();
         }
