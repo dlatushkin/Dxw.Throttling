@@ -9,6 +9,7 @@ using Dxw.Throttling.Core.Rules;
 using Dxw.Throttling.Owin;
 using Microsoft.Owin;
 using Dxw.Throttling.Owin.Keyers;
+using System.Configuration;
 
 namespace Dxw.Throttling.OwinSelfHostedDemo
 {
@@ -17,16 +18,11 @@ namespace Dxw.Throttling.OwinSelfHostedDemo
         public void Configuration(IAppBuilder appBuilder)
         {
             var config = new HttpConfiguration();
-
             config.Routes.MapHttpRoute("Default", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+            var throttlingConfig = ConfigurationManager.GetSection("throttling") as Throttling.Core.Configuration.ThrottlingConfiguration<PassBlockVerdict, IOwinArgs>;
+            var rule = throttlingConfig.Rule;
 
-            var storage = new LocalMemoryStorage();
-
-            var keyer = new ControllerNameKeyer();
-            var processor = new RequestCountPerPeriodProcessorBlockPass { Count = 1, Period = TimeSpan.FromSeconds(15) };
-            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IOwinArgs> { Storage = storage, Keyer = keyer, Processor = processor };
-
-            appBuilder.Use(typeof(ThrottlingPassBlockMiddleware), ruleBlock);
+            appBuilder.Use(typeof(ThrottlingPassBlockMiddleware), rule);
 
             appBuilder.UseWebApi(config);
         }
