@@ -86,7 +86,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="App_Start\WebApiConfigConf.cs" />
+    <Compile Include="App_Start\WebApiConfigCode.cs" />
     <Compile Include="Controllers\FirstController.cs" />
     <Compile Include="Controllers\SecondController.cs" />
     <Compile Include="Global.asax.cs">

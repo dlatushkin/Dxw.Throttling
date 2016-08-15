@@ -8,10 +8,8 @@
     using Dxw.Throttling.Asp;
     using Dxw.Throttling.Asp.Keyers;
     using Core.Processors;
-    using System.Net.Http;
-    using Core.Keyers;
 
-    public static class WebApiConfig
+    public static class WebApiConfigCode
     {
         public static void Register(HttpConfiguration config)
         {
@@ -21,8 +19,6 @@
             var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IAspArgs> { Storage = storage, Keyer = keyer, Processor = processor } as IRule;
             var throttlingHandler = new ThrottlingHandler(ruleBlock);
             config.MessageHandlers.Add(throttlingHandler);
-
-            config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

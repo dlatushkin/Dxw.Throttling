@@ -12,7 +12,9 @@ namespace Dxw.Throttling.WebApiTest
         protected void Application_Start()
         {
 
-            GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configure(WebApiConfigCode.Register);
+
+            //GlobalConfiguration.Configure(WebApiConfigConf.Register);
         }
     }
 }

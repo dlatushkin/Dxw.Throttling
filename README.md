@@ -39,8 +39,6 @@ public static void Register(HttpConfiguration config)
     var throttlingHandler = new ThrottlingHandler(ruleBlock);
     config.MessageHandlers.Add(throttlingHandler);
 
-    config.MapHttpAttributeRoutes();
-
     config.Routes.MapHttpRoute(
         name: "DefaultApi",
         routeTemplate: "api/{controller}/{id}",
@@ -69,6 +67,43 @@ public void Configuration(IAppBuilder appBuilder)
 ```
 
 The same throttling logic but configured via .config file:
+``` xml
+...
+<configSections>
+        <section name="throttling" type="Dxw.Throttling.Asp.Configuration.PassBlockConfigurationSectionHandler, Dxw.Throttling.Asp"/>
+    </configSections>
+
+    <throttling>
+        <storages>
+            <storage type="Dxw.Throttling.Core.Storages.LocalMemoryStorage, Dxw.Throttling.Core" name="local" />
+        </storages>
+        <rules>
+            <rule type="Dxw.Throttling.Asp.Rules.AspStorageKeyerProcessorRule, Dxw.Throttling.Asp">
+                <storage name="local" />
+                <keyer type="Dxw.Throttling.Asp.Keyers.ControllerNameKeyer, Dxw.Throttling.Asp" />
+                <processor type="Dxw.Throttling.Core.Processors.RequestCountPerPeriodProcessorPhased, Dxw.Throttling.Core" 
+                           count="1" period="00:00:10" />
+            </rule>
+        </rules>
+    </throttling>
+...
+```
+and corresponding c# code:
+``` cs
+public static void Register(HttpConfiguration config)
+{
+    var throttlingConfig = ConfigurationManager.GetSection("throttling") as Throttling.Core.Configuration.ThrottlingConfiguration<PassBlockVerdict, IAspArgs>;
+    var rule = throttlingConfig.Rule;
+    var throttlingHandler = new ThrottlingHandler(rule);
+    config.MessageHandlers.Add(throttlingHandler);
+
+    config.Routes.MapHttpRoute(
+        name: "DefaultApi",
+        routeTemplate: "api/{controller}/{id}",
+        defaults: new { id = RouteParameter.Optional }
+    );
+}
+```
 Asp.Net Web Api usage
 
 

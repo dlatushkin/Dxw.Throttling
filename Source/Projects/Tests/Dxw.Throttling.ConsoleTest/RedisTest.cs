@@ -12,8 +12,6 @@ namespace Dxw.Throttling.ConsoleTest
     {
         public static void Run()
         {
-            var processort = typeof(Dxw.Throttling.Core.Configuration.ConfigurationSectionHandler<PassBlockVerdict, object>).FullName;
-
             var throttlingConfiguration = ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration<PassBlockVerdict, object>;
 
             var redisRule = throttlingConfiguration.Rules.OfType<INamed>().FirstOrDefault(r => r.Name == "singleRedis") as IRule<PassBlockVerdict, object>;
