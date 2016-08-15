@@ -14,11 +14,35 @@ namespace Dxw.Throttling.ConsoleTest
         {
             var throttlingConfiguration = ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration<PassBlockVerdict, object>;
 
-            var redisRule = throttlingConfiguration.Rules.OfType<INamed>().FirstOrDefault(r => r.Name == "singleRedis") as IRule<PassBlockVerdict, object>;
+            //var redisRule = throttlingConfiguration.Rules.OfType<INamed>().FirstOrDefault(r => r.Name == "singleRedis") as IRule<PassBlockVerdict, object>;
+            var redisRule = throttlingConfiguration.Rule;
 
-            var res = redisRule.Apply();
+            {
+                var res = redisRule.Apply();
+                Console.WriteLine(res.Verdict);
+            }
 
-            Console.WriteLine(res.Verdict);
+            {
+                var res = redisRule.Apply();
+                Console.WriteLine(res.Verdict);
+            }
+
+            {
+                var res = redisRule.Apply();
+                Console.WriteLine(res.Verdict);
+            }
+
+            {
+                var res = redisRule.Apply();
+                Console.WriteLine(res.Verdict);
+            }
+
+            System.Threading.Thread.Sleep(TimeSpan.FromSeconds(11));
+
+            {
+                var res = redisRule.Apply();
+                Console.WriteLine(res.Verdict);
+            }
         }
     }
 }
