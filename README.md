@@ -66,7 +66,7 @@ public void Configuration(IAppBuilder appBuilder)
 }
 ```
 
-The same throttling logic but configured via .config file:
+The same throttling logic but configured via web.config file for Asp.Net:
 ``` xml
 ...
 <configSections>
@@ -102,6 +102,44 @@ public static void Register(HttpConfiguration config)
         routeTemplate: "api/{controller}/{id}",
         defaults: new { id = RouteParameter.Optional }
     );
+}
+```
+The same throttling logic but configured via app.config file for Owin:
+``` xml
+...
+<configSections>
+        <section name="throttling" type="Dxw.Throttling.Owin.Configuration.PassBlockConfigurationSectionHandler, Dxw.Throttling.Owin"/>
+    </configSections>
+    <throttling>
+        <storages>
+            <storage type="Dxw.Throttling.Core.Storages.LocalMemoryStorage, Dxw.Throttling.Core" name="local" />
+        </storages>
+        <rules>
+            <rule type="Dxw.Throttling.Owin.Rules.OwinStorageKeyerProcessorRule, Dxw.Throttling.Owin">
+                <storage name="local" />
+                <keyer type="Dxw.Throttling.Owin.Keyers.ControllerNameKeyer, Dxw.Throttling.Owin" />
+                <processor type="Dxw.Throttling.Core.Processors.RequestCountPerPeriodProcessorPhased, Dxw.Throttling.Core"
+                           count="1" period="00:00:10" />
+            </rule>
+        </rules>
+    </throttling>
+...
+```
+and corresponding c# code:
+``` cs
+public class Startup
+{
+    public void Configuration(IAppBuilder appBuilder)
+    {
+        var config = new HttpConfiguration();
+        config.Routes.MapHttpRoute("Default", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+        var throttlingConfig = ConfigurationManager.GetSection("throttling") as Throttling.Core.Configuration.ThrottlingConfiguration<PassBlockVerdict, IOwinArgs>;
+        var rule = throttlingConfig.Rule;
+
+        appBuilder.Use(typeof(ThrottlingPassBlockMiddleware), rule);
+
+        appBuilder.UseWebApi(config);
+    }
 }
 ```
 Asp.Net Web Api usage
