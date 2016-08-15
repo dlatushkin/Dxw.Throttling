@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{CA0F78
 		..\LICENSE = ..\LICENSE
 		..\OpenRuleModel.md = ..\OpenRuleModel.md
 		..\README.md = ..\README.md
+		..\RedisStorage.md = ..\RedisStorage.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.Asp", "Projects\Dxw.Throttling.Asp\Dxw.Throttling.Asp.csproj", "{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}"

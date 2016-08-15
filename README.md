@@ -20,7 +20,7 @@ elements.
 - Multiple rules can be applied in combination using built-in logical and/or operators.
 - Arbitary result types are allowed.
 - Pre- / Post- rule process phase are supported.
-- Redis/Lua storage is implemented.
+- [Redis/Lua storage is implemented.](RedisStorage.md)
 - [Open rule model.](OpenRuleModel.md)
 
 ### Dxw.Throttling as a ready-to-use library
@@ -142,8 +142,6 @@ public class Startup
     }
 }
 ```
-Asp.Net Web Api usage
-
 
 ### Dxw.Throttling 
 
