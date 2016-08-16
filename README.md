@@ -17,7 +17,7 @@ elements.
 - Local in-memory storage.
 
 ### Unique features
-- Multiple rules can be applied in combination using built-in logical and/or operators.
+- [Multiple rules can be applied in combination using built-in logical and/or operators.](Docs/RuleCombination.md)
 - [Arbitary result types are allowed.](ArbitaryResult.md)
 - Pre- / Post- rule process phase are supported.
 - [Redis/Lua storage is implemented.](RedisStorage.md)

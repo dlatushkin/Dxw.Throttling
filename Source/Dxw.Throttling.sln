@@ -43,6 +43,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.Owin", "Proj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.IntegrationTests", "Projects\Tests\Dxw.Throttling.IntegrationTests\Dxw.Throttling.IntegrationTests.csproj", "{B0778822-6A8C-4073-9DC4-7ED9A215F4A1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{BB2F57CD-7DCC-4EBD-9E2C-F2F06908FCCC}"
+	ProjectSection(SolutionItems) = preProject
+		..\Docs\RuleCombination.md = ..\Docs\RuleCombination.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,5 +100,6 @@ Global
 		{E6589819-39E2-43B5-87B6-1CB43B632A2F} = {20791FC8-5CEB-4566-A48E-4EDDFF43DA5B}
 		{67C96C2B-B980-4D6D-88CD-19C6A44CD2D7} = {20791FC8-5CEB-4566-A48E-4EDDFF43DA5B}
 		{B0778822-6A8C-4073-9DC4-7ED9A215F4A1} = {76416CD3-A544-41D8-89B4-1DC15F826665}
+		{BB2F57CD-7DCC-4EBD-9E2C-F2F06908FCCC} = {CA0F781B-04BC-4681-9AE4-33BE69A0177C}
 	EndGlobalSection
 EndGlobal
