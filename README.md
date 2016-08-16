@@ -18,7 +18,7 @@ elements.
 
 ### Unique features
 - Multiple rules can be applied in combination using built-in logical and/or operators.
-- Arbitary result types are allowed.
+- [Arbitary result types are allowed.](ArbitaryResult.md)
 - Pre- / Post- rule process phase are supported.
 - [Redis/Lua storage is implemented.](RedisStorage.md)
 - [Open rule model.](OpenRuleModel.md)
