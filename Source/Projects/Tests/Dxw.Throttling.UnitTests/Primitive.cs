@@ -1,11 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Net.Http;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Dxw.Throttling.Core.Storages;
 using Dxw.Throttling.Core.Keyers;
 using Dxw.Throttling.Core.Processors;
 using Dxw.Throttling.Core.Rules;
-using System.Net.Http;
-using System;
-using System.Collections.Generic;
+
 
 namespace Dxw.Throttling.UnitTests
 {
