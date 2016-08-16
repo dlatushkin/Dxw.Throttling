@@ -5,6 +5,7 @@ using Dxw.Throttling.Core.Processors;
 using Dxw.Throttling.Core.Rules;
 using System.Net.Http;
 using System.Linq;
+using Dxw.Throttling.Core.Rules.Constant;
 
 namespace Dxw.Throttling.UnitTests
 {
@@ -196,6 +197,19 @@ namespace Dxw.Throttling.UnitTests
                 var ruleSet = r as IApplyResultSet<PassBlockVerdict>;
                 Assert.IsNotNull(ruleSet);
             }
+        }
+
+        [TestMethod]
+        public void T010_And()
+        {
+            var rulePass = new ConstantPassBlockRule<object> { Value = PassBlockVerdict.Pass };
+            var ruleBlock = new ConstantPassBlockRule<object> { Value = PassBlockVerdict.Block };
+
+            var andRule = new RuleAndNode<object> { Rules = new[] { rulePass, ruleBlock } };
+
+            var result = andRule.Apply();
+
+            Assert.AreEqual(PassBlockVerdict.Block, result.Verdict);
         }
     }
 }
