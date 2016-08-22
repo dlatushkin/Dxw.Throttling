@@ -3,7 +3,6 @@
     using System.Web.Http;
 
     using Dxw.Throttling.Asp;
-
     
     public class ThirdController : ApiController
     {

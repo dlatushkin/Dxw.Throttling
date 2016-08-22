@@ -7,11 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.Core", "Proj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{CA0F781B-04BC-4681-9AE4-33BE69A0177C}"
 	ProjectSection(SolutionItems) = preProject
-		..\ArbitaryResult.md = ..\ArbitaryResult.md
 		..\LICENSE = ..\LICENSE
-		..\OpenRuleModel.md = ..\OpenRuleModel.md
 		..\README.md = ..\README.md
-		..\RedisStorage.md = ..\RedisStorage.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.Asp", "Projects\Dxw.Throttling.Asp\Dxw.Throttling.Asp.csproj", "{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}"
@@ -45,6 +42,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dxw.Throttling.IntegrationT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{BB2F57CD-7DCC-4EBD-9E2C-F2F06908FCCC}"
 	ProjectSection(SolutionItems) = preProject
+		..\Docs\ArbitaryResult.md = ..\Docs\ArbitaryResult.md
+		..\Docs\OpenRuleModel.md = ..\Docs\OpenRuleModel.md
+		..\Docs\RedisStorage.md = ..\Docs\RedisStorage.md
 		..\Docs\RuleCombination.md = ..\Docs\RuleCombination.md
 	EndProjectSection
 EndProject

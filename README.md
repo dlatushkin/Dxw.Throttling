@@ -18,10 +18,10 @@ elements.
 
 ### Unique features
 - [Multiple rules can be applied in combination using built-in logical and/or operators.](Docs/RuleCombination.md)
-- [Arbitary result types are allowed.](ArbitaryResult.md)
+- [Arbitary result types are allowed.](Docs/ArbitaryResult.md)
 - Pre- / Post- rule process phase are supported.
-- [Redis/Lua storage is implemented.](RedisStorage.md)
-- [Open rule model.](OpenRuleModel.md)
+- [Redis/Lua storage is implemented.](Docs/RedisStorage.md)
+- [Open rule model.](Docs/OpenRuleModel.md)
 
 ### Dxw.Throttling as a ready-to-use library
 
