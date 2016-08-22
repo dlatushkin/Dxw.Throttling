@@ -10,8 +10,6 @@
 
     public abstract class ThrottlingMiddleware<T> : OwinMiddleware
     {
-        private readonly string DFLT_CONFIG_SECTION_NAME = "throttling";
-
         private IRule<T, IOwinArgs> _rule;
 
         private readonly string _configSectionName;
@@ -30,7 +28,7 @@
                 return;
             }
 
-            _configSectionName = configSectionName ?? DFLT_CONFIG_SECTION_NAME;
+            _configSectionName = configSectionName ?? Const.DFLT_CONFIG_SECTION_NAME;
 
             var throttlingConfigSection = 
                 System.Configuration.ConfigurationManager.GetSection(_configSectionName) as ThrottlingConfiguration<T, IOwinArgs>;
