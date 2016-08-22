@@ -4,12 +4,18 @@
 
     using Dxw.Throttling.Asp;
 
+    
     public class ThirdController : ApiController
     {
         [Throttle]
         public string Get()
         {
-            return "third";
+            return "third get";
+        }
+
+        public string Post()
+        {
+            return "third post";
         }
     }
 }
