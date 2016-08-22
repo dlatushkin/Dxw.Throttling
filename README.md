@@ -9,7 +9,7 @@ From one hand it can be overriden on any level.
 From other hand current codebase allows to implement only neсessary logic w/o writing routine code.
 
 ### Standard features
-- Asp.Net handler and filter as well as Owin middleware.
+- Asp.Net handler and filter attribute as well as Owin middleware.
 - Throttle by hits per period.
 - Throttling can be performed based on client IP or server URL criteria.
 - Configuration can be done using special section of application config file or via run time code
@@ -28,7 +28,7 @@ elements.
 The most common use cases are already implemented and can be used "out-of-the-box".
 Let's configure trivial IP throttling via code:
 
-Asp.Net Web Api usage
+Asp.Net Web Api usage as a handler:
 ``` cs
 public static void Register(HttpConfiguration config)
 {
@@ -45,6 +45,24 @@ public static void Register(HttpConfiguration config)
         defaults: new { id = RouteParameter.Optional }
     );
 }
+```
+the same as a attribute:
+``` cs
+...
+public class ThirdController : ApiController
+{
+    [Throttle]
+    public string Get()
+    {
+        return "third get";
+    }
+
+    public string Post()
+    {
+        return "third post";
+    }
+}
+...
 ```
 Owin self-hosted app usage
 ``` cs
