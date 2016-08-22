@@ -86,8 +86,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\WebApiConfigAttribute.cs" />
     <Compile Include="App_Start\WebApiConfigConf.cs" />
     <Compile Include="App_Start\WebApiConfigCode.cs" />
+    <Compile Include="Controllers\ThirdController.cs" />
     <Compile Include="Controllers\FirstController.cs" />
     <Compile Include="Controllers\SecondController.cs" />
     <Compile Include="Global.asax.cs">
@@ -104,10 +106,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Dxw.Throttling.Asp\Dxw.Throttling.Asp.csproj">
       <Project>{cf22dbeb-d8e7-4f2c-b7e2-d406d3ba5cf6}</Project>

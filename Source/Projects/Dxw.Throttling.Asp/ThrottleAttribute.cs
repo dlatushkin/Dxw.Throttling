@@ -8,13 +8,13 @@
     using Core.Configuration;
     using Core.Exceptions;
 
-    public class ThrottlingAttribute : ActionFilterAttribute
+    public class ThrottleAttribute : ActionFilterAttribute
     {
         private readonly bool _twoPhased;
 
         private IRule<PassBlockVerdict, IAspArgs> _rule;
 
-        private static IRule<PassBlockVerdict, IAspArgs> GetRule(string configSectionName, string ruleName = null)
+        private static IRule<PassBlockVerdict, IAspArgs> GetRule(string configSectionName = null, string ruleName = null)
         {
             configSectionName = configSectionName ?? Const.DFLT_CONFIG_SECTION_NAME;
 
@@ -32,15 +32,17 @@
             return rule;
         }
 
-        public ThrottlingAttribute(IRule<PassBlockVerdict, IAspArgs> rule = null) : this(false, rule) {}
+        public ThrottleAttribute(): this(false, GetRule()) {}
 
-        public ThrottlingAttribute(string configSectionName, string ruleName = null)
+        public ThrottleAttribute(IRule<PassBlockVerdict, IAspArgs> rule = null) : this(false, rule) {}
+
+        public ThrottleAttribute(string configSectionName, string ruleName = null)
             : this(GetRule(configSectionName, ruleName)) {}
 
-        public ThrottlingAttribute(bool twoPhased, string configSectionName, string ruleName = null)
+        public ThrottleAttribute(bool twoPhased, string configSectionName, string ruleName = null)
             : this(twoPhased, GetRule(configSectionName, ruleName)) {}
 
-        public ThrottlingAttribute(bool twoPhased, IRule<PassBlockVerdict, IAspArgs> rule = null)
+        public ThrottleAttribute(bool twoPhased, IRule<PassBlockVerdict, IAspArgs> rule = null)
         {
             _twoPhased = twoPhased;
             _rule = rule;

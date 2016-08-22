@@ -69,7 +69,7 @@
     <Compile Include="Rules\AspRuleAndNode.cs" />
     <Compile Include="Rules\AspStorageKeyerProcessorRule.cs" />
     <Compile Include="Rules\Constant\AspConstantRule.cs" />
-    <Compile Include="ThrottlingAttribute.cs" />
+    <Compile Include="ThrottleAttribute.cs" />
     <Compile Include="ThrottlingHandler.cs" />
   </ItemGroup>
   <ItemGroup>
