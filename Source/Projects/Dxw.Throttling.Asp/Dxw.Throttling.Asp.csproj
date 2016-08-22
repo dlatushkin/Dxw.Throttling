@@ -64,6 +64,7 @@
     <Compile Include="Keyers\URIKeyer.cs" />
     <Compile Include="Keyers\URIMethodKeyer.cs" />
     <Compile Include="AspArgs.cs" />
+    <Compile Include="Processors\ResponseSizeProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\AspRuleOrNode.cs" />
     <Compile Include="Rules\AspRuleAndNode.cs" />

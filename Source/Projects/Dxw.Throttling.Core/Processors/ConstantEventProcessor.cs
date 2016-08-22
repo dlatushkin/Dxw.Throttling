@@ -6,7 +6,7 @@
     using Storages;
     using System;
 
-    public class ConstantEventProcessor<TRes> : IProcessor<TRes>, IXmlConfigurable
+    public class ConstantEventProcessor<TRes> : IProcessor<TRes, object>, IXmlConfigurable
     {
         public TRes Value { get; set; }
 

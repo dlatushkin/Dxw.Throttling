@@ -44,6 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{BB2F57CD-7
 	ProjectSection(SolutionItems) = preProject
 		..\Docs\ArbitaryResult.md = ..\Docs\ArbitaryResult.md
 		..\Docs\OpenRuleModel.md = ..\Docs\OpenRuleModel.md
+		..\Docs\Phased.md = ..\Docs\Phased.md
 		..\Docs\RedisStorage.md = ..\Docs\RedisStorage.md
 		..\Docs\RuleCombination.md = ..\Docs\RuleCombination.md
 	EndProjectSection

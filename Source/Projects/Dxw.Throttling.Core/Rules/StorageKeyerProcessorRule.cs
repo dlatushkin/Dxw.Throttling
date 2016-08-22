@@ -19,7 +19,7 @@
 
         public IKeyer<TArg> Keyer { get; set; }
 
-        public IProcessor<TRes> Processor { get; set; }
+        public IProcessor<TRes,TArg> Processor { get; set; }
 
         public string Name { get; private set; }
 
@@ -63,12 +63,12 @@
             return keyer;
         }
 
-        private IProcessor<TRes> CreateProcessor(XmlNode node, IConfiguration<TRes, TArg> context)
+        private IProcessor<TRes, TArg> CreateProcessor(XmlNode node, IConfiguration<TRes, TArg> context)
         {
             var nProcessor = node.SelectSingleNode("processor");
             var typeName = nProcessor.Attributes["type"].Value;
             var type = Type.GetType(typeName);
-            var processor = (IProcessor<TRes>)Activator.CreateInstance(type);
+            var processor = (IProcessor<TRes, TArg>)Activator.CreateInstance(type);
 
             var configurableTyped = processor as IXmlConfigurable<TRes, TArg>;
             if (configurableTyped != null)
