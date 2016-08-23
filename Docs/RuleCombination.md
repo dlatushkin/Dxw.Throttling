@@ -7,3 +7,4 @@ They allow to aggregate multiple primitive or complex rules.
 Result is logical "and" / "or" combination on child rules.
 Also Asp and Owin versions of the rules are located in corresponding projects.
 
+
