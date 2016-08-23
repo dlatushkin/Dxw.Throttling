@@ -1,4 +1,4 @@
-﻿# Arbitary result types
+﻿# Pre- / Post- rule process phase
 
 What if some query metrics can be evaluated only after response is ready?
 For example response size or execution time can be calculated at the end of request
