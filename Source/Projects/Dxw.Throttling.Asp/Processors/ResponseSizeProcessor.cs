@@ -46,13 +46,20 @@
 
             IStorageValue<object> newVal = null;
 
+            var utcNow = DateTime.UtcNow;
+
             if (context.Phase == EventPhase.Before)
             {
-                newVal = dict[key];
+                dict.TryGetValue(key, out newVal);
+                if (newVal != null && newVal.IsExpired(utcNow))
+                {
+                    newVal = null;
+                }
             }
             else
             {
-                var utcNow = DateTime.UtcNow;
+                context.Response.Content.LoadIntoBufferAsync().Wait();
+
                 var size = context.Response.Content.Headers.ContentLength ?? 0;
 
                 newVal = dict.AddOrUpdate(
