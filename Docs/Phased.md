@@ -12,41 +12,39 @@ in a particular situation.
 
 Does it look like exotic case? May be but "never say never" ).
 
-Below is example of such rule:
+Below is example of such rule configuration:
+``` xml
+...
+<configSections>
+        <section name="throttling" type="Dxw.Throttling.Asp.Configuration.PassBlockConfigurationSectionHandler, Dxw.Throttling.Asp"/>
+    </configSections>
+    ...
+    <throttling>
+        <storages>
+            <storage type="Dxw.Throttling.Core.Storages.LocalMemoryStorage, Dxw.Throttling.Core" name="local" />
+        </storages>
+        <rules>
+            <rule type="Dxw.Throttling.Asp.Rules.AspStorageKeyerProcessorRule, Dxw.Throttling.Asp" name="size">
+                <storage name="local" />
+                <keyer type="Dxw.Throttling.Asp.Keyers.ControllerNameKeyer, Dxw.Throttling.Asp" />
+                <processor type="Dxw.Throttling.Asp.Processors.ResponseSizeProcessor, Dxw.Throttling.Asp"
+                           bytes="20" period="00:00:10" />
+            </rule>
+        </rules>
+    </throttling>
+...
+```
+and corresponding cs code:
 ``` cs
-public class TimeOfDayDegreeRule : IRule<byte, DateTime>
+...
+public class FourthController : ApiController
 {
-    public string Name { get { return GetType().Name; } }
-
-    public IApplyResult<byte> Apply(DateTime context = default(DateTime))
+    [Throttle(true, "throttling", "size")]
+    public string Get()
     {
-        var hour = context.Hour;
-        byte verdict;
-        if (hour < 6 || hour > 23)
-            verdict = 1;
-        else if (hour < 8 || hour > 20)
-            verdict = 2;
-        else
-            verdict = 3;
-
-        return new ApplyResult<byte> { Rule = this, Verdict = verdict };
+        return "fourth.get";
     }
 }
-```
-and unit test fragment utilizing the rule:
-``` cs
-...
-var rule = new TimeOfDayDegreeRule();
-
-IApplyResult<byte> result;
-
-result = rule.Apply(new DateTime(2016, 8, 16, 2, 0, 0));
-Assert.AreEqual(1, result.Verdict);
-
-result = rule.Apply(new DateTime(2016, 8, 16, 7, 0, 0));
-Assert.AreEqual(2, result.Verdict);
-
-result = rule.Apply(new DateTime(2016, 8, 16, 14, 0, 0));
-Assert.AreEqual(3, result.Verdict);
 ...
 ```
+The sample can be found in [Dxw.Throttling.WebApiTest](/Source/Projects/Samples/Dxw.Throttling.WebApiTest) project.
