@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\OwinRuleAndNode.cs" />
+    <Compile Include="Configuration\OwinRuleOrNode.cs" />
     <Compile Include="Configuration\PassBlockConfigurationSectionHandler.cs" />
     <Compile Include="Keyers\ControllerNameKeyer.cs" />
     <Compile Include="Keyers\IPKeyer.cs" />
