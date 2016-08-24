@@ -237,5 +237,22 @@ namespace Dxw.Throttling.UnitTests
 
             Assert.AreEqual(PassBlockVerdict.Block, result.Verdict);
         }
+
+        [TestMethod]
+        public void T013_AndOr()
+        {
+            var ruleBlock1 = new ConstantPassBlockRule<object> { Value = PassBlockVerdict.Block };
+
+            var rulePass21 = new ConstantPassBlockRule<object> { Value = PassBlockVerdict.Block };
+            var ruleBlock22 = new ConstantPassBlockRule<object> { Value = PassBlockVerdict.Block };
+
+            var ruleOr = new RuleOrNode<object> { Rules = new[] { rulePass21, ruleBlock22 } };
+
+            var ruleAnd = new RuleOrNode<object> { Rules = new IRule<PassBlockVerdict, object>[] { ruleBlock1, ruleOr } };
+
+            var result = ruleAnd.Apply();
+             
+            Assert.AreEqual(PassBlockVerdict.Block, result.Verdict);
+        }
     }
 }
