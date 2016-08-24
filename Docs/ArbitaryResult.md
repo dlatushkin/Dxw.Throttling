@@ -9,7 +9,7 @@ May be this case is a little bit far-fetched but "never say never".
 
 Below is example of such rule:
 ``` cs
-public class TimeOfDayDegreeRule : IRule<byte, DateTime>
+public class TimeOfDayDegreeRule : IRule<DateTime, byte>
 {
     public string Name { get { return GetType().Name; } }
 

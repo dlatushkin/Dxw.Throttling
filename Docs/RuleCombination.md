@@ -34,7 +34,7 @@ And corresponding c# code:
 ``` cs
 ...
 var config = ConfigurationManager.GetSection(Core.Configuration.Const.DFLT_CONFIG_SECTION_NAME) 
-                as ThrottlingConfiguration<PassBlockVerdict, IAspArgs>;
+                as ThrottlingConfiguration<IAspArgs, PassBlockVerdict>;
 
 var result = config.Rule.Apply();
 Assert.AreEqual(PassBlockVerdict.Block, result.Verdict);
