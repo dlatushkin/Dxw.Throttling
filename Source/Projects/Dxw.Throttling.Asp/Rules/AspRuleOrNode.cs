@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dxw.Throttling.Asp.Rules
+﻿namespace Dxw.Throttling.Asp.Rules
 {
-    class AspRuleAndNode
-    {
-    }
+    using Dxw.Throttling.Core.Rules;
+
+    public class AspRuleOrNode : RuleOrNode<IAspArgs> { }
 }

@@ -6,6 +6,10 @@ using Dxw.Throttling.Core.Rules;
 using System.Net.Http;
 using System.Linq;
 using Dxw.Throttling.Core.Rules.Constant;
+using System.Configuration;
+using Dxw.Throttling.Asp.Configuration;
+using Dxw.Throttling.Core.Configuration;
+using Dxw.Throttling.Asp;
 
 namespace Dxw.Throttling.UnitTests
 {
@@ -252,6 +256,16 @@ namespace Dxw.Throttling.UnitTests
 
             var result = ruleAnd.Apply();
              
+            Assert.AreEqual(PassBlockVerdict.Block, result.Verdict);
+        }
+
+        [TestMethod]
+        public void T014_AndConfiguration()
+        {
+            var config = ConfigurationManager.GetSection(Core.Configuration.Const.DFLT_CONFIG_SECTION_NAME) 
+                as ThrottlingConfiguration<PassBlockVerdict, IAspArgs>;
+
+            var result = config.Rule.Apply();
             Assert.AreEqual(PassBlockVerdict.Block, result.Verdict);
         }
     }

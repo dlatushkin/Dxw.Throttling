@@ -10,10 +10,7 @@
         {
             var valAttr = node.Attributes["value"];
             if (valAttr != null)
-            {
-                PassBlockVerdict val;
-                Enum.TryParse(valAttr.Value, out val);
-            }
+                Value = (PassBlockVerdict)Enum.Parse(typeof(PassBlockVerdict), valAttr.Value, true);
         }
     }
 }

@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <Choose>
@@ -58,6 +59,10 @@
     <Compile Include="TimeOfDayDegreeRuleTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Dxw.Throttling.Asp\Dxw.Throttling.Asp.csproj">
+      <Project>{CF22DBEB-D8E7-4F2C-B7E2-D406D3BA5CF6}</Project>
+      <Name>Dxw.Throttling.Asp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Dxw.Throttling.Core\Dxw.Throttling.Core.csproj">
       <Project>{325802cc-dcfb-4d84-8ef8-50cb19351b1a}</Project>
       <Name>Dxw.Throttling.Core</Name>

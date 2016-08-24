@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\AspPassBlockConfigurationSection.cs" />
     <Compile Include="Configuration\PassBlockConfigurationSectionHandler.cs" />
     <Compile Include="IAspArgs.cs" />
     <Compile Include="Keyers\ControllerNameKeyer.cs" />

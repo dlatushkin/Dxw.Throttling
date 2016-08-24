@@ -26,7 +26,7 @@
         {
             var rules = new List<IRule<T, TArg>>();
 
-            foreach (XmlNode nRule in node.ChildNodes)
+            foreach (XmlNode nRule in node.SelectSingleNode("rules").ChildNodes)
             {
                 var typeName = nRule.Attributes["type"].Value;
                 var type = Type.GetType(typeName);

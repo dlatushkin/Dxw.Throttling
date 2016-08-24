@@ -2,5 +2,5 @@
 {
     using Dxw.Throttling.Core.Rules;
 
-    public class AspRuleOrNode: RuleOrNode<IAspArgs> {}
+    public class AspRuleAndNode: RuleAndNode<IAspArgs> {}
 }
