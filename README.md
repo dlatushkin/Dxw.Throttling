@@ -35,7 +35,7 @@ public static void Register(HttpConfiguration config)
     var storage = new LocalMemoryStorage();
     var keyer = new ControllerNameKeyer();
     var processor = new RequestCountPerPeriodProcessorPhased { Count = 1, Period = TimeSpan.FromSeconds(10) };
-    var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, IAspArgs> { Storage = storage, Keyer = keyer, Processor = processor } as IRule;
+    var ruleBlock = new StorageKeyerProcessorRule<IAspArgs, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = processor } as IRule;
     var throttlingHandler = new ThrottlingHandler(ruleBlock);
     config.MessageHandlers.Add(throttlingHandler);
 
@@ -110,7 +110,7 @@ and corresponding c# code:
 ``` cs
 public static void Register(HttpConfiguration config)
 {
-    var throttlingConfig = ConfigurationManager.GetSection("throttling") as Throttling.Core.Configuration.ThrottlingConfiguration<PassBlockVerdict, IAspArgs>;
+    var throttlingConfig = ConfigurationManager.GetSection("throttling") as Throttling.Core.Configuration.ThrottlingConfiguration<IAspArgs, PassBlockVerdict>;
     var rule = throttlingConfig.Rule;
     var throttlingHandler = new ThrottlingHandler(rule);
     config.MessageHandlers.Add(throttlingHandler);
@@ -151,7 +151,7 @@ public class Startup
     {
         var config = new HttpConfiguration();
         config.Routes.MapHttpRoute("Default", "api/{controller}/{id}", new { id = RouteParameter.Optional });
-        var throttlingConfig = ConfigurationManager.GetSection("throttling") as Throttling.Core.Configuration.ThrottlingConfiguration<PassBlockVerdict, IOwinArgs>;
+        var throttlingConfig = ConfigurationManager.GetSection("throttling") as Throttling.Core.Configuration.ThrottlingConfiguration<IOwinArgs, PassBlockVerdict>;
         var rule = throttlingConfig.Rule;
 
         appBuilder.Use(typeof(ThrottlingPassBlockMiddleware), rule);
