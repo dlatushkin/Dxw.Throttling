@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class TooLateTooEarlyRule : IRule<PassBlockVerdict, object>
+    public class TooLateTooEarlyRule : IRule<object, PassBlockVerdict>
     {
         public int Times { get; set; }
         public TimeSpan PerPeriod { get; set; }

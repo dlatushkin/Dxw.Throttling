@@ -24,7 +24,7 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>() { Value = PassBlockVerdict.Block };
 
-            var blockRule = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = processor };
+            var blockRule = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = processor };
 
             var rule = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new [] { blockRule } };
 
@@ -56,8 +56,8 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>();
 
-            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict>() { Value = PassBlockVerdict.Block } };
-            var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value=PassBlockVerdict.Pass } };
+            var ruleBlock = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict>() { Value = PassBlockVerdict.Block } };
+            var rulePass = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value=PassBlockVerdict.Pass } };
 
             var rule = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock, rulePass } };
 
@@ -89,8 +89,8 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>();
 
-            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
-            var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var ruleBlock = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
+            var rulePass = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
 
             var rule = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = false, Rules = new[] { ruleBlock, rulePass } };
 
@@ -130,8 +130,8 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>();
 
-            var ruleBlock = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
-            var rulePass = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var ruleBlock = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
+            var rulePass = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
 
             var rule = new RuleAndNode<object> { CallEachRule = false, BlockResultsOnly = false, Rules = new[] { ruleBlock, rulePass } };
 
@@ -163,8 +163,8 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>();
 
-            var rulePass1 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
-            var rulePass2 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var rulePass1 = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var rulePass2 = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
 
             var rule = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { rulePass1, rulePass2 } };
 
@@ -183,12 +183,12 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>();
 
-            var ruleBlock1 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block} };
-            var rulePass1 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var ruleBlock1 = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block} };
+            var rulePass1 = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
             var rule1 = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock1, rulePass1 } };
 
-            var ruleBlock2 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
-            var rulePass2 = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
+            var ruleBlock2 = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Block } };
+            var rulePass2 = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = new ConstantEventProcessor<PassBlockVerdict> { Value = PassBlockVerdict.Pass } };
             var rule2 = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { ruleBlock2, rulePass2 } };
 
             var rule = new RuleAndNode<object> { CallEachRule = true, BlockResultsOnly = true, Rules = new[] { rule1, rule2 } };
@@ -252,7 +252,7 @@ namespace Dxw.Throttling.UnitTests
 
             var ruleOr = new RuleOrNode<object> { Rules = new[] { rulePass21, ruleBlock22 } };
 
-            var ruleAnd = new RuleOrNode<object> { Rules = new IRule<PassBlockVerdict, object>[] { ruleBlock1, ruleOr } };
+            var ruleAnd = new RuleOrNode<object> { Rules = new IRule<object, PassBlockVerdict>[] { ruleBlock1, ruleOr } };
 
             var result = ruleAnd.Apply();
              
@@ -263,7 +263,7 @@ namespace Dxw.Throttling.UnitTests
         public void T014_AndConfiguration()
         {
             var config = ConfigurationManager.GetSection(Core.Configuration.Const.DFLT_CONFIG_SECTION_NAME) 
-                as ThrottlingConfiguration<PassBlockVerdict, IAspArgs>;
+                as ThrottlingConfiguration<IAspArgs, PassBlockVerdict>;
 
             var result = config.Rule.Apply();
             Assert.AreEqual(PassBlockVerdict.Block, result.Verdict);

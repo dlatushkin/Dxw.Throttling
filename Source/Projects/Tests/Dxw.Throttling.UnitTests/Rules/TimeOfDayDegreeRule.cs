@@ -4,7 +4,7 @@
 
     using Dxw.Throttling.Core.Rules;
 
-    public class TimeOfDayDegreeRule : IRule<byte, DateTime>
+    public class TimeOfDayDegreeRule : IRule<DateTime, byte>
     {
         public string Name { get { return GetType().Name; } }
 

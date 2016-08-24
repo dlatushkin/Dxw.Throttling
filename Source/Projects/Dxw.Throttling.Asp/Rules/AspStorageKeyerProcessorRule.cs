@@ -2,5 +2,5 @@
 {
     using Dxw.Throttling.Core.Rules;
 
-    public class AspStorageKeyerProcessorRule: StorageKeyerProcessorRule<PassBlockVerdict, IAspArgs> {}
+    public class AspStorageKeyerProcessorRule: StorageKeyerProcessorRule<IAspArgs, PassBlockVerdict> {}
 }

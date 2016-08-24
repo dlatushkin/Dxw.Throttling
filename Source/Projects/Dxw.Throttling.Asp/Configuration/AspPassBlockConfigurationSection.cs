@@ -3,5 +3,5 @@
     using Core.Rules;
     using Dxw.Throttling.Core.Configuration;
 
-    public class AspPassBlockConfigurationSection: ThrottlingConfiguration<PassBlockVerdict, IAspArgs> {}
+    public class AspPassBlockConfigurationSection: ThrottlingConfiguration<IAspArgs, PassBlockVerdict> {}
 }

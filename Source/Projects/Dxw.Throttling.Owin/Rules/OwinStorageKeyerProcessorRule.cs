@@ -2,5 +2,5 @@
 {
     using Dxw.Throttling.Core.Rules;
 
-    public class OwinStorageKeyerProcessorRule: StorageKeyerProcessorRule<PassBlockVerdict, IOwinArgs> {}
+    public class OwinStorageKeyerProcessorRule: StorageKeyerProcessorRule<IOwinArgs, PassBlockVerdict> {}
 }

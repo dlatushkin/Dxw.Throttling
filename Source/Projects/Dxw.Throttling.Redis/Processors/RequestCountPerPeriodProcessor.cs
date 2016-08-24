@@ -2,7 +2,6 @@
 {
     using StackExchange.Redis;
 
-    using Core.Processors;
     using Core.Rules;
     using Core.Exceptions;
 

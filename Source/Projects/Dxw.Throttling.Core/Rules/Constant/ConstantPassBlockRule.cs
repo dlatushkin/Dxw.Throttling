@@ -4,7 +4,7 @@
     using System.Xml;
     using Dxw.Throttling.Core.Configuration;
 
-    public class ConstantPassBlockRule<TArg> : ConstantRule<PassBlockVerdict, TArg>, IXmlConfigurable
+    public class ConstantPassBlockRule<TArg> : ConstantRule<TArg, PassBlockVerdict>, IXmlConfigurable
     {
         public void Configure(XmlNode node, IConfiguration context)
         {

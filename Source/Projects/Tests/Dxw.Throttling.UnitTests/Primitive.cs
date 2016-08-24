@@ -21,7 +21,7 @@ namespace Dxw.Throttling.UnitTests
             var keyer = new ConstantKeyer();
             var processor = new ConstantEventProcessor<PassBlockVerdict>() { Value = PassBlockVerdict.Block };
 
-            var rule = new StorageKeyerProcessorRule<PassBlockVerdict, object> { Storage = storage, Keyer = keyer, Processor = processor };
+            var rule = new StorageKeyerProcessorRule<object, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = processor };
 
             var context = new HttpRequestMessage();
 

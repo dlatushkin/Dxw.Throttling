@@ -12,14 +12,14 @@
     {
         private readonly bool _twoPhased;
 
-        private IRule<PassBlockVerdict, IAspArgs> _rule;
+        private IRule<IAspArgs, PassBlockVerdict> _rule;
 
-        private static IRule<PassBlockVerdict, IAspArgs> GetRule(string configSectionName = null, string ruleName = null)
+        private static IRule<IAspArgs, PassBlockVerdict> GetRule(string configSectionName = null, string ruleName = null)
         {
             configSectionName = configSectionName ?? Const.DFLT_CONFIG_SECTION_NAME;
 
             var throttlingConfigSection =
-                System.Configuration.ConfigurationManager.GetSection(configSectionName) as ThrottlingConfiguration<PassBlockVerdict, IAspArgs>;
+                System.Configuration.ConfigurationManager.GetSection(configSectionName) as ThrottlingConfiguration<IAspArgs, PassBlockVerdict>;
 
             if (throttlingConfigSection == null)
                 throw new ThrottlingException(
@@ -34,7 +34,7 @@
 
         public ThrottleAttribute(): this(false, GetRule()) {}
 
-        public ThrottleAttribute(IRule<PassBlockVerdict, IAspArgs> rule = null) : this(false, rule) {}
+        public ThrottleAttribute(IRule<IAspArgs, PassBlockVerdict> rule = null) : this(false, rule) {}
 
         public ThrottleAttribute(string configSectionName, string ruleName = null)
             : this(GetRule(configSectionName, ruleName)) {}
@@ -42,7 +42,7 @@
         public ThrottleAttribute(bool twoPhased, string configSectionName, string ruleName = null)
             : this(twoPhased, GetRule(configSectionName, ruleName)) {}
 
-        public ThrottleAttribute(bool twoPhased, IRule<PassBlockVerdict, IAspArgs> rule = null)
+        public ThrottleAttribute(bool twoPhased, IRule<IAspArgs, PassBlockVerdict> rule = null)
         {
             _twoPhased = twoPhased;
             _rule = rule;

@@ -8,7 +8,7 @@
     using Storages;
     using Configuration;
 
-    public abstract class RequestCountPerPeriodProcessor<T> : IProcessor<T, object>, IXmlConfigurable
+    public abstract class RequestCountPerPeriodProcessor<T> : IProcessor<object, T>, IXmlConfigurable
     {
         private const int DFLT_COUNT = 1;
         private static readonly TimeSpan DFLT_PERIOD = TimeSpan.FromSeconds(1);

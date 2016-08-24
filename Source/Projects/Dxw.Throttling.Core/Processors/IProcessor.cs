@@ -3,7 +3,7 @@
     using Rules;
     using System.Collections;
 
-    public interface IProcessor<out TRes, in TArg>
+    public interface IProcessor<in TArg, out TRes>
     {
         /// <summary>
         /// Processes an event

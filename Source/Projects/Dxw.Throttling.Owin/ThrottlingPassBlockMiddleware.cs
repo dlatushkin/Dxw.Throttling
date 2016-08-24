@@ -8,13 +8,13 @@
 
     public class ThrottlingPassBlockMiddleware: ThrottlingMiddleware<PassBlockVerdict>
     {
-        public ThrottlingPassBlockMiddleware(OwinMiddleware next, IRule<PassBlockVerdict, IOwinArgs> rule = null) 
+        public ThrottlingPassBlockMiddleware(OwinMiddleware next, IRule<IOwinArgs, PassBlockVerdict> rule = null) 
             : base(next, rule, null) { }
 
-        public ThrottlingPassBlockMiddleware(OwinMiddleware next, IRule<PassBlockVerdict, IOwinArgs> rule = null, string configSectionName = null) 
+        public ThrottlingPassBlockMiddleware(OwinMiddleware next, IRule<IOwinArgs, PassBlockVerdict> rule = null, string configSectionName = null) 
             : base(next) { }
 
-        protected override async Task InvokeCore(IOwinContext context, IRule<PassBlockVerdict, IOwinArgs> rule)
+        protected override async Task InvokeCore(IOwinContext context, IRule<IOwinArgs, PassBlockVerdict> rule)
         {
             var args = new OwinArgs { Phase = Core.EventPhase.Before, OwinContext = context };
 

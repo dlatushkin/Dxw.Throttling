@@ -12,7 +12,7 @@
     using System.Collections.Concurrent;
     using Core.Exceptions;
 
-    public class ResponseSizeProcessor : IProcessor<PassBlockVerdict, IAspArgs>, IXmlConfigurable
+    public class ResponseSizeProcessor : IProcessor<IAspArgs, PassBlockVerdict>, IXmlConfigurable
     {
         protected class SlotData
         {

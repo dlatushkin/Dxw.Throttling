@@ -3,7 +3,7 @@
     using Core.Configuration;
     using Dxw.Throttling.Core.Rules;
 
-    public class PassBlockConfigurationSectionHandler: ConfigurationSectionHandler<PassBlockVerdict, IOwinArgs>
+    public class PassBlockConfigurationSectionHandler: ConfigurationSectionHandler<IOwinArgs, PassBlockVerdict>
     {
 
     }

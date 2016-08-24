@@ -1,6 +1,6 @@
 ﻿namespace Dxw.Throttling.Core.Rules.Constant
 {
-    public class ConstantRule<TRes, TArg> : IRule<TRes, TArg>
+    public class ConstantRule<TArg, TRes> : IRule<TArg, TRes>
     {
         public TRes Value { get; set; }
 

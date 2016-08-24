@@ -9,9 +9,9 @@
         IEnumerable<IStorage> Storages { get; }
     }
 
-    public interface IConfiguration<out T, in TArg>: IConfiguration
+    public interface IConfiguration<in TArg, out T> : IConfiguration
     {
-        IEnumerable<IRule<T, TArg>> Rules { get; }
-        IRule<T, TArg> Rule { get; }
+        IEnumerable<IRule<TArg, T>> Rules { get; }
+        IRule<TArg, T> Rule { get; }
     }
 }
