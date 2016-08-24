@@ -24,15 +24,17 @@
             }
             applyResultSet.Results = childResults;
 
-            if (!childResults.Any() || !childResults.Any(chr => chr.Verdict == PassBlockVerdict.Pass))
+            if (childResults.Any() && childResults.All(chr => chr.Verdict == PassBlockVerdict.Block))
+            {
+                applyResultSet.SetVerdict(PassBlockVerdict.Block);
+                var firstBlockResult = childResults.FirstOrDefault(chr => chr.Verdict == PassBlockVerdict.Block);
+                if (firstBlockResult != null) applyResultSet.Reason = firstBlockResult.Reason;
+            }
+            else
             {
                 applyResultSet.SetVerdict(PassBlockVerdict.Pass);
-                return applyResultSet;
             }
 
-            applyResultSet.SetVerdict(PassBlockVerdict.Block);
-            var firstBlockResult = childResults.FirstOrDefault(chr => chr.Verdict == PassBlockVerdict.Block);
-            if (firstBlockResult != null) applyResultSet.Reason = firstBlockResult.Reason;
             return applyResultSet;
         }
     }
