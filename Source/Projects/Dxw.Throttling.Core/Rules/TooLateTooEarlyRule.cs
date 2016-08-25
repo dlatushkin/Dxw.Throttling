@@ -2,17 +2,12 @@
 {
     using System;
 
-    public class TooLateTooEarlyRule : IRule<object, PassBlockVerdict>
+    public class TooLateTooEarlyRule : IRule<DateTime, PassBlockVerdict>
     {
-        public int Times { get; set; }
-        public TimeSpan PerPeriod { get; set; }
-
         public virtual string Name { get { return this.GetType().Name; } }
 
-        public IApplyResult<PassBlockVerdict> Apply(object context = null)
+        public IApplyResult<PassBlockVerdict> Apply(DateTime now = default(DateTime))
         {
-            var now = DateTime.Now;
-
             if (now.TimeOfDay > new TimeSpan(18, 0, 0))
                 return ApplyResultPassBlock.Block(msg: "It's too late now");
 
