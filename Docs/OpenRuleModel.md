@@ -35,6 +35,40 @@ Source code can be found [here](/Source/Projects/Dxw.Throttling.Core/Rules/TooLa
 It's driven by assigning particular keyer, processor and storage.
 Therefore different keyers, processors or storages once implemented can be re-used 
 in different combinations.
-Framework contains several implementations of these interfaces:
+Framework contains several implementations of these interfaces.
+
+### Processors
+The most typical case in throttling is limiting query count per period of time 
+(e.g. chat application allows maximum 2 messages per second per user).
+Throttling framework implements two classes named RequestCountPerPeriodProcessor 
+in Dxw.Throttling.Core and Dxw.Throttling.Redis projects for this purpose.
+First one uses local memory storage, second one uses Redis server.
+
+### Storages
+Respectively two storages are supported: 
+- LocalMemoryStorage
+- Redis storage.
+A storage is just a cotainer for storage object. It can be .Net ConcurrentDictionary instance or
+Redis connection string.
+More detailed implementation is considered irrelevant because technologies of data 
+persistence and, most importantly, modification can be very different.
+For example, RedisStorage utilizes [Lua](https://www.redisgreen.net/blog/intro-to-lua-for-redis-programmers/) 
+script to modify value directly in Redis server without 
+"lock on server -> download to client -> modify -> upload to server -> unlock on server"
+routine.
+Hence processor implementation is more labour-consuming but much more flexible.
+
+### Keyers 
+
+The keyer is a class projecting rule argument 
+([IAspArgs](/Source/Projects/Dxw.Throttling.Asp/IAspArgs.cs) and 
+[IOwinArgs](/Source/Projects/Dxw.Throttling.Owin/IOwinArgs.cs) respectively) to "key"
+object used to calculate statistics.
+Dxw.Throttling implements the following rule:
+
+- Controller name keyer ([Asp](/Source/Projects/Dxw.Throttling.Asp/Keyers/ControllerNameKeyer.cs) and [Owin](/Source/Projects/Dxw.Throttling.Owin/Keyers/ControllerNameKeyer.cs) versions)
+- Client IP keyer ([Asp](/Source/Projects/Dxw.Throttling.Asp/Keyers/IPKeyer.cs) and [Owin](/Source/Projects/Dxw.Throttling.Owin/Keyers/IPKeyer.cs) versions)
+- Query URI keyer ([Asp](/Source/Projects/Dxw.Throttling.Asp/Keyers/URIKeyer.cs) and [Owin](/Source/Projects/Dxw.Throttling.Owin/Keyers/URIKeyer.cs) versions)
+- Query URI & HTTP Method keyer ([Asp](/Source/Projects/Dxw.Throttling.Asp/Keyers/URIMethodKeyer.cs) and [Owin](/Source/Projects/Dxw.Throttling.Owin/Keyers/URIMethodKeyer.cs) versions).
 
 
