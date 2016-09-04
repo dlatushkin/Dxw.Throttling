@@ -5,8 +5,6 @@
 
     public interface IAspArgs: IPhased
     {
-        EventPhase Phase { get; }
-
         HttpRequestMessage Request { get; set; }
 
         HttpResponseMessage Response { get; set; }

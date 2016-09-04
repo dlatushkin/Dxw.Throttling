@@ -16,6 +16,8 @@
             set { _logs = value; }
         }
 
+        public ILog Log { get { return Logs.FirstOrDefault(); } }
+
         private IEnumerable<IStorage> _storages;
         public IEnumerable<IStorage> Storages
         {

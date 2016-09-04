@@ -3,9 +3,12 @@
     using System.Collections.Generic;
     using Rules;
     using Storages;
+    using Logging;
 
     public interface IConfiguration
     {
+        ILog Log { get; }
+
         IEnumerable<IStorage> Storages { get; }
     }
 

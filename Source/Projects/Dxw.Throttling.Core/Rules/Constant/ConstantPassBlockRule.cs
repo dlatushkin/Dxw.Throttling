@@ -4,10 +4,12 @@
     using System.Xml;
     using Dxw.Throttling.Core.Configuration;
 
-    public class ConstantPassBlockRule<TArg> : ConstantRule<TArg, PassBlockVerdict>, IXmlConfigurable
+    public class ConstantPassBlockRule<TArg> : ConstantRule<TArg, PassBlockVerdict>
     {
-        public void Configure(XmlNode node, IConfiguration context)
+        public override void Configure(XmlNode node, IConfiguration context)
         {
+            base.Configure(node, context);
+
             var valAttr = node.Attributes["value"];
             if (valAttr != null)
                 Value = (PassBlockVerdict)Enum.Parse(typeof(PassBlockVerdict), valAttr.Value, true);
