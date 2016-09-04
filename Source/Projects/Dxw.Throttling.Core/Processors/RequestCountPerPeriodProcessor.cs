@@ -7,6 +7,7 @@
     using Rules;
     using Storages;
     using Configuration;
+    using System.Threading.Tasks;
 
     public abstract class RequestCountPerPeriodProcessor<T> : IProcessor<object, T>, IXmlConfigurable
     {
@@ -42,6 +43,8 @@
         }
 
         public abstract IApplyResult<T> Process(object key, object context = null, object storeEndpoint = null);
+
+        public abstract Task<IApplyResult<T>> ProcessAsync(object key = null, object context = null, object storeEndpoint = null);  
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected IStorageValue<object> AddFunc(object context)

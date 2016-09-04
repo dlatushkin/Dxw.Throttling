@@ -4,6 +4,8 @@
 
     using Core.Rules;
     using Core.Exceptions;
+    using System;
+    using System.Threading.Tasks;
 
     public class RequestCountPerPeriodProcessorBlockPass : Core.Processors.RequestCountPerPeriodProcessor<PassBlockVerdict>
     {
@@ -33,6 +35,33 @@
                 _luaIncrExpire = LuaScript.Prepare(LUA_INCR_EXPIRE);
 
             var result = _luaIncrExpire.Evaluate(db, new { key = (RedisKey)key.ToString(), expireSec = Period.TotalSeconds });
+
+            var hits = (int)result;
+
+            var newVal = new StorageValue { SlotData = new SlotData { Hits = hits } };
+
+            if (hits > Count)
+                return ApplyResultPassBlock.Block(msg: "The query limit is exceeded");
+            else
+                return ApplyResultPassBlock.Pass();
+        }
+
+        public override async Task<IApplyResult<PassBlockVerdict>> ProcessAsync(object key = null, object context = null, object storeEndpoint = null)
+        {
+            var db = storeEndpoint as IDatabase;
+
+            if (db == null)
+            {
+                throw new ThrottlingException(
+                    "storePoint argument must be a valid instance of StackExchange.Redis.IDatabase.");
+            }
+
+            var redisKey = key.ToString();
+
+            if (_luaIncrExpire == null)
+                _luaIncrExpire = LuaScript.Prepare(LUA_INCR_EXPIRE);
+
+            var result = await _luaIncrExpire.EvaluateAsync(db, new { key = (RedisKey)key.ToString(), expireSec = Period.TotalSeconds });
 
             var hits = (int)result;
 

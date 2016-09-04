@@ -11,6 +11,7 @@
     using System.Runtime.CompilerServices;
     using System.Collections.Concurrent;
     using Core.Exceptions;
+    using System.Threading.Tasks;
 
     public class ResponseSizeProcessor : IProcessor<IAspArgs, PassBlockVerdict>, IXmlConfigurable
     {
@@ -95,6 +96,12 @@
             }
 
             return ApplyResultPassBlock.Pass();
+        }
+
+        public Task<IApplyResult<PassBlockVerdict>> ProcessAsync(object key = null, IAspArgs context = null, object storeEndpoint = null)
+        {
+            var result = Process(key, context, storeEndpoint);
+            return Task.FromResult(result);
         }
 
         public void Configure(XmlNode node, IConfiguration context)

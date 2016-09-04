@@ -5,6 +5,8 @@
     using Rules;
     using Storages;
     using Exceptions;
+    using System;
+    using System.Threading.Tasks;
 
     public class RequestCountPerPeriodProcessorPhased : RequestCountPerPeriodProcessor<PassBlockVerdict>
     {
@@ -32,5 +34,12 @@
             else
                 return ApplyResultPassBlock.Pass();
         }
+
+        public override Task<IApplyResult<PassBlockVerdict>> ProcessAsync(object key = null, object context = null, object storeEndpoint = null)
+        {
+            var result = Process(key, context, storeEndpoint);
+            return Task.FromResult(result);
+        }
     }
 }
+

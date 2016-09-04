@@ -1,6 +1,7 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
     using System;
+    using System.Threading.Tasks;
 
     public class TooLateTooEarlyRule : IRule<DateTime, PassBlockVerdict>
     {
@@ -15,6 +16,12 @@
                 return ApplyResultPassBlock.Block(msg: "It's too early now");
 
             return ApplyResultPassBlock.Pass(this);
+        }
+
+        public Task<IApplyResult<PassBlockVerdict>> ApplyAsync(DateTime context = default(DateTime))
+        {
+            var result = Apply(context);
+            return Task.FromResult(result);
         }
     }
 }

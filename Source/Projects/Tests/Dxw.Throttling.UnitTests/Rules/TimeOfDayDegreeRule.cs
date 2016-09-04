@@ -1,7 +1,7 @@
 ﻿namespace Dxw.Throttling.UnitTests.Rules
 {
     using System;
-
+    using System.Threading.Tasks;
     using Dxw.Throttling.Core.Rules;
 
     public class TimeOfDayDegreeRule : IRule<DateTime, byte>
@@ -20,6 +20,12 @@
                 verdict = 3;
 
             return new ApplyResult<byte> { Rule = this, Verdict = verdict };
+        }
+
+        public Task<IApplyResult<byte>> ApplyAsync(DateTime context = default(DateTime))
+        {
+            var result = Apply(context);
+            return Task.FromResult(result);
         }
     }
 }

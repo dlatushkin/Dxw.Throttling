@@ -10,6 +10,7 @@
     using Processors;
     using Configuration;
     using Exceptions;
+    using System.Threading.Tasks;
 
     public class StorageKeyerProcessorPassBlockRule : StorageKeyerProcessorRule<object, PassBlockVerdict> { }
 
@@ -28,6 +29,17 @@
             var key = Keyer.GetKey(context);
 
             var result = Processor.Process(key, context, Storage.GetStorePoint());
+
+            var ruledResult = ApplyResult<TRes>.FromResultAndRule(result, this);
+
+            return ruledResult;
+        }
+
+        public async Task<IApplyResult<TRes>> ApplyAsync(TArg context = default(TArg))
+        {
+            var key = Keyer.GetKey(context);
+
+            var result = await Processor.ProcessAsync(key, context, Storage.GetStorePoint());
 
             var ruledResult = ApplyResult<TRes>.FromResultAndRule(result, this);
 

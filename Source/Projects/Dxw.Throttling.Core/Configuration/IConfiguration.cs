@@ -9,7 +9,7 @@
         IEnumerable<IStorage> Storages { get; }
     }
 
-    public interface IConfiguration<in TArg, out T> : IConfiguration
+    public interface IConfiguration<in TArg, T> : IConfiguration
     {
         IEnumerable<IRule<TArg, T>> Rules { get; }
         IRule<TArg, T> Rule { get; }

@@ -1,4 +1,7 @@
-﻿namespace Dxw.Throttling.Core.Rules.Constant
+﻿using System;
+using System.Threading.Tasks;
+
+namespace Dxw.Throttling.Core.Rules.Constant
 {
     public class ConstantRule<TArg, TRes> : IRule<TArg, TRes>
     {
@@ -14,6 +17,12 @@
                 Verdict = Value,
                 Reason = new ApplyError { Message = "Always equals " + Value }
             };
+        }
+
+        public Task<IApplyResult<TRes>> ApplyAsync(TArg context = default(TArg))
+        {
+            var result = Apply(context);
+            return Task.FromResult(result);
         }
     }
 }

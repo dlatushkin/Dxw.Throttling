@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.Xml;
+    using System.Threading.Tasks;
 
     public abstract class RuleSet<TArg, TRes> : IRule<TArg, TRes>, IXmlConfigurable<TArg, TRes>
     {
@@ -16,6 +17,8 @@
         public string Name { get { return GetType().Name; } }
 
         public abstract IApplyResult<TRes> Apply(TArg context = default(TArg));
+
+        public abstract Task<IApplyResult<TRes>> ApplyAsync(TArg context = default(TArg));
 
         public RuleSet()
         {

@@ -5,6 +5,8 @@
     using Rules;
     using Storages;
     using Exceptions;
+    using System;
+    using System.Threading.Tasks;
 
     public class RequestCountPerPeriodProcessorBlockPass : RequestCountPerPeriodProcessor<PassBlockVerdict>
     {
@@ -23,6 +25,12 @@
                 return ApplyResultPassBlock.Block(msg: "The query limit is exceeded");
             else
                 return ApplyResultPassBlock.Pass();
+        }
+
+        public override Task<IApplyResult<PassBlockVerdict>> ProcessAsync(object key = null, object context = null, object storeEndpoint = null)
+        {
+            var result = Process(key, context, storeEndpoint);
+            return Task.FromResult(result);
         }
     }
 }
