@@ -22,6 +22,7 @@ elements.
 - [Pre- / Post- rule process phase are supported.](Docs/Phased.md)
 - [Redis/Lua storage is implemented.](Docs/RedisStorage.md)
 - [Open rule model.](Docs/OpenRuleModel.md)
+- [Real life sample](Docs/RealLifeSamples.md)
 
 ### Dxw.Throttling as a ready-to-use library
 
