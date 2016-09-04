@@ -12,7 +12,7 @@ namespace Dxw.Throttling.ConsoleTest
     {
         public static void Run()
         {
-            var throttlingConfiguration = ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration<PassBlockVerdict, object>;
+            var throttlingConfiguration = ConfigurationManager.GetSection("throttling") as ThrottlingConfiguration<object, PassBlockVerdict>;
 
             //var redisRule = throttlingConfiguration.Rules.OfType<INamed>().FirstOrDefault(r => r.Name == "singleRedis") as IRule<PassBlockVerdict, object>;
             var redisRule = throttlingConfiguration.Rule;

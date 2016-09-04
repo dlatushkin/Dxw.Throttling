@@ -17,12 +17,13 @@
 
         private StreamWriter _writer;
 
+        private readonly object _lockObj = new object();
+
+        public FileLog() {}
+
         public FileLog(string fileName, LogLevel logLevel = LogLevel.Warning, LogLevel defaultLogLevel = LogLevel.Warning, string dateTimePattern = "s")
         {
             _fileName = fileName;
-
-            var fileStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
-            _writer = new StreamWriter(fileStream);
 
             _logLevel = logLevel;
             _defaultLogLevel = defaultLogLevel;
@@ -39,7 +40,23 @@
             if (logLevel > _logLevel) return;
 
             var dt = DateTime.Now.ToString(_dateTimePattern);
+            EnsureWriter();
             _writer.WriteLine(dt + ": " + logLevel + ": " + msg);
+        }
+
+        private void EnsureWriter()
+        {
+            if (_writer == null)
+            {
+                lock (_lockObj)
+                {
+                    if (_writer == null)
+                    {
+                        var fileStream = new FileStream(_fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
+                        _writer = new StreamWriter(fileStream);
+                    }
+                }
+            }
         }
 
         #region IConfigurable

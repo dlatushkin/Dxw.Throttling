@@ -5,9 +5,17 @@
 
     using Rules;
     using Storages;
+    using Logging;
 
     public class ThrottlingConfiguration<TRes, TArg> : IConfiguration<TRes, TArg>
     {
+        private IEnumerable<ILog> _logs;
+        public IEnumerable<ILog> Logs
+        {
+            get { return _logs ?? Enumerable.Empty<ILog>(); }
+            set { _logs = value; }
+        }
+
         private IEnumerable<IStorage> _storages;
         public IEnumerable<IStorage> Storages
         {
