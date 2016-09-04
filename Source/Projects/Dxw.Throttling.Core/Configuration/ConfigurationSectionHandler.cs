@@ -7,6 +7,7 @@
 
     using Rules;
     using Storages;
+    using Logging;
 
     public class ConfigurationSectionHandler<TArg, TRes> : IConfigurationSectionHandler
     {
@@ -23,6 +24,11 @@
                 conf.Rules = CreateRules(rulesSection, conf);
 
             return conf;
+        }
+
+        private IList<ILog> CreateLogs()
+        {
+            throw new NotImplementedException();
         }
 
         private IList<IStorage> CreateStorages(XmlNode section, IConfiguration<TArg, TRes> context)

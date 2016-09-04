@@ -53,6 +53,9 @@
     <Compile Include="Exceptions\ThrottlingRuleException.cs" />
     <Compile Include="Exceptions\ThrottlingException.cs" />
     <Compile Include="EventPhase.cs" />
+    <Compile Include="Logging\FileLog.cs" />
+    <Compile Include="Logging\ILog.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="Processors\RequestCountPerPeriodProcessorBlockPass.cs" />
     <Compile Include="Processors\RequestCountPerPeriodProcessorPhased.cs" />
     <Compile Include="Processors\RequestCountPerPeriodProcessor.cs" />
