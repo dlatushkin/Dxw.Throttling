@@ -7,12 +7,15 @@
     using Core.Rules;
     using Core.Configuration;
     using Core.Exceptions;
+    using Core.Logging;
 
     public class ThrottleAttribute : ActionFilterAttribute
     {
         private readonly bool _twoPhased;
 
         private IRule<IAspArgs, PassBlockVerdict> _rule;
+
+        private ILog _log;
 
         private static IRule<IAspArgs, PassBlockVerdict> GetRule(string configSectionName = null, string ruleName = null)
         {
@@ -32,21 +35,34 @@
             return rule;
         }
 
-        public ThrottleAttribute(): this(false, GetRule()) {}
-
-        public ThrottleAttribute(IRule<IAspArgs, PassBlockVerdict> rule = null) : this(false, rule) {}
-
-        public ThrottleAttribute(string configSectionName, string ruleName = null)
-            : this(GetRule(configSectionName, ruleName)) {}
-
-        public ThrottleAttribute(bool twoPhased, string configSectionName, string ruleName = null)
-            : this(twoPhased, GetRule(configSectionName, ruleName)) {}
-
-        public ThrottleAttribute(bool twoPhased, IRule<IAspArgs, PassBlockVerdict> rule = null)
+        public ThrottleAttribute(
+            string configSectionName = Const.DFLT_CONFIG_SECTION_NAME, 
+            string ruleName = null, 
+            bool twoPhased = false)
         {
+            var section = ConfigurationRepository<IAspArgs, PassBlockVerdict>.GetSection(configSectionName);
+            _rule = section.GetRuleByName(ruleName);
+            _log = section.Log;
             _twoPhased = twoPhased;
-            _rule = rule;
         }
+
+        #region obsolete ctors
+        //public ThrottleAttribute(): this(false, GetRule()) {}
+
+        //public ThrottleAttribute(IRule<IAspArgs, PassBlockVerdict> rule = null, ILog log = null) : this(false, rule) {}
+
+        //public ThrottleAttribute(string configSectionName, string ruleName = null)
+        //    : this(GetRule(configSectionName, ruleName)) {}
+
+        //public ThrottleAttribute(bool twoPhased, string configSectionName, string ruleName = null)
+        //    : this(twoPhased, GetRule(configSectionName, ruleName)) {}
+
+        //public ThrottleAttribute(bool twoPhased, IRule<IAspArgs, PassBlockVerdict> rule = null)
+        //{
+        //    _twoPhased = twoPhased;
+        //    _rule = rule;
+        //} 
+        #endregion
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {

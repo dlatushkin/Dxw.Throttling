@@ -39,9 +39,10 @@
             set { _rules = value; }
         }
 
-        public IRule<TRes, TArg> GetRuleByName(string name)
+        public IRule<TRes, TArg> GetRuleByName(string name = null)
         {
-            return _rules.FirstOrDefault(r => r.Name == name);
+            var rule = string.IsNullOrWhiteSpace(name) ? Rule : _rules.FirstOrDefault(r => r.Name == name);
+            return rule;
         }
     }
 }

@@ -5,13 +5,14 @@
 
     using Dxw.Throttling.Core.Rules;
     using Dxw.Throttling.Asp;
+    using Core.Configuration;
 
     public static class WebApiConfigConf
     {
         public static void Register(HttpConfiguration config)
         {
             var throttlingConfig = ConfigurationManager.GetSection("throttling") 
-                as Core.Configuration.ThrottlingConfiguration<PassBlockVerdict, IAspArgs>;
+                as ThrottlingConfiguration<PassBlockVerdict, IAspArgs>;
 
             var rule = throttlingConfig.Rule;
             var throttlingHandler = new ThrottlingHandler(rule);

@@ -15,6 +15,9 @@
     public interface IConfiguration<in TArg, T> : IConfiguration
     {
         IEnumerable<IRule<TArg, T>> Rules { get; }
+
         IRule<TArg, T> Rule { get; }
+
+        IRule<TArg, T> GetRuleByName(string ruleName = null);
     }
 }

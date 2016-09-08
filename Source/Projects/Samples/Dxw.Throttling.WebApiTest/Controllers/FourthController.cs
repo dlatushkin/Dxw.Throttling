@@ -1,16 +1,12 @@
-﻿using Dxw.Throttling.Asp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
+
+using Dxw.Throttling.Asp;
 
 namespace Dxw.Throttling.WebApiTest.Controllers
 {
     public class FourthController : ApiController
     {
-        [Throttle(true, "throttling", "size")]
+        [Throttle("throttling", "size", true)]
         public string Get()
         {
             return "fourth.get";
