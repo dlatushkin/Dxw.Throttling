@@ -66,53 +66,75 @@
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            var request = actionContext.Request;
-
-            var args = new AspArgs { Phase = Core.EventPhase.Before, Request = request };
-
-            var applyResult = _rule.Apply(args);
-
-            if (applyResult.Verdict == PassBlockVerdict.Block)
+            try
             {
-                var errorMsg = applyResult.Reason.Message;
+                var request = actionContext.Request;
 
-                var response429 = new HttpResponseMessage((System.Net.HttpStatusCode)429)
+                var args = new AspArgs { Phase = Core.EventPhase.Before, Request = request };
+
+                var applyResult = _rule.Apply(args);
+
+                if (applyResult.Verdict == PassBlockVerdict.Block)
                 {
-                    RequestMessage = request,
-                    ReasonPhrase = errorMsg
-                };
+                    var errorMsg = applyResult.Reason.Message;
 
-                actionContext.Response = response429;
+                    var response429 = new HttpResponseMessage((System.Net.HttpStatusCode)429)
+                    {
+                        RequestMessage = request,
+                        ReasonPhrase = errorMsg
+                    };
+
+                    actionContext.Response = response429;
+
+                    _log.Log(LogLevel.Info, GetType().FullName + ".OnActionExecuting: blocked. " + errorMsg);
+                }
+
+                _log.Log(LogLevel.Info, GetType().FullName + ".OnActionExecuting: passed. ");
+
+                base.OnActionExecuting(actionContext);
             }
-
-            base.OnActionExecuting(actionContext);
+            catch (System.Exception ex)
+            {
+                _log.Log(LogLevel.Error, GetType().FullName + ".OnActionExecuting: " + ex.Message);
+            }
         }
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-            if (!_twoPhased) return;
-
-            var request = actionExecutedContext.Request;
-            var response = actionExecutedContext.Response;
-
-            var args = new AspArgs { Phase = Core.EventPhase.After, Request = request, Response = response };
-
-            var applyResult = _rule.Apply(args);
-
-            if (applyResult.Verdict == PassBlockVerdict.Block)
+            try
             {
-                var errorMsg = applyResult.Reason.Message;
+                if (!_twoPhased) return;
 
-                var response429 = new HttpResponseMessage((System.Net.HttpStatusCode)429)
+                var request = actionExecutedContext.Request;
+                var response = actionExecutedContext.Response;
+
+                var args = new AspArgs { Phase = Core.EventPhase.After, Request = request, Response = response };
+
+                var applyResult = _rule.Apply(args);
+
+                if (applyResult.Verdict == PassBlockVerdict.Block)
                 {
-                    RequestMessage = request,
-                    ReasonPhrase = errorMsg
-                };
+                    var errorMsg = applyResult.Reason.Message;
 
-                actionExecutedContext.Response = response429;
+                    var response429 = new HttpResponseMessage((System.Net.HttpStatusCode)429)
+                    {
+                        RequestMessage = request,
+                        ReasonPhrase = errorMsg
+                    };
+
+                    actionExecutedContext.Response = response429;
+
+                    _log.Log(LogLevel.Info, GetType().FullName + ".OnActionExecuted: blocked. " + errorMsg);
+                }
+
+                _log.Log(LogLevel.Info, GetType().FullName + ".OnActionExecuted: passed. ");
+
+                base.OnActionExecuted(actionExecutedContext);
             }
-
-            base.OnActionExecuted(actionExecutedContext);
+            catch (System.Exception ex)
+            {
+                _log.Log(LogLevel.Error, GetType().FullName + ".OnActionExecuted: " + ex.Message);
+            }
         }
     }
 }

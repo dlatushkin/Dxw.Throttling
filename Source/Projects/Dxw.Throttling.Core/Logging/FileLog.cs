@@ -42,6 +42,7 @@
             var dt = DateTime.Now.ToString(_dateTimePattern);
             EnsureWriter();
             _writer.WriteLine(dt + ": " + logLevel + ": " + msg);
+            _writer.Flush();
         }
 
         private void EnsureWriter()
@@ -52,7 +53,7 @@
                 {
                     if (_writer == null)
                     {
-                        var fileStream = new FileStream(_fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
+                        var fileStream = new FileStream(_fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 128);
                         _writer = new StreamWriter(fileStream);
                     }
                 }
