@@ -1,11 +1,12 @@
 ﻿namespace Dxw.Throttling.Redis.Processors
 {
+    using System.Threading.Tasks;
+
     using StackExchange.Redis;
 
-    using Core.Rules;
     using Core.Exceptions;
-    using System;
-    using System.Threading.Tasks;
+    using Core.Rules;
+    using Core.Logging;
 
     public class RequestCountPerPeriodProcessorBlockPass : Core.Processors.RequestCountPerPeriodProcessor<PassBlockVerdict>
     {
@@ -38,12 +39,16 @@
 
             var hits = (int)result;
 
-            var newVal = new StorageValue { SlotData = new SlotData { Hits = hits } };
-
             if (hits > Count)
+            {
+                Log.Log(LogLevel.Debug, string.Format("{0}.Process blocks key='{1}', result='{2}'", GetType().FullName, key, result));
                 return ApplyResultPassBlock.Block(msg: "The query limit is exceeded");
+            }
             else
+            {
+                Log.Log(LogLevel.Debug, string.Format("{0}.Process passes key='{1}', result='{2}'", GetType().FullName, key, result));
                 return ApplyResultPassBlock.Pass();
+            }
         }
 
         public override async Task<IApplyResult<PassBlockVerdict>> ProcessAsync(object key = null, object context = null, object storeEndpoint = null)
@@ -52,8 +57,7 @@
 
             if (db == null)
             {
-                throw new ThrottlingException(
-                    "storePoint argument must be a valid instance of StackExchange.Redis.IDatabase.");
+                throw new ThrottlingException("storePoint argument must be a valid instance of StackExchange.Redis.IDatabase.");
             }
 
             var redisKey = key.ToString();
@@ -65,12 +69,16 @@
 
             var hits = (int)result;
 
-            var newVal = new StorageValue { SlotData = new SlotData { Hits = hits } };
-
             if (hits > Count)
+            {
+                Log.Log(LogLevel.Debug, string.Format("{0}.Process blocks key='{1}', result='{2}'", GetType().FullName, key, result));
                 return ApplyResultPassBlock.Block(msg: "The query limit is exceeded");
+            }
             else
+            {
+                Log.Log(LogLevel.Debug, string.Format("{0}.Process passes key='{1}', result='{2}'", GetType().FullName, key, result));
                 return ApplyResultPassBlock.Pass();
+            }
         }
     }
 }

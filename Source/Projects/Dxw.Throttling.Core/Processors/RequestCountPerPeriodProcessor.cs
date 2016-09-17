@@ -8,11 +8,14 @@
     using Storages;
     using Configuration;
     using System.Threading.Tasks;
+    using Logging;
 
     public abstract class RequestCountPerPeriodProcessor<T> : IProcessor<object, T>, IXmlConfigurable
     {
         private const int DFLT_COUNT = 1;
         private static readonly TimeSpan DFLT_PERIOD = TimeSpan.FromSeconds(1);
+
+        private ILog _log;
 
         protected class SlotData
         {
@@ -31,6 +34,8 @@
                 return utcNow > SlotData.ExpiresAt;
             }
         }
+
+        protected ILog Log => _log;
 
         public int Count { get; set; }
 
@@ -70,8 +75,11 @@
             }
         }
 
-        public void Configure(XmlNode node, IConfiguration context)
+        public virtual void Configure(XmlNode node, IConfiguration context)
         {
+            _log = context.Log;
+            _log.Log(LogLevel.Debug, string.Format("Configuring processor of type '{0}'", GetType().FullName));
+
             var countAttr = node.Attributes["count"];
             if (countAttr != null)
             {

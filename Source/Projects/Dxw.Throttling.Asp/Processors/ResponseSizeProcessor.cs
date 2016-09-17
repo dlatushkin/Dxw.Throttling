@@ -12,9 +12,12 @@
     using System.Collections.Concurrent;
     using Core.Exceptions;
     using System.Threading.Tasks;
+    using Core.Logging;
 
     public class ResponseSizeProcessor : IProcessor<IAspArgs, PassBlockVerdict>, IXmlConfigurable
     {
+        private ILog _log;
+
         protected class SlotData
         {
             public long Bytes;
@@ -106,6 +109,9 @@
 
         public void Configure(XmlNode node, IConfiguration context)
         {
+            _log = context.Log;
+            _log.Log(LogLevel.Debug, string.Format("Configuring processor of type '{0}'", GetType().FullName));
+
             var bytesAttr = node.Attributes["bytes"];
             if (bytesAttr != null)
             {

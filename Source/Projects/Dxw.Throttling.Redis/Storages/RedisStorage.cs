@@ -23,26 +23,6 @@
 
         public string ConnectionString { get; set; }
 
-
-        
-        //public IProcessEventResult Upsert(object key, object context, IRule rule, Func<object, IStorage, IStorageValue, IRule, IProcessEventResult> upsertFunc)
-        //{
-        //    EnsureConnected();
-        //    var redisKey = key.ToString();
-        //    var oldRedisValue = _db.StringGet(redisKey);
-
-        //    IStorageValue oldValue;
-        //    if (oldRedisValue.IsNull)
-        //        oldValue = null;
-        //    else
-        //        oldValue = (IStorageValue)Deserialize(oldRedisValue.ToString());
-
-        //    var result = upsertFunc(key, this, oldValue, rule);
-        //    var newRedisValue = Serialize(result.NewState);
-        //    _db.StringSet(redisKey, newRedisValue);
-        //    return result;
-        //}
-
         public object GetStorePoint()
         {
             EnsureConnected();

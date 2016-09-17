@@ -74,9 +74,17 @@
             var typeName = nKeyer.Attributes["type"].Value;
             var type = Type.GetType(typeName);
             var keyer = (IKeyer<TArg>)Activator.CreateInstance(type);
-            var configurable = keyer as IXmlConfigurable<TArg, TRes>;
-            if (configurable != null)
-                configurable.Configure(nKeyer, context);
+            var configurableTyped = keyer as IXmlConfigurable<TArg, TRes>;
+            if (configurableTyped != null)
+            {
+                configurableTyped.Configure(nKeyer, context);
+            }
+            else
+            {
+                var configurable = keyer as IXmlConfigurable;
+                if (configurable != null)
+                    configurable.Configure(node, context);
+            }
             return keyer;
         }
 

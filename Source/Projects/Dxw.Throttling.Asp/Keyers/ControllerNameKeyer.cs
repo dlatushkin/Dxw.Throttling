@@ -1,14 +1,18 @@
 ﻿namespace Dxw.Throttling.Asp.Keyers
 {
-    using System.Linq;
+    using System;
+    using System.Xml;
     using System.Net.Http;
-    using System.Web.Http.Routing;
-    using System.Web.Http.Controllers;
 
     using Core.Keyers;
+    using Core.Logging;
+    using Core;
+    using Core.Configuration;
 
-    public class ControllerNameKeyer : IKeyer<IAspArgs>
+    public class ControllerNameKeyer : IKeyer<IAspArgs>, IXmlConfigurable
     {
+        private ILog _log;
+
         public object GetKey(IAspArgs args)
         {
             var request = args.Request;
@@ -18,14 +22,12 @@
             var controllerName = (string)routeData.Values["controller"];
 
             return controllerName;
+        }
 
-            //var attributedRoutesData = request.GetRouteData().GetSubRoutes();
-            //var subRouteData = attributedRoutesData.FirstOrDefault();
-
-            //var actions = (ReflectedHttpActionDescriptor[])subRouteData.Route.DataTokens["actions"];
-            //var controllerName = actions[0].ControllerDescriptor.ControllerName;
-
-            //return request.GetActionDescriptor().ActionName;
+        public void Configure(XmlNode node, IConfiguration context)
+        {
+            _log = context.Log;
+            _log.Log(LogLevel.Debug, string.Format("Configuring keyer of type '{0}'", GetType().FullName));
         }
     }
 }

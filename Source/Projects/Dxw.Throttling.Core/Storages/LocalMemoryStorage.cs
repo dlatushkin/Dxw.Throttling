@@ -12,8 +12,11 @@
     public class LocalMemoryStorage : IStorage, IXmlConfigurable, INamed, IPurgable, IDisposable
     {
         private ILog _log;
+
         private ConcurrentDictionary<object, IStorageValue<object>> _store = new ConcurrentDictionary<object, IStorageValue<object>>();
+
         private CancellationTokenSource _cleanupCancellationTokenSource;
+
         private Task _cleanupTask;
 
         public LocalMemoryStorage()
