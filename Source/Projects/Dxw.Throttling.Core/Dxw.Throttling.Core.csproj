@@ -74,6 +74,7 @@
     <Compile Include="Rules\IApplyResult.cs" />
     <Compile Include="IXmlConfigurable.cs" />
     <Compile Include="Rules\IRule.cs" />
+    <Compile Include="Rules\KeyListPassBlockRule.cs" />
     <Compile Include="Rules\RuleSet.cs" />
     <Compile Include="Rules\RuleOrNode.cs" />
     <Compile Include="Rules\RuleAndNode.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Rules\Constant\ConstantRule.cs" />
     <Compile Include="Rules\TooLateTooEarlyRule.cs" />
     <Compile Include="IPurgable.cs" />
+    <Compile Include="Rules\KeyListRule.cs" />
     <Compile Include="Storages\IStorageValue.cs" />
     <Compile Include="Storages\IStorage.cs" />
     <Compile Include="Storages\LocalMemoryStorage.cs" />
