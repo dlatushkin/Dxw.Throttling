@@ -54,6 +54,7 @@
     <Compile Include="Exceptions\ThrottlingRuleException.cs" />
     <Compile Include="Exceptions\ThrottlingException.cs" />
     <Compile Include="EventPhase.cs" />
+    <Compile Include="Logging\NullLog.cs" />
     <Compile Include="Logging\FileLog.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\LogLevel.cs" />

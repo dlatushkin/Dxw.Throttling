@@ -5,12 +5,13 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Xml;
-    using Processors;
-    using Rules;
+
     using Configuration;
+    using Logging;
 
     public class LocalMemoryStorage : IStorage, IXmlConfigurable, INamed, IPurgable, IDisposable
     {
+        private ILog _log;
         private ConcurrentDictionary<object, IStorageValue<object>> _store = new ConcurrentDictionary<object, IStorageValue<object>>();
         private CancellationTokenSource _cleanupCancellationTokenSource;
         private Task _cleanupTask;
@@ -28,27 +29,6 @@
             return _store;
         }
 
-        //public IProcessEventResult Upsert(object key, object context, IRule rule, Func<object, IStorage, IStorageValue, IRule, IProcessEventResult> upsertFunc)
-        //{
-        //    IProcessEventResult result = null;
-
-        //    Func<object, IStorageValue> addValueFactory = k =>
-        //    {
-        //        result = upsertFunc(context, this, null, rule);
-        //        return result.NewState;
-        //    };
-
-        //    Func<object, IStorageValue, IStorageValue> updateValueFactory = (k, v) =>
-        //    {
-        //        result = upsertFunc(context, this, v, rule);
-        //        return result.NewState;
-        //    };
-
-        //    var val = _store.AddOrUpdate(key, addValueFactory, updateValueFactory);
-
-        //    return result;
-        //}
-
         public void Dispose()
         {
             _cleanupCancellationTokenSource.Cancel();
@@ -64,6 +44,7 @@
             var cancellationToken = (CancellationToken)obj;
             while (!cancellationToken.IsCancellationRequested)
             {
+                _log.Log(LogLevel.Debug, string.Format("Cleanup storage '{0}' of type '{1}'", Name, GetType().FullName));
                 Cleanup(cancellationToken);
                 await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
             }
@@ -87,7 +68,10 @@
 
         public void Configure(XmlNode node, IConfiguration context)
         {
+            _log = context.Log;
             Name = node.Attributes["name"].Value;
+
+            _log.Log(LogLevel.Debug, string.Format("Configuring storage '{0}' of type '{1}'", Name, GetType().FullName));
         }
 
         public void Purge()

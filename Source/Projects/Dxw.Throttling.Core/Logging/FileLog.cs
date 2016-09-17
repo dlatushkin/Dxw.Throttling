@@ -9,6 +9,8 @@
     {
         private string _fileName;
 
+        private FileMode _fileMode = FileMode.OpenOrCreate;
+
         private LogLevel _logLevel;
 
         private LogLevel _defaultLogLevel;
@@ -53,7 +55,7 @@
                 {
                     if (_writer == null)
                     {
-                        var fileStream = new FileStream(_fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 128);
+                        var fileStream = new FileStream(_fileName, _fileMode, FileAccess.Write, FileShare.Read, 128);
                         _writer = new StreamWriter(fileStream);
                     }
                 }
@@ -67,6 +69,12 @@
             var fileAttr = node.Attributes["file"];
             if (fileAttr != null)
                 _fileName = fileAttr.Value;
+
+            var fileModeAttr = node.Attributes["fileMode"];
+            if (fileModeAttr != null)
+            {
+                _fileMode = (FileMode)Enum.Parse(typeof(FileMode), fileModeAttr.Value, true);
+            }
 
             var logLevelAttr = node.Attributes["logLevel"];
             if (logLevelAttr != null)

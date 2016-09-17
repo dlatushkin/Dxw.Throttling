@@ -9,14 +9,12 @@
 
     public class ThrottlingConfiguration<TRes, TArg> : IConfiguration<TRes, TArg>
     {
-        private IEnumerable<ILog> _logs;
-        public IEnumerable<ILog> Logs
+        private ILog _log;
+        public ILog Log
         {
-            get { return _logs ?? Enumerable.Empty<ILog>(); }
-            set { _logs = value; }
+            get { return _log ?? NullLog.Instance; }
+            set { _log = value; }
         }
-
-        public ILog Log { get { return Logs.FirstOrDefault(); } }
 
         private IEnumerable<IStorage> _storages;
         public IEnumerable<IStorage> Storages

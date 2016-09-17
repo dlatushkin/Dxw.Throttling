@@ -15,9 +15,9 @@
         {
             var conf = new ThrottlingConfiguration<TArg, TRes>();
 
-            var logSection = section.SelectSingleNode("logs");
-            if (logSection != null)
-                conf.Logs = CreateLogs(logSection, conf);
+            var logNode = section.SelectSingleNode("log");
+            if (logNode != null)
+                conf.Log = CreateLog(logNode, conf);
 
             var storagesSection = section.SelectSingleNode("storages");
             if (storagesSection != null)
@@ -30,22 +30,14 @@
             return conf;
         }
 
-        private IList<ILog> CreateLogs(XmlNode section, IConfiguration<TArg, TRes> context)
+        private ILog CreateLog(XmlNode node, IConfiguration<TArg, TRes> context)
         {
-            var logs = new List<ILog>();
-
-            foreach (XmlNode nLog in section.ChildNodes)
-            {
-                var typeName = nLog.Attributes["type"].Value;
-                var type = Type.GetType(typeName);
-                var log = (ILog)Activator.CreateInstance(type);
-                var configurable = log as IXmlConfigurable;
-                if (configurable != null)
-                    configurable.Configure(nLog, context);
-                logs.Add(log);
-            }
-
-            return logs;
+            var typeName = node.Attributes["type"].Value;
+            var type = Type.GetType(typeName);
+            var log = (ILog)Activator.CreateInstance(type);
+            var configurable = log as IXmlConfigurable;
+            if (configurable != null) configurable.Configure(node, context);
+            return log;
         }
 
         private IList<IStorage> CreateStorages(XmlNode section, IConfiguration<TArg, TRes> context)

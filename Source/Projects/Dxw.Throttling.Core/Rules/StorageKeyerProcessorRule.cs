@@ -1,21 +1,22 @@
 ﻿namespace Dxw.Throttling.Core.Rules
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Linq;
     using System.Xml;
+    using System.Threading.Tasks;
 
     using Storages;
     using Keyers;
     using Processors;
     using Configuration;
-    using Exceptions;
-    using System.Threading.Tasks;
+    using Logging;
 
     public class StorageKeyerProcessorPassBlockRule : StorageKeyerProcessorRule<object, PassBlockVerdict> { }
 
     public class StorageKeyerProcessorRule<TArg, TRes> : IRule<TArg, TRes>, IXmlConfigurable<TArg, TRes>, INamed
     {
+        private ILog _log;
+
         public IStorage Storage { get; set; }
 
         public IKeyer<TArg> Keyer { get; set; }
@@ -48,7 +49,11 @@
 
         public void Configure(XmlNode node, IConfiguration<TArg, TRes> context)
         {
+            _log = context.Log;
+
             Name = node.Attributes["name"]?.Value;
+
+            _log.Log(LogLevel.Debug, string.Format("Configuring rule '{0}' of type '{1}'", Name, GetType().FullName));
 
             Storage = CreateStorage(node, context);
             Keyer = CreateKeyer(node, context);
