@@ -13,7 +13,19 @@ namespace Dxw.Throttling.WebApiTest.Controllers
         }
 
         [Throttle("blackList", "black")]
+        public string Head()
+        {
+            return "black-listed";
+        }
+
+        [Throttle("whiteList", "white")]
         public string Post()
+        {
+            return "white-listed";
+        }
+
+        [Throttle("blackList", "black")]
+        public string Put()
         {
             return "black-listed";
         }
