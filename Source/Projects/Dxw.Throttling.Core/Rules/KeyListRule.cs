@@ -35,13 +35,35 @@
             _log = context.Log;
             _log.Log(LogLevel.Debug, string.Format("Configuring rule '{0}' of type '{1}'", Name, GetType().FullName));
 
+            Keyer = CreateKeyer(node, context);
+
             _keys.Clear();
             var keySection = node.SelectSingleNode("keys");
             foreach (XmlNode nKey in keySection)
             {
-                var key = nKey.Value;
+                var key = nKey.InnerText;
                 _keys.Add(key);
             }
+        }
+
+        private IKeyer<TArg> CreateKeyer(XmlNode node, IConfiguration<TArg, TRes> context)
+        {
+            var nKeyer = node.SelectSingleNode("keyer");
+            var typeName = nKeyer.Attributes["type"].Value;
+            var type = Type.GetType(typeName);
+            var keyer = (IKeyer<TArg>)Activator.CreateInstance(type);
+            var configurableTyped = keyer as IXmlConfigurable<TArg, TRes>;
+            if (configurableTyped != null)
+            {
+                configurableTyped.Configure(nKeyer, context);
+            }
+            else
+            {
+                var configurable = keyer as IXmlConfigurable;
+                if (configurable != null)
+                    configurable.Configure(node, context);
+            }
+            return keyer;
         }
     }
 }

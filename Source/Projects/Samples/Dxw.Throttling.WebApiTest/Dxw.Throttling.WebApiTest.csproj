@@ -89,6 +89,7 @@
     <Compile Include="App_Start\WebApiConfigAttribute.cs" />
     <Compile Include="App_Start\WebApiConfigConf.cs" />
     <Compile Include="App_Start\WebApiConfigCode.cs" />
+    <Compile Include="Controllers\WhiteListController.cs" />
     <Compile Include="Controllers\FourthController.cs" />
     <Compile Include="Controllers\ThirdController.cs" />
     <Compile Include="Controllers\FirstController.cs" />
