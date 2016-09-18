@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using Dxw.Throttling.Core.Rules;
 
-    public class AspWhiteListRule : KeyListPassBlockRule<IAspArgs>
+    public class AspBlackListRule : KeyListPassBlockRule<IAspArgs>
     {
         public override IApplyResult<PassBlockVerdict> Apply(IAspArgs context = null)
         {
@@ -11,11 +11,11 @@
 
             if (HasKey(key))
             {
-                return ApplyResultPassBlock.Pass(this);
+                return ApplyResultPassBlock.Block(this, "The request is black-listed.");
             }
             else
             {
-                return ApplyResultPassBlock.Block(this, "The request isn't white-listed.");
+                return ApplyResultPassBlock.Pass(this);
             }
         }
 
