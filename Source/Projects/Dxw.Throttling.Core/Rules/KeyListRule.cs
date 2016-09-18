@@ -9,7 +9,7 @@
     using Keyers;
     using Logging;
 
-    public abstract class ListRule<TArg, TRes> : IRule<TArg, TRes>, IXmlConfigurable<TArg, TRes>
+    public abstract class KeyListRule<TArg, TRes> : IRule<TArg, TRes>, IXmlConfigurable<TArg, TRes>
     {
         private List<object> _keys = new List<object>();
 

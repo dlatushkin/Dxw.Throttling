@@ -70,6 +70,7 @@
     <Compile Include="Rules\AspRuleOrNode.cs" />
     <Compile Include="Rules\AspRuleAndNode.cs" />
     <Compile Include="Rules\AspStorageKeyerProcessorRule.cs" />
+    <Compile Include="Rules\AspWhiteListRule.cs" />
     <Compile Include="Rules\Constant\AspConstantRule.cs" />
     <Compile Include="ThrottleAttribute.cs" />
     <Compile Include="ThrottlingHandler.cs" />
