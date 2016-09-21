@@ -6,7 +6,9 @@
     {
         protected void Application_Start()
         {
-            GlobalConfiguration.Configure(WebApiConfigAttribute.Register);
+            GlobalConfiguration.Configure(WebApiConfigIPCode.Register);
+
+            //GlobalConfiguration.Configure(WebApiConfigAttribute.Register);
 
             //GlobalConfiguration.Configure(WebApiConfigCode.Register);
 

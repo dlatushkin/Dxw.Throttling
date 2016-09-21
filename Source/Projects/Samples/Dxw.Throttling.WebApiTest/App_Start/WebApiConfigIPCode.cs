@@ -9,12 +9,12 @@
     using Dxw.Throttling.Asp.Keyers;
     using Core.Processors;
 
-    public static class WebApiConfigCode
+    public static class WebApiConfigIPCode
     {
         public static void Register(HttpConfiguration config)
         {
             var storage = new LocalMemoryStorage();
-            var keyer = new ControllerNameKeyer();
+            var keyer = new IPKeyer();
             var processor = new RequestCountPerPeriodProcessorPhased { Count = 1, Period = TimeSpan.FromSeconds(10) };
             var rule = new StorageKeyerProcessorRule<IAspArgs, PassBlockVerdict> { Storage = storage, Keyer = keyer, Processor = processor } as IRule;
             var throttlingHandler = new ThrottlingHandler(rule);

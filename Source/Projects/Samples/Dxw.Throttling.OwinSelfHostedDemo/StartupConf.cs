@@ -19,7 +19,7 @@ namespace Dxw.Throttling.OwinSelfHostedDemo
         {
             var config = new HttpConfiguration();
             config.Routes.MapHttpRoute("Default", "api/{controller}/{id}", new { id = RouteParameter.Optional });
-            var throttlingConfig = ConfigurationManager.GetSection("throttling") 
+            var throttlingConfig = ConfigurationManager.GetSection("ipThrottling") 
                 as Throttling.Core.Configuration.ThrottlingConfiguration<IOwinArgs, PassBlockVerdict>;
             var rule = throttlingConfig.Rule;
 

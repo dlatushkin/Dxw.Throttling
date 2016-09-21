@@ -87,8 +87,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfigAttribute.cs" />
+    <Compile Include="App_Start\WebApiConfigIPCode.cs" />
     <Compile Include="App_Start\WebApiConfigConf.cs" />
     <Compile Include="App_Start\WebApiConfigCode.cs" />
+    <Compile Include="Controllers\AttributeController.cs" />
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Controllers\FourthController.cs" />
     <Compile Include="Controllers\ThirdController.cs" />
