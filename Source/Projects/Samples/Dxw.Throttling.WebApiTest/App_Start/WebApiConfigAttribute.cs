@@ -10,8 +10,8 @@
     {
         public static void Register(HttpConfiguration config)
         {
-            var throttlingConfig = ConfigurationManager.GetSection("throttling") 
-                as Core.Configuration.ThrottlingConfiguration<PassBlockVerdict, IAspArgs>;
+            //var throttlingConfig = ConfigurationManager.GetSection("throttling") 
+            //    as Core.Configuration.ThrottlingConfiguration<PassBlockVerdict, IAspArgs>;
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

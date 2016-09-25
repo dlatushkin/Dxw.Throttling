@@ -95,10 +95,21 @@
                 var newData = newVal.Value as SlotData;
 
                 if (newData.Bytes > Bytes)
+                {
+                    _log.Log(LogLevel.Debug, string.Format("{0}.Process blocks key='{1}', result='{2}'", GetType().FullName, key, newData.Bytes));
                     return ApplyResultPassBlock.Block(msg: "The query response size limit is exceeded");
+                }
+                else
+                {
+                    _log.Log(LogLevel.Debug, string.Format("{0}.Process passes key='{1}', result='{2}'", GetType().FullName, key, newData.Bytes));
+                    return ApplyResultPassBlock.Pass();
+                }
             }
-
-            return ApplyResultPassBlock.Pass();
+            else
+            {
+                _log.Log(LogLevel.Debug, string.Format("{0}.Process passes key='{1}', result=''", GetType().FullName, key));
+                return ApplyResultPassBlock.Pass();
+            }
         }
 
         public Task<IApplyResult<PassBlockVerdict>> ProcessAsync(object key = null, IAspArgs context = null, object storeEndpoint = null)
