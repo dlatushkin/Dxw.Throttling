@@ -6,22 +6,23 @@ namespace Dxw.Throttling.WebApiTest.Controllers
 {
     public class AttributeController : ApiController
     {
-        [Throttle("attrThrottling", "size", true)]
+        [Throttle("attrThrottling", "count")]
+        public string Post()
+        {
+            return GetType().Name + ".POST";
+        }
+
+        [Throttle("attrThrottling", "size")]
+        public string Put()
+        {
+            return GetType().Name + ".PUT";
+        }
+
+        [Throttle("attrThrottling", "sizeAndCount", true)]
         public string Get()
         {
             return GetType().Name + ".GET";
         }
 
-        [Throttle("attrThrottling", "count")]
-        public string Post()
-        {
-            return GetType().Name + ".GET";
-        }
-
-        [Throttle("attrThrottling", "count")]
-        public string Put()
-        {
-            return GetType().Name + ".GET";
-        }
     }
 }

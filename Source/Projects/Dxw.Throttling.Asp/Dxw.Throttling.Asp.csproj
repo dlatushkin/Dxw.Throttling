@@ -62,6 +62,8 @@
     <Compile Include="IAspArgs.cs" />
     <Compile Include="Keyers\ControllerNameKeyer.cs" />
     <Compile Include="Keyers\IPKeyer.cs" />
+    <Compile Include="Keyers\PathMethodIPKeyer.cs" />
+    <Compile Include="Keyers\PathIPKeyer.cs" />
     <Compile Include="Keyers\URIKeyer.cs" />
     <Compile Include="Keyers\URIMethodKeyer.cs" />
     <Compile Include="AspArgs.cs" />

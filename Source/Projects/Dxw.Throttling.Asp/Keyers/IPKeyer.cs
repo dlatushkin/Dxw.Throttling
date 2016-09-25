@@ -8,15 +8,20 @@
 
     public class IPKeyer : IKeyer<IAspArgs>, IXmlConfigurable
     {
-        private ILog _log;
+        protected ILog Log { get; private set; }
 
         private const string HttpContext = "MS_HttpContext";
 
         private const string RemoteEndpointMessage = "System.ServiceModel.Channels.RemoteEndpointMessageProperty";
 
-        public object GetKey(IAspArgs args)
+        public virtual object GetKey(IAspArgs args)
         {
-            object ip = null;
+            return GetIP(args);
+        }
+
+        protected string GetIP(IAspArgs args)
+        {
+            string ip = null;
 
             var request = args.Request;
 
@@ -42,8 +47,8 @@
 
         public void Configure(XmlNode node, IConfiguration context)
         {
-            _log = context.Log;
-            _log.Log(LogLevel.Debug, string.Format("Configuring keyer of type '{0}'", GetType().FullName));
+            Log = context.Log;
+            Log.Log(LogLevel.Debug, string.Format("Configuring keyer of type '{0}'", GetType().FullName));
         }
     }
 }
