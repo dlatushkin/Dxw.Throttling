@@ -31,6 +31,8 @@
 
             foreach (XmlNode nRule in node.SelectSingleNode("rules").ChildNodes)
             {
+                if (nRule.NodeType != XmlNodeType.Element) continue;
+
                 var typeName = nRule.Attributes["type"].Value;
                 var type = Type.GetType(typeName);
                 var rule = (IRule<TArg, TRes>)Activator.CreateInstance(type);
