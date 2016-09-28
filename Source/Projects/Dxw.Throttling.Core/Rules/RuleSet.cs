@@ -36,9 +36,19 @@
                 var typeName = nRule.Attributes["type"].Value;
                 var type = Type.GetType(typeName);
                 var rule = (IRule<TArg, TRes>)Activator.CreateInstance(type);
-                var configurable = rule as IXmlConfigurable;
-                if (configurable != null)
-                    configurable.Configure(nRule, context);
+
+                var configurableTyped = rule as IXmlConfigurable<TArg, TRes>;
+                if (configurableTyped != null)
+                {
+                    configurableTyped.Configure(nRule, context);
+                }
+                else
+                {
+                    var configurable = rule as IXmlConfigurable;
+                    if (configurable != null)
+                        configurable.Configure(nRule, context);
+                }
+
                 rules.Add(rule);
             }
 
