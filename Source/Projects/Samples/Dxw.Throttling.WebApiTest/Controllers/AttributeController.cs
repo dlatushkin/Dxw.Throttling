@@ -13,16 +13,15 @@ namespace Dxw.Throttling.WebApiTest.Controllers
         }
 
         [Throttle("attrThrottling", "size", true)]
-        //[Throttle("attrThrottling", "count")]
         public string Put()
         {
             return GetType().Name + ".PUT";
         }
 
-        //[Throttle("attrThrottling", "sizeAndCount", true)]
-        //public string Get()
-        //{
-        //    return GetType().Name + ".GET";
-        //}
+        [Throttle("attrThrottling", "sizeAndCount", true)]
+        public string Get()
+        {
+            return GetType().Name + ".GET";
+        }
     }
 }

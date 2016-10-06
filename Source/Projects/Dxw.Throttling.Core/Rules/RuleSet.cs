@@ -14,7 +14,7 @@
 
         public bool BlockResultsOnly { get; set; }
 
-        public string Name { get { return GetType().Name; } }
+        public string Name { get; private set; }
 
         public abstract IApplyResult<TRes> Apply(TArg context = default(TArg));
 
@@ -27,6 +27,8 @@
 
         public void Configure(XmlNode node, IConfiguration<TArg, TRes> context)
         {
+            Name = node.Attributes["name"]?.Value;
+
             var rules = new List<IRule<TArg, TRes>>();
 
             foreach (XmlNode nRule in node.SelectSingleNode("rules").ChildNodes)
