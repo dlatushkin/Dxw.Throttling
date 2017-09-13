@@ -16,7 +16,5 @@
     <tags>Throttling</tags>
   </metadata>
   <files>
-    <!--<file src="\bin\Debug\Dxw.Throttling.Core.dll" target="lib\net46\Dxw.Throttling.Core.dll" />-->
-    <file src="\bin\Debug\Dxw.Throttling.Core.pdb" target="lib\net46\Dxw.Throttling.Core.pdb" />
   </files>
 </package>
